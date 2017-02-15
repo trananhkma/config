@@ -1,0 +1,33 @@
+[global_config]
+  window_state = maximise
+  handle_size = -2
+[keybindings]
+  toggle_zoom = <Primary>Return
+  go_up = <Primary>Up
+  resize_up = <Alt>Up
+  resize_left = <Alt>Left
+  split_horiz = <Primary><Shift>Down
+  go_prev = <Primary><Shift>Page_Up
+  go_down = <Primary>Down
+  close_term = <Primary>w
+  split_vert = <Primary><Shift>Right
+  go_right = <Primary>Right
+  go_next = <Primary><Shift>Page_Up
+  go_left = <Primary>Left
+  resize_right = <Alt>Right
+  resize_down = <Alt>Down
+[profiles]
+  [[default]]
+    background_image = None
+    background_color = "#300a24"
+    scrollback_infinite = True
+    foreground_color = "#ffffff"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
