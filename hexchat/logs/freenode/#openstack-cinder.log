@@ -1,0 +1,44 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:57:08 2016
+
+Th10 18 19:03:42 *	jamielennox is now known as jamielennox|away
+Th10 18 19:10:24 *	portdirect_ is now known as portdirect
+Th10 18 19:15:03 <openstackgerrit>	yuyafei proposed openstack/os-brick: Multipath device keeps old size when extending volume  https://review.openstack.org/353325
+Th10 18 19:35:35 *	jamielennox|away is now known as jamielennox
+Th10 18 19:41:11 <TommyLikeHu>	hey guys, who had ever build up the offical release newton environment with this documentation: http://docs.openstack.org/newton/install-guide-ubuntu/environment-packages.html
+Th10 18 21:34:13 *	nkrinner_afk is now known as nkrinner
+Th10 18 22:08:28 <openstackgerrit>	wanghao proposed openstack/cinder-specs: Transfer snapshots with volumes  https://review.openstack.org/319831
+Th10 18 22:41:07 <TommyLikeHu>	hey guys I wanna compare the api(arguments etc.) difference between Juno and Mikata, Does there any resource will do some help?
+Th10 18 22:42:11 <openstackgerrit>	wanghao proposed openstack/cinder: Backup tenant attribute support  https://review.openstack.org/258374
+Th10 18 23:05:53 *	tesseract is now known as Guest85855
+Th10 18 23:28:52 <openstackgerrit>	dengshaolin proposed openstack/python-cinderclient: _human_id_cache or _uuid_cache error about completion_cache  https://review.openstack.org/387411
+Th10 18 23:41:08 <openstackgerrit>	wanghao proposed openstack/cinder: Clean up image tmp file if c-vol gets restarted  https://review.openstack.org/225081
+Th10 19 00:09:40 <dulek>	xinli: http://docs.openstack.org/developer/hacking/#dictionaries-lists
+Th10 19 00:45:37 <sheel>	TommyLikeHu: hi
+Th10 19 00:45:45 <sheel>	TommyLikeHu: seems you can use views for same
+Th10 19 00:46:03 <sheel>	atleast upto some extent you will be able to get response details from views
+Th10 19 00:46:41 <sheel>	TommyLikeHu: for request arguments you can refer to cli code, where we call APIs
+Th10 19 00:46:59 <sheel>	TommyLikeHu: so simply diff will do some taks for you...
+Th10 19 00:49:03 <TommyLikeHu>	sheel: thanks
+Th10 19 00:49:28 <TommyLikeHu>	sheel: I found a resource here: https://blueprints.launchpad.net/cinder/+series
+Th10 19 00:50:37 <TommyLikeHu>	sheel: by analyse the specs and bugs release by release
+Th10 19 00:51:35 <sheel>	TommyLikeHu: ok, cool
+Th10 19 01:05:43 <TommyLikeHu>	sheel: Do you have any idea on this? http://docs.openstack.org/newton/install-guide-ubuntu/environment-packages.html
+Th10 19 01:06:39 <TommyLikeHu>	sheel: I followed the steps on the guide and stucked at the step 'Enable the OpenStack repository'
+Th10 19 01:07:05 <TommyLikeHu>	sheel: When I typed the command :dd-apt-repository cloud-archive:newton
+Th10 19 01:07:23 <TommyLikeHu>	sheel: the system told me the newton is not avaliable
+Th10 19 01:14:09 <openstackgerrit>	wanghao proposed openstack/cinder: Clean up image tmp file if c-vol gets restarted  https://review.openstack.org/225081
+Th10 19 01:27:02 <sheel>	TommyLikeHu: sorry no idea on this..
+Th10 19 01:28:13 <TommyLikeHu>	shell: thanks anyway~
+Th10 19 01:28:41 <sheel>	TommyLikeHu: you can refer https://wiki.ubuntu.com/OpenStack/CloudArchive for further information or to raise bug for this
+Th10 19 01:28:55 <sheel>	TommyLikeHu: I think you will for sure get some hint there
+Th10 19 01:29:39 <sheel>	For your reference
+Th10 19 01:29:45 <sheel>	NOTE: Newton cloud archive only supported on Xenial
+Th10 19 01:30:00 <sheel>	TommyLikeHu: make sure you are using ubuntu 16.xx
+Th10 19 01:36:17 <TommyLikeHu>	sheel: so it comes back to the question yesterday, does the Newton support ubuntu 16.xx only?
+Th10 19 01:40:20 <sheel>	TommyLikeHu: Newton cloud archive only supported on Xenial but you can use and install newton on 14.xx ...
+Th10 19 01:40:32 <sheel>	as well as 16.xx
+Th10 19 01:42:20 <TommyLikeHu>	sheel: oh, you are right, this can be maually fixed
+Th10 19 01:52:29 <sheel>	TommyLikeHu: :)
+Th10 19 02:17:29 <nikeshm>	hi
+Th10 19 02:18:33 <nikeshm>	https://docs.pivotal.io/pivotalcf/1-8/customizing/openstack.html#openstack --> Requirements for your Cinder back end -> what do you think, LVM driver satisfy
+Th10 19 02:18:41 <nikeshm>	these

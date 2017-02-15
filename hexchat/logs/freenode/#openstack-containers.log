@@ -1,0 +1,26 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:57:18 2016
+
+Th10 18 18:07:38 <openstackgerrit>	Murali Allada proposed openstack/magnum: Move cluster delete method to driver  https://review.openstack.org/387748
+Th10 18 18:25:53 *	zz_dimtruck is now known as dimtruck
+Th10 18 18:53:25 <openstackgerrit>	fengbeihong proposed openstack/magnum: DIB elements to support dcos for magnum  https://review.openstack.org/364696
+Th10 18 19:05:13 <openstackgerrit>	rajiv proposed openstack/magnum: Improve security for swarm  https://review.openstack.org/352358
+Th10 18 19:17:01 <openstackgerrit>	rajiv proposed openstack/magnum: Heat templates of different drivers contain duplicate code  https://review.openstack.org/347858
+Th10 18 19:34:29 <openstackgerrit>	fengbeihong proposed openstack/magnum: DIB elements to support dcos for magnum  https://review.openstack.org/364696
+Th10 18 20:15:27 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782
+Th10 18 20:22:46 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782
+Th10 18 20:42:51 <openstackgerrit>	Merged openstack/python-magnumclient: Add missing options for HTTPClient if auth_token given.  https://review.openstack.org/387732
+Th10 18 20:43:29 <openstackgerrit>	Abhishek Chanda proposed openstack/python-magnumclient: Add missing options for HTTPClient if auth_token given.  https://review.openstack.org/387789
+Th10 18 21:04:50 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782
+Th10 18 21:56:47 <openstackgerrit>	Merged openstack/magnum: Fix failure of systemd service kube-ui  https://review.openstack.org/320110
+Th10 18 21:58:16 *	dimtruck is now known as zz_dimtruck
+Th10 18 22:14:27 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782
+Th10 18 22:22:39 *	Oku_OS-away is now known as Oku_OS
+Th10 19 00:04:15 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782
+Th10 19 00:54:22 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/magnum-ui: Imported Translations from Zanata  https://review.openstack.org/387256
+Th10 19 00:55:49 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/magnum-ui: Imported Translations from Zanata  https://review.openstack.org/387866
+Th10 19 01:10:58 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782
+Th10 19 01:48:32 <openstackgerrit>	fengbeihong proposed openstack/magnum: DIB elements to support dcos for magnum  https://review.openstack.org/364696
+Th10 19 01:49:28 *	wznoinsk_ is now known as wznoinsk
+Th10 19 02:00:41 <openstackgerrit>	Ryosuke Mizuno proposed openstack/magnum-ui: Add javascript tests for ClusterTemplateModel  https://review.openstack.org/387336
+Th10 19 02:22:02 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782
+Th10 19 02:28:10 <openstackgerrit>	feng.shengqin@zte.com.cn proposed openstack/magnum: add some tests for cluster and clustertemplate api  https://review.openstack.org/387782

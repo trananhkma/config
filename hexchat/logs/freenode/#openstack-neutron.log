@@ -1,0 +1,69 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:57:50 2016
+
+Th10 18 18:01:24 <openstackgerrit>	Dongcan Ye proposed openstack/neutron-vpnaas: Return validate msg for peer_cidrs  https://review.openstack.org/387408
+Th10 18 18:17:36 <openstackgerrit>	Ha Van Tu proposed openstack/neutron-fwaas: Fix typo in comment  https://review.openstack.org/387751
+Th10 18 18:38:55 <openstackgerrit>	Armando Migliaccio proposed openstack/neutron-lib: Add neutron context and policy modules to neutron-lib  https://review.openstack.org/387747
+Th10 18 18:41:11 <jamielennox>	HenryG, amotoki: thanks for merging the deprecation one, here's the backport: https://review.openstack.org/387756
+Th10 18 18:41:18 <jamielennox>	electrocucaracha: FYI ^
+Th10 18 18:43:26 <electrocucaracha>	jamielennox: \o/
+Th10 18 19:03:42 *	jamielennox is now known as jamielennox|away
+Th10 18 19:07:00 <openstackgerrit>	Dongcan Ye proposed openstack/python-neutronclient: Update CLI doc for allowed_address_pairs  https://review.openstack.org/387767
+Th10 18 19:10:24 *	portdirect_ is now known as portdirect
+Th10 18 19:20:56 *	ducnc1 is now known as ducnc
+Th10 18 19:34:25 <openstackgerrit>	Armando Migliaccio proposed openstack/neutron-lib: Introduce Plugin Directory for Neutron  https://review.openstack.org/386751
+Th10 18 19:34:25 <openstackgerrit>	Armando Migliaccio proposed openstack/neutron-lib: Add neutron context and policy modules to neutron-lib  https://review.openstack.org/387747
+Th10 18 19:35:35 *	jamielennox|away is now known as jamielennox
+Th10 18 20:05:43 <chandanc_>	hello kevinbenton
+Th10 18 20:15:36 <openstackgerrit>	Merged openstack/neutron-fwaas: Fix typo in comment  https://review.openstack.org/387751
+Th10 18 21:53:17 <openstackgerrit>	IWAMOTO Toshihiro proposed openstack/neutron: Use conjunction for security group rules with remote_group_id  https://review.openstack.org/333804
+Th10 18 23:05:53 *	tesseract is now known as Guest85855
+Th10 18 23:47:38 *	jpena|off is now known as jpena
+Th10 19 00:26:31 <openstackgerrit>	garyk proposed openstack/neutron: Use ensure_tree from oslo_utils.fileutils  https://review.openstack.org/384202
+Th10 19 00:29:58 <openstackgerrit>	garyk proposed openstack/neutron: neutron-lib: use replace_file from neutron lib  https://review.openstack.org/384215
+Th10 19 01:03:28 <openstackgerrit>	steve proposed openstack/neutron: Support provider:flooding_vtep in ML2  https://review.openstack.org/315896
+Th10 19 01:11:39 <Carry_M>	Hi
+Th10 19 01:12:36 <Carry_M>	I installed neutron-mettering-agent on my neutron server. it works with nod error. But the data of meter labels dosn't captured by ceilometer.
+Th10 19 01:14:15 <trinaths>	Carry_M
+Th10 19 01:14:16 <Carry_M>	the ceilometer is also works without error.
+Th10 19 01:14:27 <Carry_M>	trinaths, yes
+Th10 19 01:14:52 <trinaths>	Carry_M: please post your query into ML so that it can reach wider audiance t
+Th10 19 01:15:03 <trinaths>	to answer your doubts
+Th10 19 01:15:31 <Carry_M>	trinaths, thanks. for suggestion. ML stand for what?
+Th10 19 01:15:39 <trinaths>	mailing list
+Th10 19 01:15:59 <trinaths>	it really helps you to resolve the issue quickly.
+Th10 19 01:16:22 <Carry_M>	trinaths: OK, thanks for your suggestion.
+Th10 19 01:16:43 <Carry_M>	It means, nobody there to help right now?
+Th10 19 01:16:56 <Carry_M>	In IRC?
+Th10 19 01:16:57 <trinaths>	Also, when to post your query in ML, give much information so that its easy to answer
+Th10 19 01:17:04 <trinaths>	it doesn't mean that
+Th10 19 01:17:24 <Carry_M>	trinaths. OK, not a problem :)
+Th10 19 01:18:42 *	abregman|afk is now known as abregman
+Th10 19 01:24:16 *	sambetts|afk is now known as sambetts
+Th10 19 01:25:23 *	abregman is now known as abregman|afk
+Th10 19 01:25:59 <annp>	rossella_s, Hi
+Th10 19 01:26:25 <openstackgerrit>	steve proposed openstack/neutron: Support provider:flooding_vtep in ML2  https://review.openstack.org/315896
+Th10 19 01:26:26 <openstackgerrit>	steve proposed openstack/neutron: Add Linux bridge agent support remote VXLAN VTEP  https://review.openstack.org/316596
+Th10 19 01:26:38 <annp>	rossella_s, I've updated my answers for your comment in my patch-set (https://review.openstack.org/#/c/203509/).
+Th10 19 01:28:02 <annp>	rossella_s, Would you mind helping me review it?
+Th10 19 01:28:47 <rossella_s>	annp, I will put it on my list
+Th10 19 01:30:06 <annp>	rossella_s, And i have another question. I should update expected implementation session in my patch-set follow your comment, shouldn't i?
+Th10 19 01:31:08 <annp>	rossella_s, Thanks for your time. :)
+Th10 19 01:32:12 <annp>	rossella_s, next week, Will you come to Barcenola?
+Th10 19 01:32:27 <rossella_s>	annp, yes I will
+Th10 19 01:33:28 <rossella_s>	annp, I will review it in the next hours and answer your questions
+Th10 19 01:34:18 <annp>	rossella_s, I'm looking forward to see you there. :)
+Th10 19 01:34:45 <rossella_s>	annp, :)
+Th10 19 01:35:10 <openstackgerrit>	steve proposed openstack/neutron: Support provider:flooding_vtep in ML2  https://review.openstack.org/315896
+Th10 19 01:36:00 <annp>	rossella_s, yes, i will wait for your feedback. Thanks.
+Th10 19 01:38:51 <masterjcool>	My VMs lose ipv4 address every once in a while. Stopping neutron-dhcp-agent, killing the dnsmasq process for the corresponding project, and then starting neutron-dhcp-agent helps.
+Th10 19 01:39:04 <masterjcool>	What could be going on?
+Th10 19 01:41:01 <masterjcool>	It looks like the dhcp agent just isn't responding to the client. If I inspect the /var/lib/neutron/dhcp/<netid>/host file, the vm without ipv4 addr is missing frmo the list.
+Th10 19 01:41:32 <openstackgerrit>	Artur Korzeniewski proposed openstack/neutron: Use project_id instead of tenant_id in objects  https://review.openstack.org/382659
+Th10 19 01:41:49 <korzen>	HenryG, I have fixed the UT in ^
+Th10 19 01:45:13 <openstackgerrit>	steve proposed openstack/neutron: Add OVS agent support remote VXLAN VTEP  https://review.openstack.org/317309
+Th10 19 01:45:14 <openstackgerrit>	steve proposed openstack/neutron: Support provider:flooding_vtep in ML2  https://review.openstack.org/315896
+Th10 19 01:45:15 <openstackgerrit>	steve proposed openstack/neutron: Add Linux bridge agent support remote VXLAN VTEP  https://review.openstack.org/316596
+Th10 19 01:57:24 <openstackgerrit>	Dongcan Ye proposed openstack/neutron: Validate type of allowed_address_pairs  https://review.openstack.org/387895
+Th10 19 01:58:39 *	abregman|afk is now known as abregman
+Th10 19 02:12:33 <openstackgerrit>	venkata anil proposed openstack/neutron: fullstack: test dvr router functionality  https://review.openstack.org/318307
+Th10 19 02:27:56 <openstackgerrit>	garyk proposed openstack/neutron: Use ensure_tree from oslo_utils.fileutils  https://review.openstack.org/384202

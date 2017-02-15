@@ -1,0 +1,52 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:57:42 2016
+
+Th10 18 18:18:47 <trananhkma>	Hi fork, I am going to test rolling upgrade for keystone.
+Th10 18 18:19:25 <trananhkma>	In last 2 weeks, after upgrade keystone from mitaka to neuton, I just tested Keystone with some commands, but I think that it's not ennough (not cover all cases) to ensure OpenStack worked well after upgraded.
+Th10 18 18:19:45 <stevemar>	trananhkma: cool, let us know if we can help
+Th10 18 18:20:22 <trananhkma>	So, I tried to find a tool to help me cover all cases, I found Grenade.
+Th10 18 18:20:45 <trananhkma>	But, When I looking to the source code of Grenade, I saw that it just be scripts to do Rolling-upgrade and create some resources.
+Th10 18 18:21:06 <trananhkma>	Is it ennough to ensure OpenStack worked well?
+Th10 18 18:21:29 <trananhkma>	BTW, do you have any suggestion for me to test Rolling-upgrade? Somethings like functionals test or unit test, which I can cover all the cases.
+Th10 18 18:21:37 samueldmq SamYaple sc68cal serverascode sigmavirus sileht SpamapS sshen stevemar sudorandom 
+Th10 18 18:21:37 samueldmq SamYaple sc68cal serverascode sigmavirus sileht SpamapS sshen stevemar sudorandom 
+Th10 18 18:22:23 <trananhkma>	stevemar, hello :) could you give me any suggestion?
+Th10 18 18:22:42 <stevemar>	trananhkma: when testing he upgrade, how did you do it?
+Th10 18 18:23:14 <stevemar>	trananhkma: did you follow the steps here: http://docs.openstack.org/developer/keystone/upgrading.html#upgrading-without-downtime ?
+Th10 18 18:23:27 <stevemar>	specifically... keystone-manage db_sync --expand ; keystone-manage db_sync --migrate; keystone-manage db_sync --contract ?
+Th10 18 18:23:58 <trananhkma>	stevemar, yes, I did
+Th10 18 18:24:34 <trananhkma>	stevemar, but I want to makesure OpenStack worked well
+Th10 18 18:24:38 <stevemar>	trananhkma: did you have any credentials created? the ones created with /v3/credentials?
+Th10 18 18:24:54 <trananhkma>	yes I tried
+Th10 18 18:25:32 <stevemar>	i think a good test would be creating credentials while the ``keystone-manage db_sync --migrate`` step is running
+Th10 18 18:26:03 <stevemar>	the only tricky part about the rolling upgrade for M->N is that we encrypted existing credentials
+Th10 18 18:26:41 <stevemar>	so it would be good to see what happens if new credentials are created while we're going through the encryption process
+Th10 18 18:27:00 <stevemar>	the encryption process occurs when you do the --migrate command
+Th10 18 18:29:46 <trananhkma>	stevemar, yes, I see, but do we have any test tool - like unit test, which we can cover all cases? include other projects
+Th10 18 18:30:09 <stevemar>	trananhkma: not that i know of :(
+Th10 18 18:34:02 <jamielennox>	jlk, morgan: because i'm a sucker: https://review.openstack.org/#/c/387752/
+Th10 18 18:34:03 <trananhkma>	stevemar, I already tried like your suggestion, but I afraid that we can missed something, so I want to find an official tool which can do that. thank you :)
+Th10 18 18:34:26 <stevemar>	jamielennox: hehe
+Th10 18 18:34:36 <stevemar>	jamielennox: i think you mean "because I'm awesome"
+Th10 18 18:34:46 <jamielennox>	stevemar: depends on your point of view i gues
+Th10 18 18:35:28 <jamielennox>	stevemar: awesome could be getting some sucker to deal with problems
+Th10 18 18:36:05 <jamielennox>	stevemar: you've already +2ed it, but https://review.openstack.org/#/c/387733/ sunk my user_agent plans
+Th10 18 18:42:39 <openstackgerrit>	Dave Chen proposed openstack/keystone: [api-ref]Remove the duplicated sample  https://review.openstack.org/387758
+Th10 18 18:43:57 <openstackgerrit>	Dave Chen proposed openstack/keystone: [api-ref] Remove the duplicated sample  https://review.openstack.org/387758
+Th10 18 18:57:00 <stevemar>	jamielennox: we can release another version soon
+Th10 18 19:03:42 *	jamielennox is now known as jamielennox|away
+Th10 18 19:33:27 <openstackgerrit>	Ron De Rose proposed openstack/keystone: Validate mapping exists when creating/updating a protocol  https://review.openstack.org/362397
+Th10 18 19:35:35 *	jamielennox|away is now known as jamielennox
+Th10 18 19:36:01 <openstackgerrit>	Ron De Rose proposed openstack/keystone: Validate mapping exists when creating/updating a protocol  https://review.openstack.org/362397
+Th10 18 19:47:33 <openstackgerrit>	Praveen N proposed openstack/keystone: changed domain id to name in JSON request  https://review.openstack.org/387162
+Th10 18 20:10:39 <openstackgerrit>	Merged openstack/keystone: More configuration doc edits  https://review.openstack.org/387742
+Th10 18 21:07:08 <openstackgerrit>	Eric Brown proposed openstack/keystone: Follow-on of memcache token persistence removal  https://review.openstack.org/387730
+Th10 18 21:57:21 <breton>	morning, keystone
+Th10 18 22:06:16 <openstackgerrit>	Merged openstack/keystone: changed domain id to name in JSON request  https://review.openstack.org/387162
+Th10 18 23:05:53 *	tesseract is now known as Guest85855
+Th10 18 23:18:25 *	amoralej|off is now known as amoralej
+Th10 19 00:07:18 <openstackgerrit>	Roman Bogorodskiy proposed openstack/python-keystoneclient: Allow send null value in extra properties  https://review.openstack.org/375239
+Th10 19 00:22:55 <openstackgerrit>	Roman Bogorodskiy proposed openstack/python-keystoneclient: Allow send null value in extra properties  https://review.openstack.org/375239
+Th10 19 00:42:38 <openstackgerrit>	Dave Chen proposed openstack/keystone: [api-ref] Remove the duplicated sample  https://review.openstack.org/387758
+Th10 19 01:43:17 *	beddari1 is now known as beddari
+Th10 19 02:08:07 <openstackgerrit>	Roman Bogorodskiy proposed openstack/python-keystoneclient: Allow send null value in extra properties  https://review.openstack.org/375239
+Th10 19 02:09:23 <openstackgerrit>	Roman Bogorodskiy proposed openstack/python-keystoneclient: Allow send null value in extra properties  https://review.openstack.org/375239

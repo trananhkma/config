@@ -1,0 +1,24 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:56:25 2016
+
+Th10 18 18:25:53 *	zz_dimtruck is now known as dimtruck
+Th10 18 18:35:30 <openstackgerrit>	huangtianhua proposed openstack/python-heatclient: Return condition functions based on the filter param  https://review.openstack.org/387755
+Th10 18 18:54:06 <openstackgerrit>	huangtianhua proposed openstack/heat: Give correct example for translation_rules definition  https://review.openstack.org/387763
+Th10 18 19:03:42 *	jamielennox is now known as jamielennox|away
+Th10 18 19:13:58 <flwang1>	therve: any lucky you around?
+Th10 18 19:14:57 <ricolin>	flwang1: maybe later I think
+Th10 18 19:15:11 <flwang1>	ricolin: ok, thanks
+Th10 18 19:35:35 *	jamielennox|away is now known as jamielennox
+Th10 18 21:58:16 *	dimtruck is now known as zz_dimtruck
+Th10 18 22:46:20 *	sdake_ is now known as sdake
+Th10 19 00:22:58 *	yassine is now known as Guest8198
+Th10 19 00:23:30 *	Guest8198 is now known as yassou
+Th10 19 01:22:18 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/heat: Imported Translations from Zanata  https://review.openstack.org/386918
+Th10 19 02:13:18 <rook>	shardy heya
+Th10 19 02:15:32 <shardy>	rook: Hi!
+Th10 19 02:15:51 <rook>	shardy: trying to wrap my mind around everything you have been telling me :)
+Th10 19 02:16:12 <shardy>	rook: heh, anything in particular? :)
+Th10 19 02:16:25 <rook>	shardy https://bugs.launchpad.net/tripleo/+bug/1634171
+Th10 19 02:16:26 <openstack>	Launchpad bug 1634171 in tripleo "[RFE] OVN split northd and plugin composable services" [Undecided,New]
+Th10 19 02:17:43 <shardy>	rook: ah, we should perhaps take this to #tripleo
+Th10 19 02:17:50 <rook>	whoops
+Th10 19 02:26:30 <openstackgerrit>	zhangdetong proposed openstack/heat: remove _show_resource() functions  https://review.openstack.org/387911

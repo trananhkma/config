@@ -1,0 +1,39 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:56:58 2016
+
+Th10 18 18:38:18 *	finisherr_ is now known as finisherr
+Th10 18 18:40:53 <rbking>	hi, is there anyone using multi-queue virtio-net?
+Th10 18 18:50:47 *	thrash is now known as thrash|g0ne
+Th10 18 18:51:08 <rbking>	hi, is there anyone using multi-queue virtio-net?
+Th10 18 19:10:24 *	portdirect_ is now known as portdirect
+Th10 18 19:37:36 <Pavo>	does anything in openstack default to using MD5 for any hashing?
+Th10 18 19:38:19 <Pavo>	and if so, is there away to change it at least sha256 to be FIPS 140-2 compliant
+Th10 18 20:26:12 *	JRobinson__ is now known as JRobinson__afk
+Th10 18 20:49:28 *	JRobinson__afk is now known as JRobinson__
+Th10 18 21:25:45 *	Bardack_ is now known as Bardack
+Th10 18 21:34:13 *	nkrinner_afk is now known as nkrinner
+Th10 18 22:07:25 <scorpii>	Hi guys! Are the publicurls of endpoints meant to be reachable from instances?
+Th10 18 22:22:39 *	Oku_OS-away is now known as Oku_OS
+Th10 18 23:05:53 *	tesseract is now known as Guest85855
+Th10 18 23:18:25 *	amoralej|off is now known as amoralej
+Th10 18 23:30:20 *	yaume is now known as yaume[away]
+Th10 18 23:36:05 *	rpittau_ is now known as elfosardo
+Th10 18 23:47:38 *	jpena|off is now known as jpena
+Th10 18 23:48:12 *	yaume[away] is now known as yaume
+Th10 18 23:48:23 *	yaume is now known as yaume[away]
+Th10 18 23:56:53 *	yaume[away] is now known as yaume
+Th10 19 00:12:30 *	rsimai_away is now known as rsimai
+Th10 19 00:25:10 <shelelia>	Need  help using the new openstack login for  KDE Identity
+Th10 19 00:29:36 <shelelia>	my email is josephj@main.nc.us - I did a password reset, but it still won't let me in
+Th10 19 00:30:47 <shelelia>	when  I try to verify my id using my email address, it errors out
+Th10 19 00:33:06 *	sto_ is now known as sto
+Th10 19 00:39:25 <shelelia>	Is this the place to ask questions about logging on to openstack/KDE Identity?
+Th10 19 00:55:58 <Jack_Iv>	Folks, is it possible to define multiple backends for nova images with libvirt driver ?
+Th10 19 01:01:51 <TMM>	Jack_Iv, that's not possible at this time, if you really need that you will have to use multiple regions
+Th10 19 01:02:09 <Jack_Iv>	TMM, OK, thanks!
+Th10 19 01:46:15 <zhugaoxiao>	hi,everyone,is there anyone trying build an centos6 image? https://bugs.launchpad.net/diskimage-builder/+bug/1477179
+Th10 19 01:46:16 <openstack>	Launchpad bug 1477179 in diskimage-builder "centos 6 image doesn't boot after creation" [Medium,Triaged]
+Th10 19 02:02:08 <masterjcool>	My vms lose their ipv4 address every once in a while. It looks like neutron-dhcp-agent just isn't responding to the client.
+Th10 19 02:02:54 <masterjcool>	If I inspect /var/lib/neutron/dhcp/<net-id>/host file, the entry for the vm is missing. Killing the corresponding dnsmasq process and restarting neutron-dhcp-agent helps.
+Th10 19 02:03:12 <masterjcool>	Any idea why some vms lose their ipv4?
+Th10 19 02:08:55 <sobczyk>	is openstack a good choice for private cloud consisting of 3-5 PCs, or should I try something else?
+Th10 19 02:25:30 *	panda|Zz is now known as panda

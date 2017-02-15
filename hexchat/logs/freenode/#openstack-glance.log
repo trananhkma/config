@@ -1,0 +1,8 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:57:33 2016
+
+Th10 18 17:58:06 <openstackgerrit>	Tomoki Sekiyama proposed openstack/glance_store: Add functional tests for cinder  https://review.openstack.org/329825
+Th10 18 17:58:07 <openstackgerrit>	Tomoki Sekiyama proposed openstack/glance_store: Move rootwrap config files from etc/* into etc/glance/*  https://review.openstack.org/329823
+Th10 18 19:03:42 *	jamielennox is now known as jamielennox|away
+Th10 18 19:35:35 *	jamielennox|away is now known as jamielennox
+Th10 18 23:05:53 *	tesseract is now known as Guest85855
+Th10 19 00:29:26 <openstackgerrit>	Ravi Shekhar Jethani proposed openstack/glance: Provide user friendly message for FK failure  https://review.openstack.org/299209

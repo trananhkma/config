@@ -1,0 +1,49 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:57:58 2016
+
+Th10 18 18:02:25 <openstackgerrit>	ayoung proposed openstack/nova: API Policy enforcement contingent on is_admin_project  https://review.openstack.org/384148
+Th10 18 18:23:08 <openstackgerrit>	Bin Zhou proposed openstack/nova: Avoid misremove of volume when live migrate fail  https://review.openstack.org/387226
+Th10 18 18:25:53 *	zz_dimtruck is now known as dimtruck
+Th10 18 18:50:19 <openstackgerrit>	Huan Xie proposed openstack/nova: XenAPI: Fix VM live-migrate with iSCSI SR volume  https://review.openstack.org/359548
+Th10 18 19:03:42 *	jamielennox is now known as jamielennox|away
+Th10 18 19:10:24 *	portdirect_ is now known as portdirect
+Th10 18 19:20:56 *	ducnc1 is now known as ducnc
+Th10 18 19:35:35 *	jamielennox|away is now known as jamielennox
+Th10 18 19:38:06 <openstackgerrit>	Hesam Chobanlou proposed openstack/nova: Mention API V2 should no longer be used  https://review.openstack.org/387778
+Th10 18 20:13:23 <openstackgerrit>	Bin Zhou proposed openstack/nova: Avoid misremove of volume when live migrate fail  https://review.openstack.org/387226
+Th10 18 21:34:13 *	nkrinner_afk is now known as nkrinner
+Th10 18 21:58:16 *	dimtruck is now known as zz_dimtruck
+Th10 18 22:22:39 *	Oku_OS-away is now known as Oku_OS
+Th10 18 22:25:20 <openstackgerrit>	Maho Koshiya proposed openstack/nova: Add os-start/stop functional negative tests  https://review.openstack.org/385853
+Th10 18 22:48:43 <openstackgerrit>	Bin Zhou proposed openstack/nova: Avoid misremove of volume when live migrate fail  https://review.openstack.org/387226
+Th10 18 22:54:54 <openstackgerrit>	Li Yingjun proposed openstack/nova: Add create notification action  https://review.openstack.org/387815
+Th10 18 22:58:21 <openstackgerrit>	Simona Iuliana Toader proposed openstack/nova-specs: Hyper-V PCI Passthrough spec  https://review.openstack.org/384867
+Th10 18 23:05:53 *	tesseract is now known as Guest85855
+Th10 18 23:09:43 <openstackgerrit>	Claudiu Belu proposed openstack/nova: compute: fixes python 3 related unit tests  https://review.openstack.org/300262
+Th10 18 23:16:10 <openstackgerrit>	Giridhar Jayavelu proposed openstack/nova-specs: VMware: add SR-IOV support  https://review.openstack.org/317126
+Th10 18 23:20:52 <openstackgerrit>	edan david proposed openstack/nova: Use available port binding constants  https://review.openstack.org/387830
+Th10 18 23:21:08 <markus_z>	FYI: trivial fix: https://review.openstack.org/#/c/385822/
+Th10 18 23:22:57 <openstackgerrit>	Claudiu Belu proposed openstack/nova: hyperv: stop serial console workers while deleting vm files  https://review.openstack.org/387831
+Th10 18 23:40:52 <openstackgerrit>	Timofey Durakov proposed openstack/nova: [DO NOT MERGE] Test owner/group for ceph  https://review.openstack.org/387836
+Th10 19 00:00:15 <jpavlik>	Hello guys, can anybody please review this change https://review.openstack.org/#/c/387485/
+Th10 19 00:22:58 *	yassine is now known as Guest8198
+Th10 19 00:23:30 *	Guest8198 is now known as yassou
+Th10 19 00:37:28 <openstackgerrit>	zhangjianfeng proposed openstack/nova: Fix aggregate filter with empty or no extra specs  https://review.openstack.org/387855
+Th10 19 00:41:44 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/nova: Imported Translations from Zanata  https://review.openstack.org/386915
+Th10 19 00:48:56 <openstackgerrit>	Timofey Durakov proposed openstack/nova: [DO NOT MERGE] Test owner/group for ceph  https://review.openstack.org/387836
+Th10 19 00:52:18 <openstackgerrit>	Timofey Durakov proposed openstack/nova: [DO NOT MERGE] Test owner/group for ceph  https://review.openstack.org/387836
+Th10 19 01:10:47 <openstackgerrit>	Maxim Nestratov proposed openstack/nova: libvirt: make live migration possible with Virtuozzo  https://review.openstack.org/355805
+Th10 19 01:28:53 <openstackgerrit>	Bin Zhou proposed openstack/nova: Avoid misremove of volume when live migrate fail  https://review.openstack.org/387226
+Th10 19 01:35:58 <sfinucan>	jaypipes: You wrote talons (for falcon)?
+Th10 19 01:36:06 <sfinucan>	I learn something new everyday...
+Th10 19 01:42:20 <sfinucan>	sahid: Could you relook at https://review.openstack.org/#/c/387506
+Th10 19 01:42:38 <sfinucan>	It's not often I advocate not adding tests for something, but IMO this is more than sufficiently covered already
+Th10 19 01:46:29 <sahid>	sfinucan: replied
+Th10 19 01:46:47 <sfinucan>	sahid: spot on - thanks :)
+Th10 19 01:47:44 <sfinucan>	sahid: So feed in a sample flavor and image meta object and make sure it returns something?
+Th10 19 01:49:28 *	wznoinsk_ is now known as wznoinsk
+Th10 19 01:51:30 <sahid>	sfinucan: yes i guess that shoud be enough
+Th10 19 01:53:29 *	wznoinsk_ is now known as wznoinsk
+Th10 19 01:54:51 <openstackgerrit>	Timofey Durakov proposed openstack/nova: [DO NOT MERGE] Test owner/group for ceph  https://review.openstack.org/387836
+Th10 19 01:56:47 <openstackgerrit>	abdul nizamuddin proposed openstack/nova: Cleanup Newton Release Notes  https://review.openstack.org/384341
+Th10 19 02:18:18 <openstackgerrit>	edan david proposed openstack/nova: User-controlled SR-IOV ports allocation  https://review.openstack.org/374151
+Th10 19 02:18:18 <openstackgerrit>	edan david proposed openstack/nova: Use utils ANY constant  https://review.openstack.org/387908

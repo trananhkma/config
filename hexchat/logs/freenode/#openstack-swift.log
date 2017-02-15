@@ -1,0 +1,1497 @@
+**** BEGIN LOGGING AT Tue Oct 18 17:58:07 2016
+
+Th10 18 17:58:12 <jamielennox>	yum would be python-keystoneauth 
+Th10 18 17:58:29 <jamielennox>	or maybe python-keysotneauth1
+Th10 18 17:58:36 <jamielennox>	it's been out for a while now, RDO must have it 
+Th10 18 17:59:16 <jamielennox>	it's a required dependency of pretty much every other client
+Th10 18 18:54:54 <openstackgerrit>	Matthew Oliver proposed openstack/swift: Mirror X-Trans-Id to X-OpenStack-Request-Id  https://review.openstack.org/387354
+Th10 18 18:56:34 <clayg>	kota_: i'm back on for awhile
+Th10 18 18:57:07 <mattoliverau>	^^ just correcting a commit message
+Th10 18 18:57:50 <clayg>	X-OpenStack-Request-Id nice
+Th10 18 18:59:22 <clayg>	wait i thought the idea with that is that when glance makes a request to swift it could have a transaction associated with that requst which we'd then use to track any subrequests etc
+Th10 18 18:59:40 <clayg>	do we not expect the osreqid to be passed in from other services?  should it be?
+Th10 18 19:03:42 *	jamielennox is now known as jamielennox|away
+Th10 18 19:18:03 <kota_>	clayg: woow, I was in the lunch just a bit
+Th10 18 19:18:12 <kota_>	and now back to my desk
+Th10 18 19:20:48 <mahatic>	good morning
+Th10 18 19:21:30 <kota_>	mahatic: o/
+Th10 18 19:35:35 *	jamielennox|away is now known as jamielennox
+Th10 18 19:44:46 <mattoliverau>	clayg: according to the bug, it looks like its just mirroring our trans-id.. that is so we have a common return header in openstack that people can look for. 
+Th10 18 19:45:07 <mattoliverau>	mahatic: morning
+Th10 18 19:45:22 <mahatic>	kota_: mattoliverau: o/
+Th10 18 20:15:50 <kota_>	hmmm, i noticed that i don't have the permission to add +2 for stable branch.
+Th10 18 20:21:38 <mattoliverau>	kota_: yeah, stable branch is owned by the stable team. notmyname I think is the only swift core with +2 there
+Th10 18 20:21:52 <mattoliverau>	tho I could be wrong... but I don't either
+Th10 18 20:23:21 <kota_>	mattoliverau: it looks like https://review.openstack.org/#/admin/groups/542,members ?
+Th10 18 20:23:22 <mattoliverau>	You might have to ping stable team for review, or call out to tonyb and entice him with meat to smoke :P But they'll be looking for Swift core's +1s to know that we think patches are good
+Th10 18 20:23:31 <mattoliverau>	kota_: ^^
+Th10 18 20:23:52 <mattoliverau>	kota_: yeah that'll be it
+Th10 18 20:24:14 <kota_>	mattolvierau: thx
+Th10 18 20:24:31 <tonyb>	kota_: what needs looking at?
+Th10 18 20:25:21 <kota_>	tonyb: we have 2 backport patches for stable/mitaka and stable/newton
+Th10 18 20:25:36 <kota_>	https://review.openstack.org/#/c/387123/ and https://review.openstack.org/#/c/387172/
+Th10 18 20:25:37 <patchbot>	patch 387123 - swift (stable/newton) - Prevent ssync writing bad fragment data to diskfile
+Th10 18 20:25:38 <patchbot>	patch 387172 - swift (stable/mitaka) - Prevent ssync writing bad fragment data to diskfile
+Th10 18 20:26:21 <tonyb>	kota_, mattoliverau: I'll take a look at them from a stable team POV
+Th10 18 20:26:32 <kota_>	the original patch for the master has landed and i just am wondering who one could make it to land to stable branch
+Th10 18 20:26:46 <mattoliverau>	tonyb: thanks man
+Th10 18 20:26:59 <kota_>	tonyb: notmyname may be able to work on it tommorrow-ish though.
+Th10 18 20:27:15 <mattoliverau>	tonyb: if you need kota and I to +1 em or anything then let us know
+Th10 18 20:27:16 <kota_>	tonyb: but thanks ;-)
+Th10 18 20:27:37 <tonyb>	kota_, mattoliverau: +1 would be good
+Th10 18 20:28:42 <mattoliverau>	k, I'll fire up my stable saio's so I can run the tests etc.. cause I wanna be sure
+Th10 18 20:29:12 <kota_>	mattoliverau: thanks too :D
+Th10 18 20:39:14 *	mattoliverau hasn't built a saio to track stable newton yet... so am building one... glad I have a script to do that thing.
+Th10 18 20:42:58 <tonyb>	mattoliverau: scripting for the win!
+Th10 18 20:43:16 <mattoliverau>	\o/ 
+Th10 18 20:47:04 <openstackgerrit>	Pete Zaitcev proposed openstack/swift: Add InfoGet handler with test  https://review.openstack.org/387790
+Th10 18 21:02:18 <openstackgerrit>	Hanxi Liu proposed openstack/swift: Add links for more detailed overview in overview_architecture  https://review.openstack.org/381446
+Th10 18 21:25:49 <clayg>	is there no way to shutup liberasure code 1.1 printing to stdout with pyeclib 1.3.1?
+Th10 18 21:25:58 <clayg>	... other than upgrade liberasurecode?
+Th10 18 21:26:38 <clayg>	... where upgrade ~= build and install from source since no distos package the liberasurecode that goes with pyeclib 1.3.1?
+Th10 18 21:26:41 <mattoliverau>	clayg: good question and if you find the answer let me know ;P
+Th10 18 21:28:30 <clayg>	as much as I'm sure that if i would just go update my vsaio stuff to clone/build/install liberasure from source I'd be happier ...
+Th10 18 21:28:46 <clayg>	... i keep feeling like it's a distraction from what i'm trying to do *right now*
+Th10 18 21:28:55 <clayg>	meanwhile - gd, shut up liberasurecode!
+Th10 18 21:29:24 <clayg>	i *would* just install an olderish pyeclib but we went and bumped requirements?  so it ends up being a real mess :\
+Th10 18 21:31:01 *	sure is now known as Guest29440
+Th10 18 21:33:06 <mattoliverau>	clayg: I have the xenial vsaio branch on my OSX dev laptop, and swift is logging directly into /var/log/syslog.. is this the normal setup (ie not logging to /var/log/swift/*), a problem with my chef build, or a vsaio xenial bug?
+Th10 18 21:33:09 <Guest29440>	hi all, I deployed openstack swift, Right now i am getting all swift related logs in "/var/log/syslog" i want these logs in "/var/log/swift/swift.log" file
+Th10 18 21:33:23 <Guest29440>	is there any way to do please help?
+Th10 18 21:33:52 <mattoliverau>	Guest29440: yeah, you need to make sure you set up the rules correctly in rsyslog
+Th10 18 21:34:45 <zaitcev>	RDO installs those automatically
+Th10 18 21:34:55 <Guest29440>	mattoliverau: can you elaborate the process 
+Th10 18 21:35:29 <mattoliverau>	Guest29440: you can either do it via log facility (set in the swift config files) and then catch them and redirect.. including send them to a remote syslog server if thats what you do. 
+Th10 18 21:36:11 <zaitcev>	either ... or what?
+Th10 18 21:36:39 <mattoliverau>	you can see some examples of how its done in the documentation, or even in the swift all in one doco.. I'll try and find some (on phone atm). 
+Th10 18 21:36:44 <mattoliverau>	zaitcev: good point :P
+Th10 18 21:36:48 <clayg>	zaitcev: syslog-ng lets you pick out log lines based on pattern matching and shiz
+Th10 18 21:37:03 <mattoliverau>	yeah, so depends on what syslog your using
+Th10 18 21:37:14 <Guest29440>	mattoliverau: yeah, i will try to find
+Th10 18 21:37:53 <clayg>	Guest29440: this section is a quick read -> http://docs.openstack.org/developer/swift/development_saio.html#optional-setting-up-rsyslog-for-individual-logging
+Th10 18 21:38:02 <clayg>	might give you a general sense of the idea
+Th10 18 21:38:46 <Guest29440>	clayg: thanks and if got struck anywhere i will ask your help
+Th10 18 21:38:53 <zaitcev>	Guest29440: basically https://bugzilla.redhat.com/show_bug.cgi?id=997983
+Th10 18 21:38:54 <openstack>	bugzilla.redhat.com bug 997983 in openstack-swift "swift in RDO logs container, object and account to LOCAL2 log facility which floods /var/log/messages" [Low,Closed: currentrelease] - Assigned to zaitcev
+Th10 18 21:40:04 <zaitcev>	or, better yet, stand by for flood
+Th10 18 21:40:23 <zaitcev>	[root@rhev-a24c-01 ~]# cat /etc/rsyslog.d/openstack-swift.conf 
+Th10 18 21:40:23 <zaitcev>	# LOCAL0 is the upstream default and LOCAL2 is what Swift gets in
+Th10 18 21:40:23 <zaitcev>	# RHOS and RDO if installed with Packstack (also, in docs).
+Th10 18 21:40:23 <zaitcev>	# The breakout action prevents logging into /var/log/messages, bz#997983.
+Th10 18 21:40:23 <zaitcev>	local0.*;local2.*        /var/log/swift/swift.log
+Th10 18 21:40:24 <zaitcev>	&                        ~
+Th10 18 21:40:25 <zaitcev>	[root@rhev-a24c-01 ~]# 
+Th10 18 21:41:29 <Guest29440>	zaitcev: that is in the case of redhat here i am using ubuntu14.04
+Th10 18 21:52:14 <mattoliverau>	Guest29440: in each swift service you can set specific syslog settings e.g: https://github.com/openstack/swift/blob/master/etc/proxy-server.conf-sample#L42-L46
+Th10 18 21:53:19 <mattoliverau>	once you know the log facility (or set it to what you want) (And you can use a few different facilitys if you want to seperate your swift logs even more). You can specify rules 
+Th10 18 21:54:34 <mattoliverau>	Guest29440: for example on the rsyslog side, this is what we do for the Swift All In One (SAIO) dev environment: https://github.com/openstack/swift/blob/master/doc/saio/rsyslog.d/10-swift.conf
+Th10 18 21:56:51 <mattoliverau>	Guest29440:  you can see again in the SAIO's proxy server configuration we are sending all logs to syslog facilty 1: https://github.com/openstack/swift/blob/master/doc/saio/swift/proxy-server.conf#L6
+Th10 18 21:57:30 <Guest29440>	i have given parameters like this in proxyserver.conf http://paste.openstack.org/show/586103/
+Th10 18 21:57:50 *	zaitcev facepalms
+Th10 18 21:58:08 <Guest29440>	mattoliverau: is it corrrcet or not
+Th10 18 21:59:14 <mattoliverau>	Guest29440: the log address needs to stay /dev/log as thats the syslog device we write logs to
+Th10 18 21:59:31 <mattoliverau>	and now you have no log facility set
+Th10 18 22:01:02 <mattoliverau>	you dont tell swift where to log (ie /var/log/swift/), you just tell swift where syslog is and what facility to tag the logs as.
+Th10 18 22:01:42 <mattoliverau>	then in syslog you say things coming from this facility write them to /var/log/swift/<something>.log
+Th10 18 22:03:32 <mattoliverau>	you could use a few different facilities (LOG_LOCAL0, LOG_LOCAL1) and then seperate say to proxy from storage, or use more and seperate the eventual consistancy engine from the storage node requests and proxy, etc.. really the skies the limit
+Th10 18 22:04:20 <Guest29440>	mattoliverau: is this is correct configuration and tell me how can write in to /va/log/swift/<something>.log file
+Th10 18 22:04:31 <Guest29440>	http://paste.openstack.org/show/586105/
+Th10 18 22:07:18 <mattoliverau>	Sure, so now your saying send to /dev/log and tag with the LOG_LOCAL0 facility. now you need to tell rsyslog (if that's what your using) to filter on LOG_LOCAL0. 
+Th10 18 22:08:42 <mattoliverau>	Syslog has different levels, for things like warnings, errors, debug, info level messages etc. You can just send them all to a log. or seperate them some more (like the saio is doing). 
+Th10 18 22:14:29 <mattoliverau>	Guest29440: so a very basic (just dump everything on log facility 0 to say /var/log/swift/swift.log would be do do somethink like: create the file /etc/rsyslog.d/10-swift.conf and then in that file place something like http://paste.openstack.org/show/586107/
+Th10 18 22:15:25 <mattoliverau>	then make sure /var/log/swift dir exists and the permissions are correct for syslog (look at /var/log/).. then restart syslog
+Th10 18 22:16:11 <clayg>	whoa!  go mattoliverau!
+Th10 18 22:17:07 <Guest29440>	mattoliverau: thanks i got logs in /var/log/swift/swift.olg
+Th10 18 22:17:29 <mattoliverau>	the saio rsyslog file a linked before shows examples of how you can split it up some more.. and if you want to push logs to a remote syslog server you can do that too. This is where reading the rsyslog documentation can tell you more.. really the skies the limit
+Th10 18 22:17:37 <mattoliverau>	Guest29440: \o/
+Th10 18 22:17:55 <Guest29440>	ohhh!!! now i will seperate the logs 
+Th10 18 22:18:12 <mattoliverau>	Guest29440: now you can play with serperating them if you find that log is way too verbose and noisy (which it would be) :)
+Th10 18 22:30:58 <Guest29440>	mattoliverau: You have any idea about container synchronization please let me know
+Th10 18 22:32:00 <mattoliverau>	Guest29440: in what regards? syslog seperating, container sync, container replication, something else?
+Th10 18 22:32:48 <Guest29440>	mattoliverau: container sync
+Th10 18 22:35:03 <mattoliverau>	Guest29440: ahh ok, what are you trying to do? sync between 2 clusters? 
+Th10 18 22:35:53 <Guest29440>	as of now i want to sync between two clusters
+Th10 18 22:36:26 <Guest29440>	mattoliverau: and is it possible to sync in same cluster?
+Th10 18 22:38:30 <mattoliverau>	Guest29440: yeah, again you can look at how the SAIO has set it up. Because it has container sync setup to sync with itself as we need that to test container sync code.
+Th10 18 22:39:25 <Guest29440>	mattoliverau: you have any reference links regarding this 
+Th10 18 22:39:40 <mattoliverau>	Guest29440: I don't know how much longer I'll be around as it's getting to the end of my day and could get pulled away any minute :)
+Th10 18 22:39:44 <mattoliverau>	Guest29440: sure :)
+Th10 18 22:39:58 <mattoliverau>	let me find some starting points for you :)
+Th10 18 22:40:21 <Guest29440>	mattoliverau: thank you for giving your time
+Th10 18 22:40:49 <mattoliverau>	Guest29440: so start my reading the container sync overview here: http://docs.openstack.org/developer/swift/overview_container_sync.html
+Th10 18 22:41:30 <mattoliverau>	Guest29440: the high level idea is, you need to have a realm config for all clusters that trust each other.. in your case it can just contain one cluster
+Th10 18 22:42:06 <mattoliverau>	the realm key is a unique secret that the clusters will use to authenticate each other
+Th10 18 22:44:06 <mattoliverau>	once this trust is set up, you then mark containers to sync with anther cluster (as it appears in the real file) and to what account/container it syncs with. Again doing that invoves having container level secret keys for extra security.
+Th10 18 22:44:17 <mattoliverau>	in your cases, you'd point to the same cluster
+Th10 18 22:44:42 <Guest29440>	the realm key we need to set like a header while creation of container?
+Th10 18 22:45:16 <mattoliverau>	The saio realm file is here: https://github.com/openstack/swift/blob/master/doc/saio/swift/container-sync-realms.conf
+Th10 18 22:45:34 <mattoliverau>	the realm key for the clusters are in the conf. the container keys are as a header yes
+Th10 18 22:45:45 <mattoliverau>	sorry need to step away for a bit
+Th10 18 22:53:51 <mattoliverau>	Guest29440: when you add the key to a container, it's just setting metadata, so you can do that or change that anytime. So no it doesn't have to be at creation
+Th10 18 22:55:01 <Guest29440>	mattoliverau: yeah i am doing right now if any i got any doubts let you know
+Th10 18 22:57:28 <mattoliverau>	Guest29440: great, good luck, I'm always in channel, even when I'm not here. so ping if you have any other questions
+Th10 18 23:01:44 <Guest29440>	mattoliverau: here is my container-sync-realms.conf file http://paste.openstack.org/show/586114/
+Th10 18 23:02:19 <Guest29440>	while creating container i am getting this error "swift post -t '//realm1/192.168.2.187/AUTH_51a527847ebf4004a1e0f4b133fbdcca/container2' -k 'suresh' container1"
+Th10 18 23:02:32 <Guest29440>	error is "Container POST failed: http://192.168.2.187:8080/v1/AUTH_51a527847ebf4004a1e0f4b133fbdcca/container1 400 Bad Request   No cluster endpoint for 'realm1' '192.168.2.187'"
+Th10 18 23:02:36 <mattoliverau>	Guest29440: because you are only using the 1 cluster, you only need 1 cluster defined
+Th10 18 23:04:18 <Guest29440>	mattoliverau: then what i need to mention in this file
+Th10 18 23:05:53 *	tesseract is now known as Guest85855
+Th10 18 23:07:01 <mattoliverau>	Guest29440: in your case it shouhld be //realm1/clustername1/AUTH_51a527847ebf4004a1e0f4b133fbdcca/container2
+Th10 18 23:07:31 <Guest29440>	yeah i got it
+Th10 18 23:07:40 <mattoliverau>	Guest29440: //<realm name from config>/<cluster name (after cluster_) from realm config>/<account>/<container>
+Th10 18 23:07:45 <Guest29440>	just now i created container
+Th10 18 23:07:45 <mattoliverau>	Guest29440: nice :)
+Th10 18 23:10:52 <Guest29440>	mattoliverau: i created two containers named "container1" & "container2" and uploaded object to "container1" but while doing "swift list container2"
+Th10 18 23:11:02 <Guest29440>	it is not showing that object
+Th10 18 23:11:22 <mattoliverau>	is your continer-sync daemon running?
+Th10 18 23:12:07 <mattoliverau>	and container-sync also runs on a interval (runs every now and then, which can set). 
+Th10 18 23:12:27 <Guest29440>	mattoliverau: yeah it is running
+Th10 18 23:12:55 <mattoliverau>	then maybe it hasn't run since you've added the objects
+Th10 18 23:13:52 <Guest29440>	mattoliverau: just now i restarted the service
+Th10 18 23:15:44 <mattoliverau>	oh and you need to make sure you have container sync in your pipeline on the proxy and that if you've changed the realm file you may need to make sure the changes have taken effect. I've mainly only run container sync for development and testing patches. So I'm not too experienced with what exactly needs to be restarted or what not
+Th10 18 23:16:38 <mattoliverau>	well I have to go to dinner.. so I'm out for now. Night swift land
+Th10 18 23:18:25 *	amoralej|off is now known as amoralej
+Th10 18 23:19:10 <Guest29440>	mattoliverau: ok thankyou for your patience and help...!!!
+Th10 18 23:21:32 *	ChanServ gives voice to clayg
+Th10 18 23:27:57 <clayg>	i just noticed that an invalid or missing X-Object-Sysmeta-Ec-Frag-Index on PUT to object server raises an unhandled DiskFileError - object server returns it as a 500 with a traceback in the body :\
+Th10 18 23:29:42 <clayg>	... seems like 400 would be better, i.e. same as we handle missing x-timestamp
+Th10 18 23:29:56 <clayg>	but i'm not sure if it's worth a wishlist bug - might not hurt?
+Th10 18 23:38:31 <deep_>	Hi, I am trying to setup swift proxy under httpd on rhel. I am facing issue with s3,  s3 bucket create is returning with error related Signature mismatch. Bucket is getting created but s3curl is getting error. Any clue what can be the issue ?? 
+Th10 19 00:11:13 <Guest29440>	Hi all, i am doing container synchronization but it is not syncing the objects to other container
+Th10 19 00:11:24 <Guest29440>	please some one help..!!
+Th10 19 00:13:24 <clayg>	deep_: what's the error that s3curl reports?  does the swift log 201 w/o error?
+Th10 19 00:14:13 <clayg>	Guest29440: is the container-sync daemon running?  Does it leave an errors in the logs?
+Th10 19 00:15:04 <Guest29440>	clayg: yes it is running 
+Th10 19 00:15:52 <Guest29440>	In logs it is showing container-sync: Configuration option internal_client_conf_path not defined. Using default configuration, See internal-client.conf-sample for options
+Th10 19 00:33:29 <openstackgerrit>	Ondřej Nový proposed openstack/swift: Set owner of drive-audit recon cache to swift user  https://review.openstack.org/387591
+Th10 19 00:33:58 *	ChanServ gives voice to joeljwright
+Th10 19 00:36:32 <kota_>	oh my...
+Th10 19 00:37:24 <kota_>	looking at patch 387655, i'm realizing pyeclib is now wrong handling for the assertions on the fragment metadata.
+Th10 19 00:37:24 <patchbot>	https://review.openstack.org/#/c/387655/ - swift - WIP: Make ECDiskFileReader check fragment metadata
+Th10 19 00:38:21 <kota_>	if we had a corrupted header in the fragment, we should return -EBADHEADER but currently it causes -EINALIDPARAMETER that means something wrong on caller side.
+Th10 19 00:38:44 <kota_>	that's one of the guilties of current one.
+Th10 19 00:39:21 <onovy>	hi guys. we are in progress of upgrade swift 2.5.0 -> 2.7.0 in production. We upgraded first store and just after that upgrade, obj/replication/rsync metrics from recon jumped up (https://s9.postimg.org/l45qoh0q7/graph.png). In object-replicator log i see many rsync of .ts files.
+Th10 19 00:39:23 <onovy>	any idea?
+Th10 19 00:39:49 <kota_>	the one more guilty is that *current liberasurecode doesn't test anything for invalid_args test cases i found while I was writing the test.
+Th10 19 00:40:03 <clayg>	i would guess it's the new old suffix tombstone invalidation
+Th10 19 00:40:17 <clayg>	onovy: ^
+Th10 19 00:40:30 <onovy>	clayg: so we should continue with upgrade and it will be fixed after last store?
+Th10 19 00:40:47 <kota_>	liberasurecode had the test cases but currently off because some stuff while we ware refactoring the tests.
+Th10 19 00:41:00 <kota_>	agh.
+Th10 19 00:41:07 <kota_>	clayg:!?!?
+Th10 19 00:41:08 <clayg>	kota_: i'm not sure if you're saying libec has yet another bug you'll probably end up fixing while we try to figure out how as a community we're going to adapt to ownership of that library
+Th10 19 00:41:38 <clayg>	or like everything with patch 387655 is bollocks because new libec isn't going to pop on invalid frags?
+Th10 19 00:41:39 <patchbot>	https://review.openstack.org/#/c/387655/ - swift - WIP: Make ECDiskFileReader check fragment metadata
+Th10 19 00:41:40 <kota_>	clayg: have you been in barcelona?
+Th10 19 00:41:59 <clayg>	kota_: no that's like next week
+Th10 19 00:42:11 <clayg>	i do still need to work on cschwede and I's slides some more before then tho
+Th10 19 00:42:16 <kota_>	clayg: that means you're a night man.
+Th10 19 00:42:28 <kota_>	(mid-night man)
+Th10 19 00:43:29 <clayg>	onovy: i'm... hesitant to make that recommendation - i don't really know the situation - but I think I can find you the patch and we can think about it?
+Th10 19 00:43:50 <kota_>	clayg: that's able to pop the invalid frag but i don't like to catch the error as ECDriverError as acoles is doing now, https://review.openstack.org/#/c/387655/1/swift/obj/diskfile.py@53
+Th10 19 00:43:50 <patchbot>	patch 387655 - swift - WIP: Make ECDiskFileReader check fragment metadata
+Th10 19 00:44:07 <clayg>	onovy: so I *did* say that it will be fine -> https://review.openstack.org/#/c/346865/
+Th10 19 00:44:07 <patchbot>	patch 346865 - swift - Delete old tombstones (MERGED)
+Th10 19 00:44:26 <kota_>	because the ECDriver error is an abstruction of all ECError including something like no available backend.
+Th10 19 00:44:54 <kota_>	I don't like to the auditor is doing quarantine if the backend is not avialable.
+Th10 19 00:45:33 <kota_>	so we need to catch more strict error like ECInvalidFragmentMetadata, imo.
+Th10 19 00:46:05 <onovy>	clayg: this patch is in 2.10.0 only
+Th10 19 00:46:40 <clayg>	onovy: oh, well then my first guess was not correct!  See - good thing you didn't listen to me.
+Th10 19 00:46:44 <clayg>	what's happening again now?
+Th10 19 00:47:10 <onovy>	clayg: upgraded one store to 2.7.0 from 2.5.0. recon metric jumped up to high number
+Th10 19 00:47:54 <clayg>	kota_: ok, i like that - is a more appropriate error available?  i think backend not available would fire earlier when trying to create the policies
+Th10 19 00:48:15 <clayg>	one "store" ~= one "node" or zone or cluster?
+Th10 19 00:48:25 <onovy>	https://s12.postimg.org/nchht94n1/graph2.png this show min/avg/med/max from whole cluster
+Th10 19 00:48:38 <onovy>	https://s9.postimg.org/l45qoh0q7/graph.png this is sum
+Th10 19 00:48:43 <kota_>	clayg: sure that. anyway, i have to make sure which error can be raised there though.
+Th10 19 00:49:04 <kota_>	clayg: i think ECInalidFragmentMetadata is suite to catch.
+Th10 19 00:49:08 <kota_>	sweet
+Th10 19 00:49:23 <clayg>	onovy: and what metric is this again?
+Th10 19 00:49:40 <kota_>	but currently pyeclib doesn't return that when the metadata currupted :/
+Th10 19 00:49:58 <kota_>	with a bug in liberasurecode
+Th10 19 00:50:16 <kota_>	and I tried to fix it, it's really trivial and easy.
+Th10 19 00:50:31 <kota_>	and make a test for that but nothing failed w/o patch
+Th10 19 00:50:46 <clayg>	onovy: maybe suffix.syncs?
+Th10 19 00:51:04 <onovy>	clayg: replication/object/replication_stats/rsync from recon middleware
+Th10 19 00:51:04 <kota_>	making sure what happen in the liberasurecode, actually liberasurecode doesn't test any failure case i noticed.
+Th10 19 00:51:17 <onovy>	clayg: what is suffix.syncs?
+Th10 19 00:51:40 <clayg>	statsd metrics - you're turning recon dumps into timeseries data?
+Th10 19 00:52:22 <onovy>	no, not stats. i'm loading recon data over http to one server and aggregating them into rrd
+Th10 19 00:52:30 <kota_>	so hopefully, 1. fix test cases in liberasurecode, 2. fix liberasurecode bug, 3. catch good error in Swift but it requires any other works like dependency managements.
+Th10 19 00:52:32 <kota_>	:/
+Th10 19 00:52:34 <onovy>	Oct 17 18:56:02 sdn-swift-store1 swift-object-replicator: <f+++++++++ 3da/db6db09b842616d169dec89348c753da/1476722950.35238.ts
+Th10 19 00:52:36 <onovy>	Oct 17 18:56:02 sdn-swift-store1 swift-object-replicator: Successful rsync of /data/hd1-1T/objects/449389/3da at sdn-swift-store13-repl.###::object/hd11-1.2T/objects/449389 (0.186)
+Th10 19 00:52:39 <onovy>	this is in log
+Th10 19 00:53:45 <clayg>	onovy: that's a pretty recent tombstone?
+Th10 19 00:53:57 <clayg>	are they *all* from yesterday?
+Th10 19 00:54:40 <onovy>	checking logs
+Th10 19 00:56:34 <onovy>	http://paste.openstack.org/show/586135/ , upgraded at ~11am
+Th10 19 00:56:44 <onovy>	but i'm trying to check your question with cut/sed/... gimme sec :)
+Th10 19 00:59:20 <onovy>	yep, (almost) all of them after 11am is from yesterday
+Th10 19 00:59:26 <openstackgerrit>	Clay Gerrard proposed openstack/swift: WIP: Make ECDiskFileReader check fragment metadata  https://review.openstack.org/387655
+Th10 19 01:00:46 <onovy>	clayg: this is pretty strange: http://paste.openstack.org/show/586136/
+Th10 19 01:00:54 <onovy>	first row: count, second: hour of day
+Th10 19 01:01:40 <onovy>	same from NOT-upgraded node: http://paste.openstack.org/show/586137/
+Th10 19 01:01:43 <Guest29440>	kota: hi, Do you have any idea about container synchronization
+Th10 19 01:02:33 <kota_>	Guest29440: can i make sure your meaning 'container synchronization'?
+Th10 19 01:02:46 <onovy>	so if i understand it correctly, this rsync of .ts was always there (which could be fine), but count of rsync jumped up after one node upgrade
+Th10 19 01:02:50 <kota_>	across over the different swift clusters?
+Th10 19 01:02:58 <onovy>	afk lunch
+Th10 19 01:03:07 <Guest29440>	kota: yes and i am trying in same cluster
+Th10 19 01:04:16 <kota_>	2 same cluster?
+Th10 19 01:04:57 <kota_>	Guest29440: container sync is an option to sync over the 2 clusters, http://docs.openstack.org/developer/swift/overview_container_sync.html
+Th10 19 01:05:41 <kota_>	an user can make a sync target container  to a container.
+Th10 19 01:07:08 <Guest29440>	kota: i followed the same link but i am not seeing objects which are uploaded to one in another container
+Th10 19 01:08:39 <kota_>	Guest29440: ok,  could you have the perrmission to figure out what happens in the cluster?
+Th10 19 01:16:57 <Guest29440>	kota: can you elaborate what i need to do in cluster
+Th10 19 01:17:35 <clayg>	Guest29440: sorry, was looking at other stuff - the interal-client.conf log message is not a problem
+Th10 19 01:18:07 <clayg>	Guest29440: can you share your relams.conf and the metadata you set on the container - maybe it's something obvious?
+Th10 19 01:19:07 <clayg>	Guest29440: otherwise maybe container sync is failing to identify and process the container - or it's trying to process it and failing to sync data somehow
+Th10 19 01:19:18 <clayg>	if it's the latter I would think there's be some noise in the logs about it
+Th10 19 01:20:13 <openstackgerrit>	Kota Tsuyuzaki proposed openstack/liberasurecode: Fix liberasurecode skipping a bunch of invalid_args tests  https://review.openstack.org/387879
+Th10 19 01:20:57 <kota_>	ah, looks like clayg knows something rather than me.
+Th10 19 01:21:30 <kota_>	it looks tsg is absent in this channel.
+Th10 19 01:21:45 *	kota_ is going to ping him tommorow morning
+Th10 19 01:22:31 <clayg>	kota_: for backport I don't think we can expect liberasure to be repackaged
+Th10 19 01:23:14 <clayg>	... can we?
+Th10 19 01:23:35 <kota_>	clayg: good point, so we need to fix the auditing with as...
+Th10 19 01:24:56 <clayg>	kota_: for Guest29440 on container-sync I don't know nothing - and i'm going to sign off shortly
+Th10 19 01:25:53 <clayg>	kota_: for the ec auditor invalid frag data - I pushed up what I have so far - there's still some tests that need to be fixed - and I don't think I have the quarantine behavior on the object-server quite right yet (need some tests for invalid frag data in obj.test_server)
+Th10 19 01:26:09 <clayg>	I think the TODO's in the commit are correct (cc @ acoles)
+Th10 19 01:26:30 <onovy>	clayg: back
+Th10 19 01:26:41 *	acoles_ is now known as acoles
+Th10 19 01:26:54 <kota_>	clayg: i'm wondering, who sets disk chunk read size for the reader in the auditor.
+Th10 19 01:27:09 <kota_>	that could come from policy.fragment_size?
+Th10 19 01:27:11 <acoles>	good morning
+Th10 19 01:27:21 <kota_>	acoles: good morning
+Th10 19 01:27:44 <joeljwright>	acoles: good morning
+Th10 19 01:28:04 <clayg>	kota_: it's tunable - and I think documented that the auditor will pass it's value into the dfm - so you can adjust your auditor io different than object server
+Th10 19 01:28:40 <clayg>	on server too big iop can gum up the reactor - on auditor it's nice to have bigger fat iops
+Th10 19 01:28:40 <kota_>	i think, we need *at least* pyeclib 1.3.0 if we are using the auditor backport in the stable/mitaka anyway because the policy.fragment_size probably causes memory leak.
+Th10 19 01:29:07 <clayg>	great - so we don't have to do backports!?
+Th10 19 01:29:28 <kota_>	and if we don't make the chunk size as same as policy.fragment_size, the get_metadata call doesn't fit the alignment of fragments.
+Th10 19 01:29:42 <clayg>	onovy: did the rsync spike level off shortly after the upgrade?  or is it still going?
+Th10 19 01:29:53 <Guest29440>	kota: here isa my container-sync-realms.conf 
+Th10 19 01:29:57 <acoles>	kota_: clayg where are we at? I saw clayg pushed a new patchset, do I need to pick up anything?
+Th10 19 01:29:58 <Guest29440>	http://paste.openstack.org/show/586145/
+Th10 19 01:30:03 <kota_>	not sure, when I added a mitagation for that, i think it happened in mitaka-newton.
+Th10 19 01:30:48 <clayg>	acoles: i didn't get started until after dinner - i just cleaned up some tests
+Th10 19 01:31:08 <clayg>	acoles: I took a stab at the early quarantine - but I think it only really works in the adutior currently
+Th10 19 01:31:33 <clayg>	so maybe starting on a obj_server test to read frag_archive with invalid data in it is next thing todo
+Th10 19 01:31:40 <kota_>	hmm, i have to study about container-sync-ralms.conf, that's my sabotage :/
+Th10 19 01:31:48 <clayg>	it's either that or work on fixing the app_iter Range tests in diskfile (blargh)
+Th10 19 01:32:08 <acoles>	clayg: ack
+Th10 19 01:33:09 <kota_>	acoles: i didn't yet complete the review on the auditor but I had made sure some my concern in pyeclib/liberasurecode
+Th10 19 01:33:15 <acoles>	clayg: so i am on board with you and Sam re doing early quarantine (on first bad frag), I wasn't sure if we got some of that for free if the reader close method was called even when the reader wasn't fully read.
+Th10 19 01:33:21 <kota_>	and found another problems a lot :.(
+Th10 19 01:33:47 <acoles>	kota_: what's the liberasure code issue? is that related to the auditor patch?
+Th10 19 01:33:52 <kota_>	s/another/other/
+Th10 19 01:33:59 <acoles>	kota_: :(
+Th10 19 01:34:15 <onovy>	clayg: graph is actual, so it's still going
+Th10 19 01:34:34 <onovy>	spike is about ~24 hours
+Th10 19 01:34:50 <kota_>	acoles: at first, i'd like to change the error handling not to catch ECDriverError. That is because it can catch every errors in the driver including no backend available.
+Th10 19 01:35:33 <kota_>	i think ECInvalidBadFragmentMetadata is good for that which means corrupted fragment metadata we want to check the fragment bytes.
+Th10 19 01:35:43 <acoles>	kota_: ah ok, makes sense
+Th10 19 01:36:04 <onovy>	clayg: https://github.com/openstack/swift/blob/stable/mitaka/swift/obj/replicator.py#L294 this value is in graph
+Th10 19 01:36:15 <kota_>	but 1. liberasurecode has a bug which doesn't return the error when the metadata corrupted
+Th10 19 01:36:42 <clayg>	onovy: it's updated in update() too I think?
+Th10 19 01:36:43 <acoles>	not good
+Th10 19 01:36:48 <kota_>	2. liberasurecode is skipping all invalid_args tests including the corrupted metadata.
+Th10 19 01:37:03 <kota_>	the second one I couldn't believe :(
+Th10 19 01:37:10 <onovy>	yep, https://github.com/openstack/swift/blob/stable/mitaka/swift/obj/replicator.py#L467
+Th10 19 01:37:20 <kota_>	acoles:^^
+Th10 19 01:37:44 <acoles>	kota_: uh? so how come the tests in my patch worked? what error *was* I provoking?
+Th10 19 01:38:25 <kota_>	acoles: ah, the second one is not a big related to yours.
+Th10 19 01:38:36 <acoles>	kota_: I see "liberasurecode[97679]: Invalid fragment, illegal magic value"
+Th10 19 01:38:46 <kota_>	yeah
+Th10 19 01:39:02 <deep_>	clayg: This is the error <Error><Code>SignatureDoesNotMatch</Code><Message>The request signature we calculated does not match the signature you provided. Check your key and signing method.</Message><RequestId>txcd3ec5c31efd45289468e-005805ed4e</RequestId></Error>
+Th10 19 01:39:06 <acoles>	so what is skipped?
+Th10 19 01:39:15 <acoles>	kota_: ^^
+Th10 19 01:39:25 <kota_>	acoles: ok, explain step by step
+Th10 19 01:39:32 <kota_>	let me explain
+Th10 19 01:39:32 <patchbot>	(let <variable> = <value> in <command>) -- Defines <variable> to be equal to <value> in the <command> and runs the <command>. '=' and 'in' can be omitted.
+Th10 19 01:39:41 <acoles>	lol
+Th10 19 01:39:43 <kota_>	sorry patch bot
+Th10 19 01:39:44 <clayg>	deep_: that's for the swift3 middleware - kota_ knows everything swift3
+Th10 19 01:39:59 <kota_>	so busy!?!?
+Th10 19 01:40:05 <clayg>	deep_: unfortuately - he also knows everyting about libec - and we're sort of in crisis :D
+Th10 19 01:40:28 <acoles>	can we spawn another kota?
+Th10 19 01:40:37 <kota_>	acoles: great idea
+Th10 19 01:40:40 <kota_>	JK
+Th10 19 01:40:41 <joeljwright>	dammit kota_ stop being so useful!
+Th10 19 01:40:45 <clayg>	kota.fork()
+Th10 19 01:40:52 <kota_>	so, back to liberasurecode
+Th10 19 01:41:18 <acoles>	for b in bugs: wait(kota)
+Th10 19 01:41:24 <kota_>	acoles: "liberasurecode[97679]: Invalid fragment, illegal magic value", this is comming from sanity check with older libeasurecode
+Th10 19 01:42:16 <kota_>	acoles: IIRC, during liberasurecode development history, we need to validate the fragment can be decode or not for the compatibility perspective.
+Th10 19 01:42:32 <deep_>	clayg, kota_ : :) What is debugged till now for createbucket call i see one put followed by get, for put request the keystone check is successful but for get it return error "Authorization failed. Credential signature mismatch "
+Th10 19 01:42:36 <kota_>	because sometimes we need to update the api or structore of the fragments
+Th10 19 01:42:46 <acoles>	kota_: I have liberasurecode-dev 1.1.0
+Th10 19 01:43:02 <kota_>	and the magic value can be worked for the check, 'this is compatible with your engine'
+Th10 19 01:43:06 <clayg>	onovy: so either nothing has really changed, and reporting has changed and it's reporting is either more or less accurate now - or we're doing more rsync's - which means we're not just invalidating suffixes - but we have out of sync suffixes
+Th10 19 01:43:41 <onovy>	yep. i can't found anything related to reporting change
+Th10 19 01:43:42 <kota_>	deep_: will ack, sorry, I'm not so quick to think/type because I'm not a native English
+Th10 19 01:44:04 <kota_>	back to liberasurecode again
+Th10 19 01:44:05 <clayg>	onovy: is there any difference in the *requests* coming into the upgraded node?  last I looked we object-servers' don't emit statsd metrics per status code like the proxies do (so annoying!) but you could try to parse logs or something?
+Th10 19 01:44:35 <acoles>	kota_: so each engine has a magic value and liberasurecode checks it is good?
+Th10 19 01:44:41 <kota_>	acoles: so that, liberasurecode[97679]: Invalid fragment, illegal magic value means, the fragment is incompatible with currently your using.
+Th10 19 01:44:48 <kota_>	acoles: yes
+Th10 19 01:45:00 <acoles>	and is the magic the first N bytes?
+Th10 19 01:45:01 <clayg>	onovy: if you go poke at /var/cache/swift/object.recon do the numbers make sense?  Are they way higher on the one node?  Is the cycle time longer?  partition timing higher?
+Th10 19 01:45:03 <onovy>	clayg: requests count, type and status codes are same for new and old node
+Th10 19 01:45:14 <kota_>	acoles: but acutally it works with your patch because the corrupted fragment metadata is absolutely incompatible.
+Th10 19 01:45:24 <kota_>	acoles: yes
+Th10 19 01:45:27 <clayg>	everything looks like "yes, more rsyncs on this node" - many factors back up the reported metric?
+Th10 19 01:45:53 <kota_>	acoles: but unfortunately that returns ECInvalidParamter which means caller doing something wrong.
+Th10 19 01:46:15 <acoles>	kota_: ah, but if the corrupted data just happens to be equal to a valid magic for an engine, then we would get no exception??
+Th10 19 01:46:38 <kota_>	acoles: sure
+Th10 19 01:46:59 <acoles>	kota_: right IIRC sometimes I saw "Inavlid args" or similar from liberasurecode
+Th10 19 01:47:28 <onovy>	clayg: http://paste.openstack.org/show/586137/ this shows more rsync on upgraded node. but not "much more", just ~ 10%?
+Th10 19 01:47:43 <onovy>	ehm sry, that was not-upgraded node. upgraded is here: http://paste.openstack.org/show/586136/
+Th10 19 01:48:03 <acoles>	kota_: but, for the bug we know about (ssync) the corruption will always be that the start of the first frag is either "PUT", "POST" or "DELETE". I hope none of those are EC magic values ?!?
+Th10 19 01:48:46 <deep_>	clayg, kota_ : np, take your time. just putting the complete problem and debugging so far.  PUT and GET is using same ec2 credentials. I am not able to find why and who invoke the get call. till now i reached till swift3/request.py function authenticat() --         sw_resp = sw_req.get_response(app)         if not sw_req.remote_user:             raise SignatureDoesNotMatch() -- from here the the s3curl error is returned.
+Th10 19 01:48:51 <acoles>	kota_: wait, maybe I am wrong there, need to think some more
+Th10 19 01:48:51 <kota_>	acoles: i think so, so probably catching ECInvalidParameter is an option insted of ECDriverError
+Th10 19 01:49:42 <onovy>	clayg: https://s22.postimg.org/dteqvt7sx/graph3.png sum of obj/replication/time metric from whole cluster
+Th10 19 01:49:49 <onovy>	so time is +- same
+Th10 19 01:50:18 <kota_>	acoles: current magic value, https://github.com/openstack/liberasurecode/blob/master/include/erasurecode/erasurecode.h#L319
+Th10 19 01:50:42 <onovy>	clayg: only this (rsync) metrics jumped up. all other metric is fine
+Th10 19 01:51:11 <clayg>	onovy: that's good - one bad signal is normally less scary than a bunch of bad signals
+Th10 19 01:51:31 <acoles>	kota_: I think I may be wrong - the *examples* we have seen always had zero bytes of the reconstructed frag sent so that the start of the actual sent data was the start of next subrequest, but in general I'm not sure that is guaranteed e.g. if reconstructor rebuild timed out part way through a rebuild
+Th10 19 01:51:45 <onovy>	clayg: :)
+Th10 19 01:52:11 <onovy>	only other problem is drive-audit metrics, which i send review/patch for. but i think it's unreleated
+Th10 19 01:52:25 <clayg>	onovy: I would at this point start to lean towards maybe older nodes are mis-reporting somehow - or that the source of that signal has some unknown scaler factor away from norm that's different from old and new
+Th10 19 01:52:27 <kota_>	acoles: yes, exactly
+Th10 19 01:53:10 <clayg>	onovy: i might even upgrade another node and see if it does the same thing (probably will) but look for other signals that may indicate if movement in that metric is "bad"
+Th10 19 01:53:14 <clayg>	... not sure if you would agree
+Th10 19 01:53:49 <onovy>	clayg: i will try to stop object-expirer on that node
+Th10 19 01:53:57 <acoles>	kota_: oh, so that struct has 59 bytes of metadata first then the magic. That is interesting, because when i first wrote my test I corrupted the first 12 bytes and saw no error! then i increased to corrupt 64 and saw the bad magic error. So is it the first 59 bytes of metadata checks that are skipped?
+Th10 19 01:54:04 <onovy>	and than i will try to upgrade another one
+Th10 19 01:54:08 <onovy>	and let's see what happens
+Th10 19 01:54:29 <clayg>	onovy: good luck; may the force be with you
+Th10 19 01:54:35 <clayg>	acoles: how many examples do you have?
+Th10 19 01:54:37 <kota_>	acoles: but unfortunately currently no ways to detect the corruption if the magic value is same if using liberasurecode < 1.2.0
+Th10 19 01:54:47 <onovy>	clayg: :) btw i found something
+Th10 19 01:54:53 <acoles>	clayg: 2
+Th10 19 01:55:04 <onovy>	this: obj/expirer/expired_last_pass jumped at yesterday morning too
+Th10 19 01:55:15 <kota_>	if usgin liberasurecode >=1.2.0, that may be caught with header checksum.
+Th10 19 01:55:18 <onovy>	so if we have more expired objects, we have more .ts and more rsyncs...?
+Th10 19 01:55:24 <clayg>	acoles: I spent some time staring at the reconstrcutor code trying to convince myself why a _reconstruct_frag_iter would break early on the first frag more frequently than the in the middle and couldn't see anything?
+Th10 19 01:55:50 <clayg>	i assumed we just had the one sample and it happened to pop on the first frag in the archive?
+Th10 19 01:56:17 <kota_>	acoles: yeah
+Th10 19 01:56:28 <clayg>	onovy: correlation is not causation ?
+Th10 19 01:57:17 <onovy>	clayg: i will stop expirer and try to upgrade another one node than :)
+Th10 19 01:57:25 <acoles>	clayg: yeah. *hand waving*...maybe if a GET is going to timeout then it often will time out on first byte read???? but I think we have to assume not
+Th10 19 01:57:52 <kota_>	acoles: currently, liberasurecode is doing 1. version check, 2. crc check for the metadata and then if it's healty try to chekc the magic value.
+Th10 19 01:58:13 <kota_>	2 is avaliable >=1.2.0
+Th10 19 01:58:25 <acoles>	kota_: so to clarify, liberasurecode <1.2.0 skips the metadata check but will detect a corrupt magic value, liberasurecode >=1.2.0 will detect both corrupt metadata and bad magic?
+Th10 19 01:58:39 <clayg>	yeah xattr stats read stuff maybe is more liekly to be in some filesystem location that's in the page cache than the first chunk read which drops at the bottom of a heavy io queue?  could be
+Th10 19 01:58:48 <kota_>	acoles: yes
+Th10 19 01:58:54 <clayg>	acoles: i'm so glad you're translating
+Th10 19 01:59:11 <kota_>	acoles but one more thing,  a bug is at 1. version check
+Th10 19 02:00:09 <kota_>	acoles: https://review.openstack.org/#/c/387879/1/src/erasurecode.c
+Th10 19 02:00:09 <patchbot>	patch 387879 - liberasurecode - Fix liberasurecode skipping a bunch of invalid_arg...
+Th10 19 02:00:49 <kota_>	if we hit the corruption as like version is negative or 0, the corruption check was skipped
+Th10 19 02:01:11 <kota_>	right now
+Th10 19 02:02:04 <kota_>	my patch 387879 is saving the case the version <= 0 but it may be just mitagation
+Th10 19 02:02:05 <patchbot>	https://review.openstack.org/#/c/387879/ - liberasurecode - Fix liberasurecode skipping a bunch of invalid_arg...
+Th10 19 02:02:41 <kota_>	even if the case, we could check the sanity with the magic value, anyway?
+Th10 19 02:06:17 *	kota_ is grubbing another cup of coffee
+Th10 19 02:06:21 <acoles>	kota_: I am computing :)
+Th10 19 02:06:38 *	acoles needs too
+Th10 19 02:06:48 <acoles>	coffee*
+Th10 19 02:15:25 <kota_>	back from coffee server
+Th10 19 02:15:31 <openstackgerrit>	Karen Chan proposed openstack/swift: Mirror X-Trans-Id to X-OpenStack-Request-Id  https://review.openstack.org/387354
+Th10 19 02:19:42 <kota_>	deep_: looking at your explanation around sw_resp = sw_req.get_response(app)         if not sw_req.remote_user:             raise SignatureDoesNotMatch() -- from here the the s3curl error is returned.
+Th10 19 02:20:14 <kota_>	maybe swift3 couldn't collect the user information from your keystone.
+Th10 19 02:22:37 <kota_>	deep_: ah, wait I may be wrong.
+Th10 19 02:31:50 <kota_>	hmmm.... not sure the intent for the remote_user because i forgot
+Th10 19 02:32:29 <kota_>	deep_: what i can tell for now is maybe you need to set HTTP_REMOTE_USER in your request.
+Th10 19 02:34:36 <sarcasticidiot>	Hi guys, im currently on the finish stage of setting up a swift cluster(1 keystone, 1 proxy, 2 storage nodes) for some testing but ran into an odd issue. Everything seems to work fine and I can create container using 'swift' client but on the keystone server 'openstack container list' return nothing
+**** BEGIN LOGGING AT Wed Oct 19 20:21:34 2016
+
+Th10 19 20:21:34 *	Now talking on #openstack-swift
+Th10 19 20:21:34 *	Topic for #openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+Th10 19 20:21:34 *	Topic for #openstack-swift set by notmyname (Thu Sep 29 01:24:23 2016)
+Th10 19 20:21:34 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th10 19 11:36:07 <openstackgerrit>	Tuan Luong-Anh proposed openstack/swift: Add prefix "$" for command examples  https://review.openstack.org/388355
+Th10 19 11:56:31 *	sure is now known as Guest89668
+Th10 19 11:58:13 <Guest89668>	hii all, I am doing "container syncronization" in same cluster for that i created my "container-sync-realms.conf" file like this http://paste.openstack.org/show/586313/
+Th10 19 11:59:01 <Guest89668>	i created two containers and uploaded objects to one but those objects are not copied to other container
+Th10 19 11:59:09 <Guest89668>	please some one help
+Th10 19 12:11:49 <openstackgerrit>	Bryan Keller proposed openstack/swift: WIP: Add notification policy and transport middleware  https://review.openstack.org/388393
+Th10 19 12:16:07 <mattoliverau>	Guest89668: so your container sync realms file is in /etc/swift/
+Th10 19 12:16:44 <Guest89668>	mattoliverau: yes 
+Th10 19 12:17:32 <mattoliverau>	Guest89668: also you can remove the clustername2 line, you only need to define each cluster once (and you are only using 1 cluster) but that shouldn't be stopping anything
+Th10 19 12:18:35 <Guest89668>	mattoliverau: here is error log http://paste.openstack.org/show/586314/
+Th10 19 12:24:42 <mattoliverau>	hmm, so it's timing out and then on the retry its saying method not allowed. And it's a DELETE
+Th10 19 12:26:51 <mattoliverau>	Guest89668: you have the same secret key on both containers in the sync?
+Th10 19 12:26:59 <Guest89668>	mattoliverau: yes
+Th10 19 12:27:51 <Guest89668>	here is my http://paste.openstack.org/show/586315/ 
+Th10 19 12:27:56 <Guest89668>	container stats
+Th10 19 12:28:31 <mattoliverau>	and just to make sure, your proxy or loadbalancer (or whatever your ip in your realms config is pointing at) is listening on port 80?
+Th10 19 12:28:46 <mattoliverau>	cause thats what your realms config says
+Th10 19 12:29:29 <Guest89668>	yes it is listening at port 80
+Th10 19 12:42:47 <mattoliverau>	Guest89668: is the endpoint to your cluster (that's listening on port 80) as swift proxy? a load balancer. Just trying to figure out why the request is 405'ed
+Th10 19 12:43:16 <mattoliverau>	and where is container_sync on the proxy pipeline? 
+Th10 19 12:44:04 <Guest89668>	my swift endpoint is " http://192.168.2.187:8080/v1/AUTH_%(tenant_id)s"
+Th10 19 12:44:51 <mattoliverau>	oh so theyre listening on port 8080 not port 80 or do you have a load balancer listening on 80?
+Th10 19 12:45:24 <Guest89668>	mattoliverau: no
+Th10 19 12:45:34 <mattoliverau>	Guest89668: if not try changeing your end points in the realm to: http://192.168.2.187:8080/v1/
+Th10 19 12:46:07 <mattoliverau>	Guest89668: looks like the container sync daemon is trying to update whatever is listening on port 80, maybe a webserver
+Th10 19 12:46:26 <Guest89668>	mattoliverau: just now i changed and tried again
+Th10 19 12:46:49 <Guest89668>	but now also same result but in log that ERROR was gone
+Th10 19 12:47:18 <mattoliverau>	also I mentioned before you only need to specify a single cluster if you have a single cluster, so if you remove the second you'll have to update container metadata that points to cluser2 to point to cluster 1
+Th10 19 12:47:29 <mattoliverau>	same result as in no objects?
+Th10 19 12:47:48 <mattoliverau>	have you waited or reran the container-sync? 
+Th10 19 12:48:57 <Guest89668>	yes i reran container-sync
+Th10 19 12:49:34 <mattoliverau>	if your on the container server in question (a container server that serves ars a primary for the container in question) you can stop container-sync and force it to run manually with: swift-init container-sync once
+Th10 19 12:49:37 <Guest89668>	here is my new relam file http://paste.openstack.org/show/586317/
+Th10 19 12:49:47 <mattoliverau>	if your using swift-init
+Th10 19 12:50:59 <mattoliverau>	Guest89668: that looks right (the :8080)
+Th10 19 12:51:22 <Guest89668>	and my proxy-server.conf http://paste.openstack.org/show/586316/
+Th10 19 12:52:10 <mattoliverau>	Guest89668: cool, container sync is before auth
+Th10 19 12:53:15 <mattoliverau>	Guest89668: is the container-sync logging anything? it should log something, even if its just saying its running or warning about internal client using default
+Th10 19 12:54:29 <Guest89668>	here is that log  http://paste.openstack.org/show/586318/
+Th10 19 12:56:58 <mattoliverau>	hmm, yeah ok, thats a normal message, but means container sync is running.
+Th10 19 12:57:50 <mattoliverau>	Guest89668: now that we have the ports right, how about you put another object in a container.. just in case container sync thinks it's uptodate
+Th10 19 12:58:03 <mattoliverau>	cause it isn't erroring
+Th10 19 12:59:19 <Guest89668>	mattoliverau: i deleted both the containers and created again but still same result
+Th10 19 12:59:34 <mattoliverau>	Guest89668: whats your container sync interval? have you set one in the config? if not by default its 300 seconds
+Th10 19 12:59:38 <mattoliverau>	or 5 mins
+Th10 19 13:00:45 <mattoliverau>	Guest89668: and your container server can access your proxy servers (via the IP you specified) because thats where container sync is running from
+Th10 19 13:02:52 <Guest89668>	mattoliverau: i am using single node swift (proxy+storage in same node) 
+Th10 19 13:03:05 <mattoliverau>	oh ok
+Th10 19 13:03:12 <Guest89668>	and how to set container sync intervel
+Th10 19 13:04:22 <mattoliverau>	Guest89668: in your container-server config(s) there should be a section for container-sync. Under that heading you can specify an interval by adding:
+Th10 19 13:04:46 <mattoliverau>	interval = <number>
+Th10 19 13:05:13 <mattoliverau>	while your in there, you can turn up the logging verbosity for just the container sync daemon, but adding to the same container-sync section:
+Th10 19 13:05:33 <mattoliverau>	log_level = DEBUG
+Th10 19 13:05:43 <mattoliverau>	then restart the container sync daemon
+Th10 19 13:06:05 <mattoliverau>	and hopefully it'll log more and it might tell us what's going on
+**** ENDING LOGGING AT Wed Oct 19 13:06:37 2016
+
+**** BEGIN LOGGING AT Wed Oct 19 13:07:16 2016
+
+Th10 19 13:07:16 *	Now talking on #openstack-swift
+Th10 19 13:07:16 *	Topic for #openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+Th10 19 13:07:16 *	Topic for #openstack-swift set by notmyname (Thu Sep 29 01:24:23 2016)
+Th10 19 13:07:17 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th10 19 13:07:39 FiSHLiM	hexchat_print called without a valid context.
+**** ENDING LOGGING AT Wed Oct 19 13:07:39 2016
+
+**** BEGIN LOGGING AT Wed Oct 19 13:08:03 2016
+
+Th10 19 13:08:03 *	Now talking on #openstack-swift
+Th10 19 13:08:03 *	Topic for #openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+Th10 19 13:08:03 *	Topic for #openstack-swift set by notmyname (Thu Sep 29 01:24:23 2016)
+Th10 19 13:08:03 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th10 19 13:12:23 <Guest89668>	mattoliverau: i added both parameters but same result
+Th10 19 13:12:39 <Guest89668>	i didnt find any extra log 
+Th10 19 13:17:46 <mattoliverau>	Guest89668: its seems that container-sync isn't finding objects to sync.
+Th10 19 13:21:51 <mattoliverau>	hmm weird, what could we be missing
+**** ENDING LOGGING AT Wed Oct 19 13:25:55 2016
+
+**** BEGIN LOGGING AT Wed Oct 19 13:25:55 2016
+
+Th10 19 13:31:01 <clayg>	busy busy
+Th10 19 13:32:59 <Guest89668>	mattoliverau: then how to debug this 
+Th10 19 13:35:02 <mattoliverau>	Guest89668: any logs matching the time the container sync ran in the proxy server logs (the other side of the container sync transaction)>
+Th10 19 13:35:03 <mattoliverau>	?
+Th10 19 13:37:51 <Guest89668>	mattoliverau: just now i uploaded one object to the container1 here is the log http://paste.openstack.org/show/586321/
+Th10 19 13:40:37 <mattoliverau>	Guest89668: line 12 says your are getting a container-sync log error and your getting a 404 not found
+Th10 19 13:41:24 <mattoliverau>	so double check your container sync paths, and make sure you can access the proxy at the ip you specify in the realms config
+Th10 19 13:41:28 <Guest89668>	the file "openstack" what i deleted
+Th10 19 13:42:01 <Guest89668>	at first time creation of containers i uploaded object called openstck 
+Th10 19 13:42:28 <mattoliverau>	it doesn't seem the log level change has taken effect because you should see alot more. 
+Th10 19 13:42:38 <Guest89668>	mattoliverau: after that i deleted two containers and again i created those
+Th10 19 13:43:46 <Guest89668>	i have given log_level = DEBUG
+Th10 19 13:43:51 <Guest89668>	it is correct
+Th10 19 13:43:54 <Guest89668>	?
+Th10 19 13:44:53 <mattoliverau>	yeah, and did you restart container-sync? Also I don't see your proxy log as apart of that. 
+Th10 19 13:45:31 <mattoliverau>	clayg: your still up! 
+Th10 19 13:49:40 <Guest89668>	mattoliverau: yes i restarted
+Th10 19 14:00:28 <onovy>	clayg: no. i shutdowned it, spiked up. after power on, spiked down (and some time for sync of missing data). it was off for ~1 hour
+Th10 19 14:02:03 <onovy>	"down" = value before shutdown, but still higher than before upgrade
+Th10 19 14:08:46 *	tesseract is now known as Guest90211
+Th10 19 14:12:17 <clayg>	handoffs first?
+Th10 19 14:13:06 <clayg>	i think there's a warning emitted if you have it turned out - but the behavior changed at some point
+Th10 19 14:14:11 <clayg>	onovy: 01410129dac6903ce7f486997a48e36072fa0401 first appeared in 2.7 tag
+Th10 19 14:34:26 *	ChanServ gives voice to joeljwright
+**** ENDING LOGGING AT Wed Oct 19 14:37:10 2016
+
+**** BEGIN LOGGING AT Mon Oct 24 17:07:02 2016
+
+Th10 24 17:07:02 *	Now talking on #openstack-swift
+Th10 24 17:07:02 *	Topic for #openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+Th10 24 17:07:02 *	Topic for #openstack-swift set by notmyname (Thu Sep 29 01:24:23 2016)
+Th10 24 17:07:02 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+**** BEGIN LOGGING AT Mon Nov  7 09:27:13 2016
+
+Th11 07 09:27:13 *	Now talking on #openstack-swift
+Th11 07 09:27:13 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th11 07 09:27:13 *	Topic for #openstack-swift set by notmyname (Wed Nov  2 06:09:34 2016)
+Th11 07 09:27:13 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th11 07 10:42:09 <mahatic>	good morning!
+Th11 07 11:14:46 *	Disconnected (Connection timed out)
+**** ENDING LOGGING AT Mon Nov  7 11:14:46 2016
+
+**** BEGIN LOGGING AT Mon Nov  7 11:15:16 2016
+
+Th11 07 11:15:16 *	Now talking on #openstack-swift
+Th11 07 11:15:16 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th11 07 11:15:16 *	Topic for #openstack-swift set by notmyname (Wed Nov  2 06:09:34 2016)
+Th11 07 11:15:17 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th11 07 11:50:39 <kota_>	mahatic: good morning!
+Th11 07 12:18:43 <openstackgerrit>	Charles Hsu proposed openstack/python-swiftclient: Add additional headers for HEAD/GET/DELETE requests.  https://review.openstack.org/372656
+Th11 07 12:27:15 <openstackgerrit>	Merged openstack/liberasurecode: Fix clang compile time error  https://review.openstack.org/324083
+Th11 07 14:06:47 *	tesseract is now known as Guest71310
+Th11 07 15:40:57 *	amoralej|off is now known as amoralej
+Th11 07 15:47:20 -openstackstatus/#openstack-swift-	NOTICE: Gerrit is going to be restarted due to slowness and proxy errors
+Th11 07 17:09:43 <sureshj>	hii all i am uploading 3 objects of size 5.1GB with segment size 512MB at a time
+Th11 07 17:10:04 <sureshj>	but all of them are failed with 503 service unavialable
+Th11 07 17:10:15 <sureshj>	plese someone help on this
+Th11 07 17:12:07 *	acoles_ is now known as acoles
+Th11 07 17:42:09 <acoles>	sureshj: take a look in your proxy logs for any error messages container string "returning 503", they may give some hint as to what is happening - could be backend connection timeouts
+Th11 07 17:44:17 <sureshj>	acoles: here is some part of  my log http://paste.openstack.org/show/588230/
+Th11 07 17:51:40 <cschwede>	Hello everyone!
+Th11 07 17:52:22 <cschwede>	acoles: i’m looking into the pyeclib testing in the gate we discussed in Barcelona
+Th11 07 17:53:18 <cschwede>	acoles: but i’m no longer sure what is really missing here? at the end of the day we need a job to run probetests, right?
+Th11 07 17:57:27 <acoles>	cschwede: remind me what the discussion was? (I remember discussing upgrade tests and tiering tests and the need for multi-policy func tests)
+Th11 07 17:58:16 <acoles>	cschwede: did we discuss running swift tests in gate for pyeclib???
+Th11 07 17:58:36 <cschwede>	acoles: we discussed running EC probetests on the gate with John, but looking into the current gate setup it either looks much more simple to me as it sounded in Barcelona or I am missing something
+Th11 07 18:01:13 <acoles>	cschwede: oic. hmmm, TBH  I have never looked into why we do not run probe tests in gate, I just assumed there was a good reason that we could not.
+Th11 07 18:01:28 <acoles>	probe tests make assumptions about the SAIO deployment
+Th11 07 18:01:49 <acoles>	like tempauth is required IIRD, but devstack has that
+Th11 07 18:01:53 <cschwede>	acoles: well, there is one. it requires more resources, because we need more than 1 replica
+Th11 07 18:02:34 <acoles>	cschwede: does devstack use a single replica policy?
+Th11 07 18:02:54 <cschwede>	acoles: yes, but one can override this, and use 3 for example to rest replication
+Th11 07 18:03:21 <cschwede>	acoles: and my assumption is that we can simply increase that for EC, modify the swift.conf and run these tests
+Th11 07 18:04:17 <cschwede>	there are already tests for pyeclib itself, for example: https://review.openstack.org/#/c/390149/
+Th11 07 18:04:17 <patchbot>	patch 390149 - pyeclib - Remove Ryuta Kon from NTT shss reference (MERGED)
+Th11 07 18:04:30 <cschwede>	(last patch on master branch)
+Th11 07 18:05:28 <cschwede>	acoles: anyhow - i will continue testing on devstack how to enable EC probetests on the gate. i’ll ping you again soon ;)
+Th11 07 18:06:40 <acoles>	cschwede: so currently we have no gate *functional* test using EC policy, that would be a good addition. I had thought it could be achieved with the in-process framework by adding an EC policy to that.
+Th11 07 18:07:00 <acoles>	IDK about probe tests in the gate, if it can happen then great!
+Th11 07 18:07:20 <cschwede>	hmm, looking into that oo
+Th11 07 18:07:24 <cschwede>	s/oo/too
+Th11 07 18:10:26 <acoles>	sureshj: your logs are showing that the backend PUT requests are timing out after 10 secs - you could try increasing the timeout value (node_timeout in proxy-server section of proxy-server.conf)
+Th11 07 18:11:41 <openstackgerrit>	Alistair Coles proposed openstack/swift: Unset random seed after rebalancing ring  https://review.openstack.org/371564
+Th11 07 19:54:43 <timss>	Hi. Does the containers/objects created with swift-dispersion-populate use any significant amount of disk space? Is the dispersion_coverage just about partition coverage, or can it grow out of control if there's many partitions?
+Th11 07 20:11:02 *	amoralej is now known as amoralej|lunch
+Th11 07 20:53:53 *	amoralej|lunch is now known as amoralej
+Th11 07 21:19:24 *	tesseract is now known as Guest41117
+Th11 07 22:16:55 <openstackgerrit>	Mathias Bjoerkqvist proposed openstack/swift: WIP: Storing encryption root secret in Barbican  https://review.openstack.org/364878
+Th11 07 22:24:17 <openstackgerrit>	Nandini Tata proposed openstack/swift: Allow custom swift configuration directory  https://review.openstack.org/393952
+Th11 07 22:35:28 <tdasilva>	do we have documented anywhere all the environment variables that could be set for swift and swift dev?
+Th11 07 22:35:59 <tdasilva>	ntata: ^ maybe you know this...
+Th11 07 22:42:48 *	raginbaj- is now known as raginbajin
+Th11 07 22:46:09 <openstackgerrit>	Merged openstack/swift: update urls to newton  https://review.openstack.org/388196
+Th11 07 23:46:59 <ntata>	tdasilva, good question. Well, I couldn't find anything that talks about all the possible environment variables at a single place
+Th11 07 23:52:12 <tdasilva>	ntata: yeah, i was just wondering, it would probably be helpful to do that at some point
+Th11 07 23:55:32 <ntata>	tdasilva, agree, I can pool them together (to deployment guide maybe?) unless you're planning to..
+Th11 08 00:05:18 <tdasilva>	ntata: feel free to go ahead
+Th11 08 00:21:55 <notmyname>	good morning
+Th11 08 00:22:23 <notmyname>	well this is interesting http://lists.openstack.org/pipermail/openstack-dev/2016-November/106877.html
+Th11 08 00:22:31 <notmyname>	I haven't read the referenced blog post yet
+Th11 08 00:23:24 <clayg>	yay mondays!
+Th11 08 00:30:37 *	amoralej is now known as amoralej|off
+Th11 08 00:34:35 <notmyname>	well, while I'm piling on the mondays, there's this too https://review.openstack.org/#/c/365590/
+Th11 08 00:34:36 <patchbot>	patch 365590 - governance - Add "Assume Good Faith" to OpenStack principles
+Th11 08 00:43:44 <openstackgerrit>	Donagh McCabe proposed openstack/swift: Document access control lists (ACLs)  https://review.openstack.org/374215
+Th11 08 00:46:06 <tdasilva>	notmyname: i read the blog post and i think it seems sensible, i couldn't point out anything that's necessary wrong the the ideas (principles), just not sure I agree with some of the specifics...
+Th11 08 00:47:17 <notmyname>	tdasilva: yeah, the "team asking for golang must first create goslo.{config,messaging,db} and auth" seems ... well, I'm not sure what ;-)
+Th11 08 00:48:34 <tdasilva>	notmyname: yeah, i think asking 'us' to help contribute to common code is sensible, defining what that common code is will be the challenge
+Th11 08 00:49:29 <notmyname>	tdasilva: in our specific case, most of those don't make sense. config might, but the requirement (no different in python) is that existing configs must continue to work
+Th11 08 00:50:04 <tdasilva>	notmyname: agree...honestly, top of my head i can only think of config and logging which is not even on his list
+Th11 08 00:51:16 <tdasilva>	i'm not sure authentication makes sense at the moment as we are not proposing changes to user facing services, but maybe other services have authentication in the backend services??? i have no idea
+Th11 08 00:51:35 <notmyname>	could be. same with db and messaging, too
+Th11 08 00:52:17 <openstackgerrit>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+Th11 08 01:35:00 <clayg>	i can't get half way through a sentence without having to delete it - and I'm normally pretty lippy
+Th11 08 01:36:01 <openstackgerrit>	Merged openstack/swift: Fix signal handling for daemons with InternalClient  https://review.openstack.org/259347
+Th11 08 01:46:40 <openstackgerrit>	Christian Hugo proposed openstack/swift: object-replicator cleanup  https://review.openstack.org/391617
+Th11 08 01:46:41 <openstackgerrit>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+Th11 08 01:48:17 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+Th11 08 02:23:12 <openstackgerrit>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+Th11 08 02:32:06 <clayg>	jrichli: nice response on lp bug #1319096
+Th11 08 02:32:07 <openstack>	Launchpad bug 1319096 in OpenStack Object Storage (swift) "Include object metadata in container list" [Undecided,In progress] https://launchpad.net/bugs/1319096
+Th11 08 02:33:48 <jrichli>	clayg: I looked for a nick that might match Christian Hugo to see if we could chat here, but no luck.
+Th11 08 02:34:14 <jrichli>	I see he has uploaded a few different patches lately
+Th11 08 02:36:17 <clayg>	jrichli: yeah!  would love to see him get more engaged!  ... see if there's anything we can do to help/support?
+Th11 08 02:36:23 <openstackgerrit>	Ondřej Nový proposed openstack/swift: object-replicator cleanup  https://review.openstack.org/391617
+Th11 08 02:50:08 *	acoles is now known as acoles_
+Th11 08 02:53:07 <notmyname>	fungi: torgomatic: tdasilva: patch 394600 and patch 394601 set up a testing environment that allows for checking xattrs in swift's tests, thus enabling patch 336323 to land (I think)
+Th11 08 02:53:08 <patchbot>	https://review.openstack.org/#/c/394600/ - openstack-infra/project-config - enable xfs for swift in-process functests
+Th11 08 02:53:09 <patchbot>	https://review.openstack.org/#/c/394601/ - openstack-infra/project-config - add python-jobs-with-xfs for swift
+Th11 08 02:53:10 <patchbot>	https://review.openstack.org/#/c/336323/ - swift - Add checksum to object extended attributes
+Th11 08 02:53:24 <notmyname>	fungi: I'd definitely appreciate your insight on the 2 infra patches
+Th11 08 02:53:50 <notmyname>	I spearated them to make it more clear about the 2 things I'm doing, but i'm happy to combine if that's what you'd prefer
+Th11 08 02:53:51 <fungi>	notmyname: yep, saw 394601 and its parent scroll by in the infra channel and already have them pulled up
+Th11 08 02:53:58 <notmyname>	thanks :-)
+Th11 08 02:54:06 <fungi>	i'll look closer once the jobs report back on them in a few minutes
+Th11 08 03:03:28 <clayg>	timburke: I'm on vbox -> 5.0.14r105127 and vagrant -> 1.8.4.1
+Th11 08 03:04:06 <clayg>	obvs no problems mounting file systems - could totally be a guest agent thing tho - i'd be happy to upgrade if you're on newer-er versions and see i can duplicate your pain
+Th11 08 03:04:55 <timburke>	clayg: hmm... i *am* on newer, though when i first hit trouble, i was on older (at least for vbox)
+Th11 08 03:05:19 <timburke>	currently on 5.0.28 & 1.8.5.3
+Th11 08 03:05:43 <timburke>	but the USERNAME tip got me off & running on trusty, so w/e
+Th11 08 03:09:07 <notmyname>	fungi: ah, I'm guessing the errors are from the consolidation I did to https://github.com/openstack-infra/project-config/blob/master/jenkins/jobs/projects.yaml#L14043-L14055
+Th11 08 03:09:09 <clayg>	timburke: but xenial is *so* much better!
+Th11 08 03:09:39 <notmyname>	fungi: I don't see why those need to be different sections (one with trusty+xenial and one with just xenial).
+Th11 08 03:10:21 <notmyname>	fungi: from git history, it seems that they got split as part of some trusty->xenial migration in infra. certainly not intended to only work in one or the other from the swift perspective
+Th11 08 03:10:35 <timburke>	clayg: eh, may as well be on a platform that my customers might actually be using
+Th11 08 03:10:37 <timburke>	(i should really look into adding centos support for vsaio...)
+Th11 08 03:12:02 <notmyname>	fungi: but I'll admit to not really understanding all the layout. fwiw, the error is at http://logs.openstack.org/00/394600/1/check/gate-project-config-layout/65bcf33/console.html#_2016-11-07_19_57_01_190485
+Th11 08 03:12:39 <notmyname>	oh! because layout.yaml doesn't reference the new name! (I think)
+Th11 08 03:15:34 <fungi>	notmyname: sorry, had to step afk for a moment but i'm taking a look now
+Th11 08 03:17:25 <clayg>	timburke: yes
+Th11 08 03:17:42 <clayg>	timburke: however, there was *some* reason I needed to move to xenial?  some skip tests if you have an old kernel maybe?
+Th11 08 03:18:07 <notmyname>	fungi: pushed new revisions
+Th11 08 03:18:19 <clayg>	timburke: I think it was honestly because the haproxy that comes with precise can't do ssl termination and I wanted to play with the proxy protocol stuff for the ip address handling patch/story?
+Th11 08 03:18:22 <fungi>	notmyname: the error i see there is "jenkins_jobs.errors.JenkinsJobsException: Duplicate definitions for job 'swift-branch-tarball' specified" which i think is because you have the python-jobs and python-jobs-with-xfs-tmp job-groups instantiated on swift in jenkins/jobs/projects.yaml, and each of those job groups defines some of the same jobs
+Th11 08 03:18:50 <notmyname>	fungi: oh? can't reference the same job names in 2 different job groups?
+Th11 08 03:19:06 <fungi>	notmyname: if the plan is to use both those job-groups together, you probably just need to have gate-{name}-python27-xfs-tmp-{node} and gate-{name}-python34-xfs-tmp in the python-jobs-with-xfs-tmp group
+Th11 08 03:19:15 <timburke>	dammit! that was on my shortlist of things to go +A, just as soon as i could get around to func testing it...
+Th11 08 03:20:00 <notmyname>	fungi: that doesn't seem to align with python-db-jobs
+Th11 08 03:20:23 <fungi>	notmyname: yeah, in this case it's that jjb isn't smart enough to know that you're instantiating, say, {name}-branch-tarball twice with the same set of parameters (if it were smarter it might learn to dedupe those). instead it worries that you're instantiating templates that result in jobs with identical names (which as far as it knows might be different jobs)
+Th11 08 03:20:24 <notmyname>	fungi: ...which seems to be a copy of python-jobs but with a couple of names changed
+Th11 08 03:20:36 <clayg>	timburke: you're going to need xenial
+Th11 08 03:20:55 <clayg>	:P
+Th11 08 03:21:17 <notmyname>	fungi: oh, do you prefer these to be one commit or the 2 separate ones I've proposeD?
+Th11 08 03:21:24 <clayg>	oh... wait - were you talking about the proxy protocl patch or the other xfs-gate thing
+Th11 08 03:22:04 <timburke>	clayg: the PROXY proto patch
+Th11 08 03:22:31 <clayg>	timburke: ah
+Th11 08 03:23:11 <fungi>	notmyname: right, the projects which use the python-db-jobs group don't use the normal python-jobs group. honestly that's probably an oversight and they should use both but factor out the jobs common between them (so that nova can't accidentally make it impossible to run their tox env without mysql and postgres both installed)
+Th11 08 03:23:12 <fungi>	i'll write that up as a separate change
+Th11 08 03:24:17 <notmyname>	fungi: TBH, I'd be totally ok with not running the normal python-jobs group and running this one instead, but I've been given the impression that wouldn't fly with the TC and the common testing interface (or "swift being different")
+Th11 08 03:25:08 <fungi>	notmyname: yep, i'm writing this one up for parity with the swift change. either they're both needed or neither is but i definitely want a level playing field here whichever way things go
+Th11 08 03:25:41 <notmyname>	fungi: ok. I'll change mine to just have the two xfs jobs in the -with-xfs-tmp group
+Th11 08 03:26:01 <notmyname>	fungi: but do you want me to keep my 2 patches or squash them together?
+Th11 08 03:27:43 <openstackgerrit>	Tim Burke proposed openstack/swift: Always set swift processes to use UTC  https://review.openstack.org/331369
+Th11 08 03:28:08 <fungi>	notmyname: i'm not opposed to keeping them separate changes. probably slightly easier to review this way
+Th11 08 03:28:55 <fungi>	i see 394600 failed (different) tests. i was looking at the error on 394601
+Th11 08 03:30:30 <fungi>	and yeah, it looks like the job failure on 394600 is due to needing to also update the gate-swift-tox-bandit-ubuntu-(trusty|xenial) regex in zuul/layout.yaml
+Th11 08 03:32:14 <notmyname>	fungi: ok, thanks. new version pushed
+Th11 08 03:41:37 <mattoliverau>	Morning
+Th11 08 03:48:14 <fungi>	notmyname: for reference, here's my first attempt at the strawman for making sure all projects using custom db setup in unit tests are also tested without: https://review.openstack.org/394620
+Th11 08 03:48:15 <patchbot>	patch 394620 - openstack-infra/project-config - Make sure opportunistic DB use in unit tests works
+Th11 08 03:48:37 <fungi>	i agree that's basically the same case as expecting someone to make an xfs filesystem available when running unit tests
+Th11 08 03:58:12 <fungi>	notmyname: it still doesn't look like 394600 patchset 3 updated the gate-swift-tox-bandit-ubuntu-(trusty|xenial) regex in zuul/layout.yaml
+Th11 08 04:12:30 <jrichli>	timburke: I just glanced at patch 331369 and am wondering what the impacts are.  Is this change visible to the user?
+Th11 08 04:12:32 <patchbot>	https://review.openstack.org/#/c/331369/ - swift - Always set swift processes to use UTC
+Th11 08 04:19:05 *	jamielennox is now known as jamielennox|away
+Th11 08 04:24:23 <abalfour>	So... I could use some advice. It appers that the swift ring files are architecture dependent. I.e. if you use swift-ring-builder to create a ring file on an little endian machine, and then copy that ring file to a big endian machine, you're going to have a bad time. For example: http://paste.openstack.org/show/588317/
+Th11 08 04:26:03 <abalfour>	The obvious problem being on the endianess the file wasn't built on, the device index of 256 isn't going to work for indexing into the r2p2d array... Should we be creating the ring files locally on each architecture, or should the file format be endinan agnostic?
+Th11 08 04:48:50 <pdardeau>	abalfour: ouch! i don't have a BE environment to verify, but you might try hacking https://github.com/openstack/swift/blob/master/swift/common/ring/ring.py#L76
+Th11 08 04:49:11 <pdardeau>	maybe change 'H' to '!H'
+Th11 08 04:49:51 <pdardeau>	abalfour: it's possible it might be written to file ok, and then converted improperly on BE load
+Th11 08 04:52:19 <dfisher>	abalfour had to step away.  here's another possible solution http://paste.openstack.org/show/588319/
+Th11 08 04:53:12 <clayg>	abalfour: I did not know that!
+Th11 08 04:53:18 <dfisher>	i don't really grok array/struct python objects to comment on 'H' vs '!H'
+Th11 08 04:53:21 <notmyname>	interesting
+Th11 08 04:53:50 <pdardeau>	dfisher: https://docs.python.org/2/library/struct.html#byte-order-size-and-alignment
+Th11 08 04:54:05 <timburke>	jrichli: ideally, not really. the trouble i was running into was that some middleware would try to parse some user-provided timestamp with our stdlib in a crazy split-brain, so the result would be hours off. this lead to some authz errors in swift3 (which i suppose is user-visible), but to my knowledge we always report timestamps in UTC anyway
+Th11 08 04:54:25 <clayg>	can i make a vm with backwards default platform bits?  and why would python even allow me to serialize in a platform dependent way.
+Th11 08 04:54:26 <pdardeau>	the table in 7.3.2.1 shows the architecture specific modifiers
+Th11 08 04:54:50 <pdardeau>	and table in 7.3.2.2 shows data types
+Th11 08 04:54:57 <clayg>	that's so annoying
+Th11 08 04:55:06 <notmyname>	fungi: thanks. back from lunch, and I'm looking now
+Th11 08 04:56:08 <dfisher>	well, i can certainly try to hammer the '!H' in and see what happens
+Th11 08 04:58:18 <timburke>	huh. i find it a little disconcerting that there's no reference to endianness in https://docs.python.org/2/library/array.html
+Th11 08 04:59:25 <timburke>	for that matter, "!H" isn't referenced either :-(
+Th11 08 05:02:34 *	jamielennox|away is now known as jamielennox
+Th11 08 05:04:21 <jrichli>	timburke: re: timestamps - which user-provided timestamp?  i guess that it wasn't a Unix Epoch timestamp?
+Th11 08 05:06:37 <timburke>	jrichli: peak at the... third related change. we were parsing a user-provided header (either x-amz-date or, if that wasn't present, Date)
+Th11 08 05:06:57 <jrichli>	ok, thx
+Th11 08 05:12:33 <pdardeau>	timburke: dfisher: and just because '!H' works for struct packing/unpacking doesn't mean it's valid for array :/
+Th11 08 05:12:53 <dfisher>	still poking at it.  results in a sec...
+Th11 08 05:12:56 <notmyname>	fungi: https://review.openstack.org/#/c/394600/ and https://review.openstack.org/#/c/394601/ have passed the checks!
+Th11 08 05:12:57 <patchbot>	patch 394600 - openstack-infra/project-config - enable xfs for swift in-process functests
+Th11 08 05:12:58 <patchbot>	patch 394601 - openstack-infra/project-config - add python-jobs-with-xfs for swift
+Th11 08 05:17:41 <notmyname>	fungi: is there any way to run swift through those without having them land in infra first?
+Th11 08 05:28:47 <timburke>	hmm. i guess we need to make a call to byteswap()? looks like array.array wants a character, not a string
+Th11 08 05:31:06 <dfisher>	yeah, changing to !H didn't seem to make a difference
+Th11 08 05:31:38 <dfisher>	sparc:   'replica2part2dev_id': [array('H', [0, 0, 256, 256, 0, 256,
+Th11 08 05:31:38 <dfisher>	x86:  'replica2part2dev_id': [array('H', [0, 0, 1, 1, 0, 1, 1, 0,
+Th11 08 05:31:38 <patchbot>	Error: Missing "]".  You may want to quote your arguments with double quotes in order to prevent extra brackets from being evaluated as nested commands.
+Th11 08 05:31:39 <patchbot>	Error: Missing "]".  You may want to quote your arguments with double quotes in order to prevent extra brackets from being evaluated as nested commands.
+Th11 08 05:31:47 <dfisher>	^ ha
+Th11 08 05:32:17 <notmyname>	dfisher: someday I'll rewrite patchbot to be smarter
+Th11 08 05:32:49 <dfisher>	seems pretty smart to me.
+Th11 08 05:32:54 <dfisher>	smarter than I am, anyway :)
+Th11 08 05:33:17 <jrichli>	por patchbot gets no luv :-( 
+Th11 08 05:35:48 <dfisher>	timburke: my paste.openstack.org has the byteswap() patch in it.  http://paste.openstack.org/show/588319/
+Th11 08 05:36:08 <pdardeau>	&patchbot-not-so-fussy; don't freak out about my non-matching [
+Th11 08 05:36:09 <patchbot>	Error: Missing "]".  You may want to quote your arguments with double quotes in order to prevent extra brackets from being evaluated as nested commands.
+Th11 08 05:40:15 <fungi>	notmyname: you could run the script from mount-tmp-with-xfs before running `tox -e py27`
+Th11 08 05:40:33 <torgomatic>	notmyname: what if you made the xattrs patch depend on those infra ones? I'm totally guessing here; I have no idea how any of that works.
+Th11 08 05:41:08 <torgomatic>	I mean, I know some things... but "will a pending job-specifier patch get used if it's a dependency of a Swift patch" is not anywhere in there
+Th11 08 05:41:26 <fungi>	notmyname: my main concern with this is that if our underlying job infrastructure relies on files places in /tmp prior to starting the job payload, it could get confused once it can no longer find them later. i'll try to find out if that will pose a problem
+Th11 08 05:42:01 <notmyname>	fungi: yeah, that seems like a totally reasonable concern. TBH I was a little surprised linux let me do it :-)
+Th11 08 05:51:19 <clayg>	timburke: wow so https://github.com/eventlet/eventlet/pull/354 is acctaully pretty epic
+Th11 08 05:52:57 <timburke>	was it? idk. i had a much worse time with that UTC/stdlib-doesn't-know-what-timezone-it's-in thing
+Th11 08 05:53:14 <clayg>	timburke: first learning for me was that eventlet has some dynamic patching of stuff like getaddrinfo if you have dnspython installed -> oh crap or at least it *used* to (!?) https://github.com/eventlet/eventlet/blob/4872be77001bde7b393f8973779a15c65ce36086/eventlet/green/socket.py#L22
+Th11 08 05:53:19 <clayg>	now it just bundles dnspython!?
+Th11 08 05:54:56 <timburke>	clayg: you're welcome? https://github.com/eventlet/eventlet/pull/341
+Th11 08 05:55:17 <clayg>	timburke: second learning for me at least is that dnspython compleatly reimplements stuff like getaddrinfo - which is like... glibc stuff
+Th11 08 05:58:14 <clayg>	probably just a sign that I need to do better reading the eventlet change lots
+Th11 08 05:58:18 <clayg>	*changelogs
+Th11 08 06:03:12 <dfisher>	so, here's a random question that i've wondered about for awhile … why does swift use rsync to keep data nodes updated instead of something like libtorrent?
+Th11 08 06:10:22 <clayg>	dfisher: i'm not really sure there's a direct comparison to be made between the rsync client/server and the torrent *library* - rsync was choosen as the basis for data movement back in ~09 because it was broadly comfortable for the devops that would be running cloud files - always assuming it would be replaced when needed
+Th11 08 06:11:14 *	dfisher nods
+Th11 08 06:11:18 <clayg>	dfisher: and in fact SSYNC and now REPCON (hummingbird) are going down that path
+Th11 08 06:11:27 <dfisher>	cool
+Th11 08 06:12:01 <dfisher>	 just figured that the idea of torrents for data would be more efficient than rsync, especially as more storage nodes are brought online
+Th11 08 06:12:03 <clayg>	dfisher: FWIW no one then or now really likes the rsync *protocol* - but since swift only moves whole files i'm not sure it matters that much
+Th11 08 06:12:35 <clayg>	dfisher: but both SSYNC and REPCONN are still following the same basic "push" model that the rsync replicators employ
+Th11 08 06:13:38 <clayg>	dfisher: I'm not sure anyone has experiemented much to determine if an entire partition could be "pulled" from multiple replica peers in some fashsion that'd be more "efficient" along an axis where there's a need to optomise
+Th11 08 06:14:40 <dfisher>	sure.  there's probably an inflection point where if you < X nodes, rsync is probably as good if not better than a torrent-esque solution (ignoring things like network speeds for now)
+Th11 08 06:14:53 <dfisher>	if you have* < X nodes
+Th11 08 06:15:03 <clayg>	dfisher: mostly you just have three primary nodes - the "swarm" effect (lots of hosts/nics/disks all "participating" in the filling of new capacity) mostly comes from the placement algorightm and doing a good job managing incoming streams
+Th11 08 06:18:03 <clayg>	dfisher: yeah I suppose if your cluster had an asymmetric link it would become more important for all three replicas of a partition to some how "coordinate" to push subsets of the partition during a rebalance if you don't want to way for a 1:1 push of each part - but again since you're taking 100-1000-10K's of parts onto a single node - you can normally mostly overwhelm whatever resource you're aiming to overwhelm pretty easi
+Th11 08 06:20:15 <clayg>	a big part of what the hummingbird replicator is trying to tackle is reducing disk reads that are only tanginially related to the transfer of data during rebalance
+Th11 08 06:22:29 <abalfour1>	sorry, had to run to get eyeballs checked. so it appears the general consensus is that the ring file should be endian agnostic, correct? so I should file a bug?
+Th11 08 06:24:01 <notmyname>	abalfour1: yes you should file a bug so that we can track it. but I'm not sure that the resolution is to make the ring byte-order agnostic
+Th11 08 06:24:06 <clayg>	abalfour1: yeah I think it's a bug - how critical is this for you?
+Th11 08 06:24:30 <abalfour1>	well, I have a horrible hack fix that I think dfisher pasted in here. So I can get it to work for me now. :)
+Th11 08 06:24:48 <clayg>	abalfour1: oh that worked!?
+Th11 08 06:24:56 <abalfour1>	the byteswap(), yep. 
+Th11 08 06:25:01 <clayg>	oh...
+Th11 08 06:25:02 <notmyname>	(eg the resolution might be "don't do that" and document and print warnings about building a ring on a different architecture than prod machines)
+Th11 08 06:25:09 <abalfour1>	it's just the check to see if we need to do the byteswap() is gross.
+Th11 08 06:25:52 <abalfour1>	both archiretcures are prod, btw.
+Th11 08 06:26:07 <abalfour1>	we have a swift cluster with x86 and sparc nodes. 
+Th11 08 06:26:51 <abalfour1>	we figured we get cute and pregenerate the ring files and have puppet plop them on all the nodes.
+Th11 08 06:26:59 <abalfour1>	and it failed in humerous ways. :)
+Th11 08 06:28:00 <clayg>	abalfour1: that's really awesome
+Th11 08 06:28:17 <abalfour1>	thanks. 
+Th11 08 06:28:21 <notmyname>	hmm...if you build the ring on each architecture with the same seed value, it would give the same effective results. but md5 checks would be different
+Th11 08 06:28:28 <abalfour1>	correct
+Th11 08 06:28:29 <notmyname>	(right?)
+Th11 08 06:28:34 <clayg>	abalfour1: can something in sys. tell us the byte of the machine?
+Th11 08 06:28:40 <abalfour1>	sys.byteorder
+Th11 08 06:28:54 <abalfour1>	but, we can't tell what byteorder the file was generated with, I don't think.
+Th11 08 06:28:55 <clayg>	abalfour1: I would be fine with the ring file growing a field to say which one it is is - and on load it byteswaps based on != my.byteorder
+Th11 08 06:29:01 <abalfour1>	oh, cool.
+Th11 08 06:29:06 <notmyname>	clayg: yeah, that's it
+Th11 08 06:29:21 <clayg>	great all over but the typing
+Th11 08 06:29:42 <abalfour1>	ok, I'll file the bug, code it up and submit the patch. 
+Th11 08 06:29:48 <abalfour1>	thanks for looking at it!
+Th11 08 06:29:48 <clayg>	abalfour1: NICE!
+Th11 08 06:30:37 <notmyname>	clayg right now: https://i.imgflip.com/kzxw3.jpg
+Th11 08 06:30:50 <notmyname>	abalfour1: thanks :-)
+Th11 08 06:30:51 <abalfour1>	now that's just mean. :)
+Th11 08 06:30:53 <dfisher>	abalfour as management is a *terrifying* thought
+Th11 08 06:31:01 <clayg>	virtualbox is shit - i bet vmware player or whatever the kids use can toally make a big endian sparc cpu
+Th11 08 06:31:06 <dfisher>	i've worked with him for 13 years now.  that's the last thing ANYBODY wants.
+Th11 08 06:31:38 <dfisher>	clayg:  ebay a T2000 + solaris 11.3 ;)
+Th11 08 06:31:39 <notmyname>	clayg: what's funny is that the same company that makes virtualbox also owns sparc ;-)
+Th11 08 06:31:41 <clayg>	abalfour1: forgive notmyname - he sorta "is" upper management - he doesn't realize it's mostly insulting to the rest of us
+Th11 08 06:31:46 <notmyname>	lol
+Th11 08 06:31:54 <dfisher>	sorry, abalfour and I work for Sun.
+Th11 08 06:31:55 <clayg>	notmyname: ;)
+Th11 08 06:32:02 <clayg>	rofl
+Th11 08 06:32:11 *	dfisher sobs quietly
+Th11 08 06:32:14 <clayg>	this is #$%^&ing rich - open source is fun
+Th11 08 06:32:15 <notmyname>	"sun"
+Th11 08 06:32:28 <dfisher>	my badge says Sun.
+Th11 08 06:32:33 *	dfisher continues to sob
+Th11 08 06:45:06 <openstackgerrit>	Merged openstack/swift: EC: reconstruct using non-durable fragments  https://review.openstack.org/376630
+Th11 08 06:45:56 <notmyname>	torgomatic: tdasilva: just remounting /tmp as XFS int he gate won't work. turns out a lot of the stuff infra does puts stuff in /tmp, so we can't blow it away
+Th11 08 06:46:11 <torgomatic>	notmyname: woo
+Th11 08 06:46:26 <torgomatic>	notmyname: can you get an XFS filesystem mounted somewhere else and set $TMPDIR?
+Th11 08 06:46:34 <notmyname>	torgomatic: tdasilva: new plan is to mount the xfs loopback somehwere else, set that to TMPDIR and pass TMPDIR through to the tests. it should probably work
+Th11 08 06:46:36 <notmyname>	yeah :-)
+Th11 08 06:47:11 <torgomatic>	notmyname: the good news is that TMPDIR is in tox's internal list of environment variables to allow through, so hopefully you won't need to mess with the passenv directive at all
+Th11 08 06:47:19 <notmyname>	oh cool
+Th11 08 06:47:34 <notmyname>	and so you'll probably be wondering, "are we good devs and we're just using the tempfile module/methods, or did we ever hard code /tmp somehwere?"
+Th11 08 06:48:46 <notmyname>	hint: it's not the good one
+Th11 08 06:49:19 <mattoliverau>	lol
+Th11 08 06:49:26 <notmyname>	it's probably fine, though
+Th11 08 06:50:49 <pdardeau>	notmyname: if you could just go ahead and send out the memo on that /tmp report that would be great! mmkay?
+Th11 08 06:51:31 <notmyname>	let me rephrase. it's not really fine, but it isn't likely to break test in the same way that not having xattrs does. tests should all work if we redefine TMPDIR
+Th11 08 06:54:28 <notmyname>	but there's a bit of stuff that should change
+Th11 08 06:54:46 <clayg>	notmyname: i bet timburke could come up with a creative python/sed script that will walk the testdir and rewrite and class TestFoo(unitest.TestCase) as TestFoo(unit.test.BaseTestCase) if you need that
+Th11 08 07:10:40 <openstackgerrit>	Pete Zaitcev proposed openstack/swift: Patch the policy through proxy operations  https://review.openstack.org/394685
+Th11 08 07:12:07 <notmyname>	nah, there's some hardcoded /tmp that should change tempfile.gettempdir()
+Th11 08 07:12:18 <notmyname>	tedious but not too bad
+Th11 08 07:14:11 *	jamielennox is now known as jamielennox|away
+Th11 08 07:28:03 <notmyname>	clayg: last one is https://github.com/openstack/swift/blob/master/swift/common/manager.py#L86
+Th11 08 07:28:17 <notmyname>	clayg: I'm not sure of impact of changing that to tempfile.gettempdir()
+Th11 08 07:28:21 <notmyname>	thoughts?
+Th11 08 07:30:16 <clayg>	... looking
+Th11 08 07:30:31 <clayg>	oh f - idk, creiht did that
+Th11 08 07:30:40 <notmyname>	oh ok
+Th11 08 07:30:48 <clayg>	notmyname: bottomline I think it doesn't matter so much for xfs :)
+Th11 08 07:31:08 <notmyname>	true
+Th11 08 07:31:08 <clayg>	oh oh - no probably tempfile.gettempdir() is probably fine
+Th11 08 07:31:38 <clayg>	oh, or not
+Th11 08 07:32:08 <clayg>	apparently I don't know thow that function works - the eggcache needs to be stable between invocations of the process
+Th11 08 07:32:30 <notmyname>	I'll set it to the gettempdir() location
+Th11 08 07:33:47 <clayg>	gettempdir() on mac is weird - is gettempdir on freebsd weird in general?
+Th11 08 07:43:40 <openstackgerrit>	John Dickinson proposed openstack/swift: Add checksum to object extended attributes  https://review.openstack.org/336323
+Th11 08 07:43:48 <notmyname>	torgomatic: there's the patch with /tmp remoced ^
+Th11 08 07:44:50 <notmyname>	oh, sweet. https://review.openstack.org/#/c/376630/ landed :-)
+Th11 08 07:44:51 <patchbot>	patch 376630 - swift - EC: reconstruct using non-durable fragments (MERGED)
+Th11 08 07:46:45 <notmyname>	I gotta go run an errand, but this is a good stopping point for today. I'll pick it up again (getting the -infra repo updated to have XFS somewhere other than /tmp) later this week
+Th11 08 08:09:34 <kota_>	good morning
+Th11 08 08:10:16 <kota_>	nice, patch 376630 landed.
+Th11 08 08:10:17 <patchbot>	https://review.openstack.org/#/c/376630/ - swift - EC: reconstruct using non-durable fragments (MERGED)
+Th11 08 08:10:29 <kota_>	will we have a new release?
+Th11 08 08:13:13 <clayg>	kota_: is that all the high/critical bugs we have outstanding?
+Th11 08 08:14:38 <kota_>	clayg: let me check
+Th11 08 08:14:47 <openstackgerrit>	Clay Gerrard proposed openstack/swift: Make eventlet.tpool's thread count configurable in object server  https://review.openstack.org/289664
+Th11 08 08:15:05 <kota_>	clayg: 12 highs and... :/
+Th11 08 08:39:09 *	Disconnected (Connection timed out)
+**** ENDING LOGGING AT Tue Nov  8 08:39:09 2016
+
+**** BEGIN LOGGING AT Tue Nov  8 08:39:42 2016
+
+Th11 08 08:39:42 *	Now talking on #openstack-swift
+Th11 08 08:39:42 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th11 08 08:39:42 *	Topic for #openstack-swift set by notmyname (Wed Nov  2 06:09:34 2016)
+Th11 08 08:39:43 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th11 08 08:45:09 <clayg>	kota_: I guess I"m thinking about lp bug #1549110
+Th11 08 08:45:11 <openstack>	Launchpad bug 1549110 in OpenStack Object Storage (swift) "EC: object-reconstuctor got unhandled 0 divison error" [High,In progress] https://launchpad.net/bugs/1549110 - Assigned to Kota Tsuyuzaki (tsuyuzaki-kota)
+Th11 08 08:45:14 <clayg>	kota_:  that one finally bit me too!
+Th11 08 08:46:08 <kota_>	clayg: yeah,
+Th11 08 08:47:05 <clayg>	kota_: after I finally got to understanding the bug I wasn't entirely sure we shouldn't just avoid the zerodivision error by "fixing" the integer devision that's throwing out precision?
+Th11 08 08:47:26 <clayg>	basically the problem is that 1 / 2 != 0 except it does :'(
+Th11 08 08:48:30 <kota_>	yup
+Th11 08 08:48:33 <clayg>	kota_: normally I just stick a "1. *" in front of it and call it day
+Th11 08 08:49:12 <clayg>	i agree that stats reporting isn't quite right - but I'm not sure the change of making devices global for each policy is better?
+Th11 08 08:49:24 <clayg>	... but anything is better than the traceback followed by not maing reconstruction progress :'(
+Th11 08 08:50:17 <kota_>	clayg: ah, which is better reporting each policy vs global is a bit complicated because it may depend on the costomer policy
+Th11 08 08:50:55 <kota_>	clayg: what i found as problem in the bug is almostly a metrix is for a policy but others are global
+Th11 08 08:51:01 <clayg>	kota_:  how would you feel about "1. *" to fix lp bug #1549110 ASAP and then do something better for devices to address lp bug #1488608 (maybe raise the priority and reference the older change set from your work?)
+Th11 08 08:51:03 <openstack>	Launchpad bug 1549110 in OpenStack Object Storage (swift) "EC: object-reconstuctor got unhandled 0 divison error" [High,In progress] https://launchpad.net/bugs/1549110 - Assigned to Kota Tsuyuzaki (tsuyuzaki-kota)
+Th11 08 08:51:04 <openstack>	Launchpad bug 1488608 in OpenStack Object Storage (swift) "stats output in reconstructor.py gives wrong device count" [Low,Confirmed] https://launchpad.net/bugs/1488608 - Assigned to Bill Huber (wbhuber)
+Th11 08 08:51:15 <kota_>	and it causes 0 devision.
+Th11 08 08:51:34 <kota_>	ah, got it
+Th11 08 08:52:23 <kota_>	clayg: it might be good to separate the problem to 1. avoiding 0 division and 2. good stat logging.
+Th11 08 08:52:27 <kota_>	make sense.
+Th11 08 08:52:32 <clayg>	kota_:  I wasn't quite able to convince myself the integer devision thing *can't* bite you with one policy
+Th11 08 08:56:43 <clayg>	kota_: ok, maybe I can push a fix for zero devision bug and rebase your change on it?
+Th11 08 08:56:46 <kota_>	clayg: ok, will take a look... maybe today or tommorow-ish.  i need to switch my head from deep sea of Erasrure Coding and unfortunately i may not be able to take much time because of company meetings.
+Th11 08 08:56:57 <kota_>	clayg: that's great
+Th11 08 08:57:25 <clayg>	kota_: it's no problem!  I'll be joining you in deep EC land - today was my company meetings and other stuff day ;)
+Th11 08 08:57:58 <kota_>	clayg: thank you so much, man ;-)
+Th11 08 09:57:26 <openstackgerrit>	Clay Gerrard proposed openstack/swift: Fix stats calculation in object-reconstructor  https://review.openstack.org/283946
+Th11 08 09:57:26 <openstackgerrit>	Clay Gerrard proposed openstack/swift: Fix ZeroDivisionError in reconstructor.stats_line  https://review.openstack.org/394714
+Th11 08 10:11:38 <clayg>	kota_: ^ so i ended up rebasing your stats improvemnts onto the zero devision fix - I think this will work ok, but need to look at it again fresh in the am
+Th11 08 10:12:45 <clayg>	looking more closely at the other bug for stats processing it seems bill huber (remember him!) made the same diagnosis you did about needing to avoid resetting device count between runs
+Th11 08 10:12:49 <clayg>	g'night
+Th11 08 10:24:15 <kota_>	clagy: have a good night!
+Th11 08 10:24:19 <kota_>	thanks
+Th11 08 11:34:12 <clayg>	df -h
+Th11 08 12:20:40 *	ChanServ gives voice to notmyname
+Th11 08 14:03:27 *	tesseract is now known as Guest6570
+Th11 08 15:39:50 *	amoralej|off is now known as amoralej
+Th11 08 16:54:29 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+Th11 08 16:59:54 <openstackgerrit>	Gábor Antal proposed openstack/swift: Use more specific asserts in test/unit/common  https://review.openstack.org/342781
+Th11 08 17:19:58 <openstackgerrit>	Gábor Antal proposed openstack/swift: Use more specific asserts in test/unit/obj tests  https://review.openstack.org/342830
+Th11 08 17:29:43 *	ChanServ gives voice to notmyname
+Th11 08 17:46:30 *	acoles_ is now known as acoles
+Th11 08 18:38:18 <openstackgerrit>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+Th11 08 19:00:32 *	amoralej is now known as amoralej|lunch
+Th11 08 19:21:47 *	Guess456787654 is now known as NM
+Th11 08 19:22:27 *	NM is now known as HELP
+Th11 08 19:22:57 *	HELP is now known as Guest58324
+**** ENDING LOGGING AT Tue Nov  8 20:02:39 2016
+
+**** BEGIN LOGGING AT Thu Dec 15 13:07:09 2016
+
+Th12 15 13:07:09 *	Now talking on #openstack-swift
+Th12 15 13:07:09 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th12 15 13:07:09 *	Topic for #openstack-swift set by openstackstatus (Wed Dec 14 00:03:12 2016)
+Th12 15 13:07:09 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th12 15 13:27:20 <openstackgerrit>	Tuan Luong-Anh proposed openstack/swift: Remove xrange for run both Python 2 and Python 3  https://review.openstack.org/385285
+Th12 15 13:38:54 <openstackgerrit>	Christopher Bartz proposed openstack/python-swiftclient: prefix-based tempurls support  https://review.openstack.org/408596
+Th12 15 15:08:45 <openstackgerrit>	Pavel Kvasnička proposed openstack/swift: Optimize hash calculation when suffix hash invalidated  https://review.openstack.org/402043
+Th12 15 15:10:28 <openstackgerrit>	Pavel Kvasnička proposed openstack/swift: Optimize hash calculation when suffix hash invalidated  https://review.openstack.org/402043
+Th12 15 15:25:56 <openstackgerrit>	wangxiyuan proposed openstack/python-swiftclient: Typo fix  https://review.openstack.org/411161
+Th12 15 15:51:52 *	amoralej|off is now known as amoralej
+Th12 15 15:58:29 <timss>	tdasilva: not me on twitter (@tjdett), but his question is definitely related!
+Th12 15 17:18:42 *	acoles_ is now known as acoles
+Th12 15 17:49:35 *	asettle__ is now known as asettle
+Th12 15 17:53:22 <openstackgerrit>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+Th12 15 18:15:29 <openstackgerrit>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+Th12 15 19:21:45 <openstackgerrit>	Gábor Antal proposed openstack/swift: Use more specific asserts in test/unit/common  https://review.openstack.org/342781
+Th12 15 20:11:24 *	amoralej is now known as amoralej|lunch
+Th12 15 21:10:04 *	amoralej|lunch is now known as amoralej
+Th12 15 22:45:38 <openstackgerrit>	Ondřej Nový proposed openstack/pyeclib: Prevent division by zero in tests  https://review.openstack.org/411394
+Th12 15 22:59:19 <notmyname>	good morning
+Th12 15 22:59:20 <notmyname>	acoles: has the sun set yet?
+Th12 15 23:05:42 <notmyname>	Swift 2.12.0 was tagged last night
+Th12 15 23:50:27 <acoles>	notmyname: :) it has now, 2 mins after you asked
+Th12 15 23:50:43 <notmyname>	well, at least I beat it today :-)
+Th12 15 23:55:53 <acoles>	notmyname: first part of this week actually had the earliest sunsets of the year, they are now getting later but sunrise gets later too until the solstice
+Th12 15 23:56:51 <notmyname>	interesting
+Th12 15 23:57:22 <acoles>	notmyname: looks like for you the earliest sunset was last week
+Th12 15 23:57:47 <notmyname>	I guess I just assumed that solar noon was fairly constant with 12:00, instead of shorter daylight hours that are shifted later in the day
+Th12 15 23:58:31 <notmyname>	reminds me of this that I saw from portante last week https://www.youtube.com/watch?v=82p-DYgGFjI
+Th12 15 23:58:46 <openstackgerrit>	Pavel Kvasnička proposed openstack/swift: Optimize hash calculation when suffix hash invalidated  https://review.openstack.org/402043
+Th12 16 01:06:53 <clayg>	acoles: PavelK: nice work on patch 402043 - looks like it's really coming along
+Th12 16 01:06:54 <patchbot>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+Th12 16 01:07:13 <clayg>	that title should really be "fix terrible performance regression in ..."
+Th12 16 01:10:53 <acoles>	clayg: PavelK: fyi I am out tomorrow so won't get back to that patch til next week. thanks for the updates PavelK 
+Th12 16 01:22:18 <timburke>	good morning
+Th12 16 01:22:34 <notmyname>	hola
+Th12 16 01:22:46 <clayg>	it's raining over here
+Th12 16 01:24:02 <notmyname>	ewww
+Th12 16 01:24:10 <notmyname>	that's why I'm sitting on my couch right now
+Th12 16 01:28:24 *	amoralej is now known as amoralej|off
+Th12 16 01:34:39 <tdasilva>	clayg: it's a balmy 20F here (w/ wind chill feels like 3F)
+Th12 16 01:35:04 <tdasilva>	good thing summit is not until may!
+Th12 16 01:35:52 <clayg>	tdasilva: you're crazy
+Th12 16 01:39:56 <timburke>	in madison, it's currently 4F, with a high of 8. i'm glad i moved
+Th12 16 01:41:35 <krypt0N>	hello all any idea when would "swift post test" give Container 'test' not found .But same container appears  in swift list
+Th12 16 01:56:21 <notmyname>	krypt0N: could be weirdness like a trailing space or newline that's not being properly handled in the shell
+Th12 16 01:57:34 <krypt0N>	notmyname on horizon also i see same behaviour
+Th12 16 01:58:21 <notmyname>	krypt0N: if I were seeing that, i'd use curl and/or get a json listing from the container, just to see what's there
+Th12 16 01:59:27 <krypt0N>	ClientException: Container POST failed: http://swift.sitec.com:8080/v1/AUTH_6942bc459383496baf5e0b98c1245507/5 404 Not Found  [first 60 chars of response] <html><h1>Not Found</h1><p>The resource could not be found.<
+Th12 16 01:59:28 <krypt0N>	INFO:urllib3.connectionpool:Resetting dropped connection: swift.sitec.com
+Th12 16 02:05:51 <clayg>	what you talking about container "5"
+Th12 16 02:07:42 <clayg>	also the lack of https makes me think this is some sort of dev/test environment - so maybe you can get at some swift logs and try and find a transaction id or something?  maybe there is some sort of os-storage-url something going on 
+Th12 16 02:21:13 *	acoles away til Monday
+Th12 16 02:23:05 *	acoles is now known as acoles_
+Th12 16 02:33:24 <openstackgerrit>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+Th12 16 02:45:06 <openstackgerrit>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+Th12 16 02:52:40 <openstackgerrit>	Tim Burke proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+Th12 16 02:58:02 <jrichli>	timburke: its 8F where I am currently, so about the same.  and I actually walked .6 miles to work this morning when it was 0F.  :-)
+Th12 16 03:53:03 <clayg>	jrichli: I thought you were in texas!?
+Th12 16 04:01:23 <jrichli>	not this week : Chicago
+Th12 16 04:18:58 <MooingLemur>	something for some reason I didn't foresee before trying to convert swift nodes from Gentoo to CentOS, the swift uid/gid is different.
+Th12 16 04:19:01 <MooingLemur>	so much fun :3
+Th12 16 04:48:32 <mattoliverau>	morning
+Th12 16 04:50:24 <openstackgerrit>	Merged openstack/python-swiftclient: Typo fix  https://review.openstack.org/411161
+Th12 16 04:57:24 <mattoliverau>	MooingLemur: oh yeah.. that sounds like fun... you can set a specific uid/gid when creating the user, so you could add it to your provisioning. 
+Th12 16 05:47:04 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/python-swiftclient: Updated from global requirements  https://review.openstack.org/89250
+Th12 16 06:47:01 *	jamielennox is now known as jamielennox|away
+Th12 16 06:51:35 *	jamielennox|away is now known as jamielennox
+Th12 16 07:15:22 <notmyname>	cschwede: your local police can take great pictures https://twitter.com/alauraschneider/status/809129305850707968
+Th12 16 07:29:12 *	Jeffrey4l_ is now known as Jeffrey4l
+Th12 16 07:54:34 <MooingLemur>	mattoliverau: yeah, CentOS has already standardized the Swift uid/gid number, so that's what everything's being changed to.  It's just a one-time 3 days of pain per box for the conversion :P
+Th12 16 07:55:02 <mattoliverau>	:(
+Th12 16 07:58:26 *	jamielennox is now known as jamielennox|away
+Th12 16 08:02:21 *	jamielennox|away is now known as jamielennox
+Th12 16 08:06:39 <kota_>	ood morning
+Th12 16 08:06:43 <kota_>	good
+Th12 16 08:08:01 <kota_>	congrats 2.12.0 release. not yet check CHANGELOG. just starting
+Th12 16 08:42:20 *	jamielennox is now known as jamielennox|away
+Th12 16 08:48:07 *	jamielennox|away is now known as jamielennox
+Th12 16 08:56:06 <mattoliverau>	kota_: morning
+Th12 16 08:56:46 <kota_>	mattoliverau: o/
+Th12 16 08:59:47 <kota_>	mattoliverau: btw, could you review again patch 283946?
+Th12 16 08:59:48 <patchbot>	https://review.openstack.org/#/c/283946/ - swift - Fix stats calculation in object-reconstructor
+Th12 16 09:00:02 <kota_>	i updated the patch to address your comments.
+Th12 16 09:00:08 <mattoliverau>	kota_: yes, yes I can. Will do that after lunch :) 
+Th12 16 09:02:02 <kota_>	mattoliverau: thx!
+Th12 16 09:42:12 <openstackgerrit>	zhangyanxian proposed openstack/python-swiftclient: Fix typo in shell.py  https://review.openstack.org/411590
+Th12 16 09:42:52 <openstackgerrit>	zhangyanxian proposed openstack/python-swiftclient: Fix typo in shell.py  https://review.openstack.org/411590
+Th12 16 14:58:45 *	tesseract is now known as Guest31304
+Th12 16 15:07:40 *	jamielennox is now known as jamielennox|away
+Th12 16 15:08:35 <mahatic_>	jrichli: thanks for pointing out the previous convo on rmdir on "remove empty db hash..", I kinda missed it :)
+Th12 16 15:10:18 <mahatic_>	it somehow fell off the radar, I thought I read it all :P
+Th12 16 15:15:04 *	jamielennox|away is now known as jamielennox
+Th12 16 15:31:49 *	amoralej|off is now known as amoralej
+**** ENDING LOGGING AT Fri Dec 16 16:33:24 2016
+
+**** BEGIN LOGGING AT Mon Dec 19 08:47:34 2016
+
+Th12 19 08:47:34 *	Now talking on #openstack-swift
+Th12 19 08:47:34 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th12 19 08:47:34 *	Topic for #openstack-swift set by openstackstatus (Wed Dec 14 00:03:12 2016)
+Th12 19 08:47:35 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th12 19 13:14:18 *	silor1 is now known as silor
+Th12 19 14:05:48 *	tesseract is now known as Guest33254
+Th12 19 14:26:55 <circ-user-oWpLl>	hi all, i installed swift with keystone.. but i m getting error when i try swift stat.. i m using mitaka version.. the error is "Unable to establish connection to $swiftURL"
+Th12 19 14:27:16 <circ-user-oWpLl>	its authenticating with keystone.. but couldnt enter into swift
+Th12 19 14:31:40 <openstackgerrit>	Merged openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+Th12 19 14:55:21 <openstackgerrit>	Tuan Luong-Anh proposed openstack/swift: Replace six iteration methods with standard ones  https://review.openstack.org/375344
+Th12 19 15:16:22 <mahatic_>	jrichli: doing good, thanks. Happy holidays! No plans for me as such, we don't have any holidays in India
+Th12 19 15:16:56 <mahatic_>	mathiasb: np, nice work!
+Th12 19 16:09:14 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+**** BEGIN LOGGING AT Tue Dec 20 09:23:21 2016
+
+Th12 20 09:23:22 *	Now talking on #openstack-swift
+Th12 20 09:23:22 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th12 20 09:23:22 *	Topic for #openstack-swift set by openstackstatus (Wed Dec 14 00:03:12 2016)
+Th12 20 09:23:22 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th12 20 10:09:03 *	jamielennox is now known as jamielennox|away
+Th12 20 10:23:16 *	jamielennox|away is now known as jamielennox
+Th12 20 11:15:11 <openstackgerrit>	pangliye proposed openstack/swift: Replace assertTrue with assertIs.  https://review.openstack.org/412734
+**** ENDING LOGGING AT Tue Dec 20 11:40:40 2016
+
+**** BEGIN LOGGING AT Tue Jan  3 10:59:40 2017
+
+Th01 03 10:59:40 *	Now talking on #openstack-swift
+Th01 03 10:59:40 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th01 03 10:59:40 *	Topic for #openstack-swift set by openstackstatus (Thu Dec 29 18:10:46 2016)
+Th01 03 10:59:40 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th01 03 12:54:01 *	jamielennox is now known as jamielennox|away
+Th01 03 13:01:34 *	jamielennox|away is now known as jamielennox
+Th01 03 14:03:51 <sknld>	hii all, I am uploading 10 objects of 16GB size to the swift with chunksize 536870912 bytes
+Th01 03 14:04:36 <sknld>	i am getting  issues "503 service unavialable" and "500 internal server error" 
+Th01 03 14:04:58 <sknld>	how to get rid of these errors
+Th01 03 14:05:06 <sknld>	please someone help
+**** ENDING LOGGING AT Tue Jan  3 19:34:44 2017
+
+**** BEGIN LOGGING AT Wed Jan  4 08:13:48 2017
+
+Th01 04 08:13:48 *	Now talking on #openstack-swift
+Th01 04 08:13:48 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th01 04 08:13:48 *	Topic for #openstack-swift set by openstackstatus (Thu Dec 29 18:10:46 2016)
+Th01 04 08:13:48 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th01 04 08:17:44 <kota_>	timburke: sounds good to take a longer vacation ;-)
+Th01 04 08:22:31 <dims>	timburke : ok, now i am at the same point as you i think - http://logs.openstack.org/00/412500/9/check/gate-tempest-dsvm-neutron-full-ubuntu-xenial/d453c3f/logs/screen-s-proxy.txt.gz
+Th01 04 08:57:47 <timburke>	dims: that actually seems more empty than i was expecting. i guess because it's running behind mod_wsgi? assuming i'm reading the log file correctly, i'm curious about what those 2376 bytes were from http://logs.openstack.org/00/412500/9/check/gate-tempest-dsvm-neutron-full-ubuntu-xenial/d453c3f/logs/apache/tls-proxy_access.txt.gz -- i wonder if that's where apache sends the traceback?
+Th01 04 08:59:11 <timburke>	at any rate, yeah, from the "error reading status line from remote server 104.130.222.169:8081" in http://logs.openstack.org/00/412500/9/check/gate-tempest-dsvm-neutron-full-ubuntu-xenial/d453c3f/logs/apache/tls-proxy_error.txt.gz, i expect swift is bombing out without calling start_response
+Th01 04 09:00:27 <dims>	timburke : gotcha. will have to figure out how to switch off tls-proxy or increase debug level 
+**** ENDING LOGGING AT Wed Jan  4 09:13:59 2017
+
+**** BEGIN LOGGING AT Wed Jan  4 09:55:45 2017
+
+Th01 04 09:55:45 *	Now talking on #openstack-swift
+Th01 04 09:55:45 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th01 04 09:55:45 *	Topic for #openstack-swift set by openstackstatus (Thu Dec 29 18:10:46 2016)
+Th01 04 09:55:45 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th01 04 10:52:32 *	jamielennox is now known as jamielennox|away
+Th01 04 11:01:08 *	jamielennox|away is now known as jamielennox
+Th01 04 11:14:53 <mahatic_>	good morning
+Th01 04 11:15:42 <mahatic_>	hope everyone had a good break. happy new year!
+Th01 04 11:19:15 <mahatic_>	jrichli: acoles_ mathiasb : conf call sounds good. I'm fine either way - gerrit/call
+Th01 04 11:19:59 <jrichli>	mahatic_: would 14:00 UTC be too late for you?
+Th01 04 11:20:29 <mahatic_>	jrichli: nope, I can take that
+Th01 04 11:21:09 <jrichli>	mahatic_: thanks, i appreciate it.  if you change your mind and want to  move it an hour earlier, we could swing that.
+Th01 04 11:21:40 <mahatic_>	jrichli: but I won't be available this Friday on that time, as I will be travelling for the weekend. Today/tomm or next week any day I'm fine
+Th01 04 11:22:28 <jrichli>	ok.  i wont be ready for doing this today.
+Th01 04 11:23:24 <jrichli>	we'll see if thursday would be ok with everyone, or see if next week is better
+Th01 04 11:23:30 <mahatic_>	sure, I understand
+Th01 04 11:23:42 <mahatic_>	jrichli: okay, thanks
+Th01 04 15:46:26 <mathiasb>	jrichli mahatic_ acoles_ : friday is also not good for me, but today, tomorrow and next week all work
+Th01 04 16:14:00 *	acoles_ is now known as acoles
+Th01 04 16:23:38 <acoles>	mahatic_: ack, thanks
+Th01 04 16:25:54 <acoles>	clayg: sorry you got bitten by bug 1652323. I spent the last few hours of my 2016 tracking that down :/ can't believe we had not seen it sooner
+Th01 04 16:25:55 <openstack>	bug 1652323 in OpenStack Object Storage (swift) "ssync syncs an expired object as a tombstone, probe test_object_expirer fails" [Medium,Confirmed] https://launchpad.net/bugs/1652323
+Th01 04 16:28:38 <acoles>	clayg: I'd like to discuss with you what the appropriate fix should be - so far my thinking is we need to make diskfile support optionally opening an expired object so that ssync can replicate the .data even when it has expired. I briefly flirted with having ssync send a .ts at the expiry time, but that could result in inconsistency with another node.
+Th01 04 16:32:15 *	acoles is now known as acoles_
+Th01 04 16:32:33 <sldk>	Hii all, I installed openstack swift mitaka on centos machines
+Th01 04 16:32:59 <sldk>	after that i configured swift3 by following https://github.com/openstack/swift3
+Th01 04 16:33:49 <sldk>	while restarting swift-proxy service i am getting the following error http://paste.openstack.org/show/593847/
+Th01 04 16:33:56 <sldk>	please someone help on this
+Th01 04 16:36:04 *	acoles_ is now known as acoles
+Th01 04 17:03:05 <acoles>	sldk: I'm not familiar with swift3 specifically but it looks like you don't have the middleware installed in entry points, so maybe you missed the 'sudo python setup.py install' step from here https://github.com/openstack/swift3#install
+Th01 04 17:04:08 <sldk>	acoles: I already executed "sudo python setup.py install"
+Th01 04 17:05:09 <sldk>	acoles: FYI i am following the same link what you have provided
+Th01 04 17:16:31 <acoles>	sldk: can you reproduce this http://paste.openstack.org/show/593849/ ? (i.e. list the swift3 entry points)
+Th01 04 17:19:03 <sldk>	acoles: here is my entry points http://paste.openstack.org/show/593850/
+Th01 04 17:23:51 <charz>	sldk: do you intent to use swift3 with keystone?
+Th01 04 17:24:20 <charz>	sldk: or just want to use swift with tempauth to do some tests?
+Th01 04 17:25:03 <charz>	sldk: if you want to use that with keystone, you need another middleware s3token and keystoneauth.
+Th01 04 17:25:50 <charz>	sldk: you need to add s3token to proxy-server.confg.
+Th01 04 17:28:31 <sldk>	Yes, we want to use use swift3 with keystone
+Th01 04 17:29:03 <sldk>	We have already added s3token and keystoneauth in proxy-server.config
+Th01 04 17:29:39 <charz>	sldk: okay, you should able to find s3token in swift3.
+Th01 04 17:30:53 <sldk>	charz: This is the s3 token section
+Th01 04 17:31:12 <sldk>	[filter:s3token] use = egg:swift3#s3token auth_uri = http://192.168.0.4:35357/
+Th01 04 17:32:21 <sldk>	and below is the keystoneauth section
+Th01 04 17:32:25 <sldk>	[filter:keystoneauth]
+Th01 04 17:32:46 <sldk>	use = egg:swift#keystoneauth
+Th01 04 17:33:05 <sldk>	operator_roles = admin,user
+Th01 04 17:33:21 <acoles>	sldk: ok, so you entry points map does not have swift3#s3token, and it looks like s3token was moved into swift3 in v1.11, so check you have latest version of swift3
+Th01 04 17:35:40 <sldk>	acoles : Our swift3 version shows Version: 1.11.0.dev491
+Th01 04 17:36:39 <ksam>	Hi, I am looking for internal working for replicator using rsync, in openstack-swift. Like I want to know when I want to add a object to swift, how and when the object is present in primary nodes and how the rsync is used to replicate to secondary nodes (2 nodes, if the replication == 3)?
+Th01 04 17:37:47 <acoles>	sldk: I can see you have asked in #swift3, those guys are unlikely to be awake right now so try there again in US west coast or Japan daytimes
+Th01 04 17:38:11 <ksam>	I was not able to find any documentation about it? Any link would be helpful. It is very hard to follow the source code.
+Th01 04 17:38:17 <ksam>	Okay, sure thank you
+Th01 04 17:38:30 <sldk>	acoles : Thanks for the info.
+Th01 04 17:39:30 <acoles>	ksam: http://docs.openstack.org/developer/swift/overview_replication.html
+Th01 04 17:41:16 <acoles>	ksam: in normal operation all 3 primary nodes would have a replica at completion of the object PUT. replication only needs to copy between primary nodes when a replica is lost. that is detected by the nodes comparing hashes of their contents, then using rsync to push missing replicas.
+Th01 04 17:42:17 <ksam>	I was under the assumption that (for replicas = 3), there is 1 primary node and 2 secondary nodes
+Th01 04 17:43:02 <ksam>	So, when the primary node is copied over http, then rsync is used to sync btw primary and secondary
+Th01 04 17:50:21 <acoles>	ksam: no, the three nodes holding replicas are all referred to as primaries. client sends object to swift proxy via http, proxy writes a replica to each of 3 primary nodes. (in normal operation)
+Th01 04 17:52:10 *	acoles afk
+Th01 04 17:53:05 <ksam>	So, how does the proxy writes to 3 primary nodes in normal operation? Like one by one (Serially) or all 3 simultaneously? And when does the client gets back the ack of PUT command?
+Th01 04 18:14:40 <acoles>	ksam: proxy writes 3 replicas in parallel. client gets back an ack if at least 2 replica writes succeed (or in general a majority of replicas).
+Th01 04 18:15:23 <acoles>	ksam: (it's actually a little more complicated than that in terms of exactly when the client gets the ack, but that's the fundamental idea)
+Th01 04 18:21:13 <ksam>	Thanks a lot. A last question, Is following flow correct? For PUT command, 1. File from local pc to proxy,  2.From proxy to 3(num_replicas) primary nodes
+Th01 04 18:21:41 <acoles>	yes
+Th01 04 18:24:06 <ksam>	thanks
+Th01 04 18:31:11 <ksam>	So for replica = 3, If after getting back 2 acks, the client is shown success for PUT Command. What happens when 3 ack failed. Is this a case of node failure where rsync is need to transfer a copy to secondary node
+Th01 04 18:31:30 <ksam>	3rd*
+Th01 04 18:31:33 <ksam>	needed*
+Th01 04 18:32:47 <ksam>	It would be very helpful, If you can also suggests me some book or blog for more information about this. Thanks
+Th01 04 19:10:41 <acoles>	ksam you could try http://shop.oreilly.com/product/0636920033288.do
+Th01 04 20:01:21 <openstackgerrit>	Alistair Coles proposed openstack/swift: Fix flaky expirer probe test  https://review.openstack.org/416384
+Th01 04 20:02:00 <acoles>	clayg: changed the bug tag ^^
+Th01 04 21:14:53 <tdasilva>	good morning
+Th01 04 21:20:09 <jrichli>	tdasilva: good morning!  What do you think of 14:00 UTC either tomorrow or next week?  timburke: is that too early for you (re: keymaster v2 call)?
+Th01 04 21:24:55 <tdasilva>	jrichli: works for me :)
+Th01 04 21:25:20 <tdasilva>	might be a bit too early for timburke 
+Th01 04 21:26:08 <jrichli>	also kota_ : are you interested in joining a call we are planning to have about patch 364878?  If so, would 14:00 UTC be too late for you?
+Th01 04 21:26:09 <patchbot_>	https://review.openstack.org/#/c/364878/ - swift - Storing encryption root secret in Barbican
+Th01 04 21:27:06 <jrichli>	tdasilva: yes, i thought of that last night.  and then remembered, IIRC, we had our last crypto at that time so it would also be doable for kota_ 
+Th01 04 21:28:04 <tdasilva>	jrichli: yeah, scheduling meetings across TZs is always complicated
+Th01 04 21:30:07 <tdasilva>	jrichli: swift/tape conf. call meetings are happening at 0900 UTC, now that's early
+Th01 04 21:30:09 <tdasilva>	:)
+Th01 04 21:30:54 <jrichli>	yikes!
+Th01 04 21:53:00 <openstackgerrit>	Donagh McCabe proposed openstack/swift: Donagh McCabe has been reassigned to different project.  https://review.openstack.org/416577
+Th01 04 22:09:01 <openstackgerrit>	Donagh McCabe proposed openstack/swift: Donagh McCabe has been reassigned to different project.  https://review.openstack.org/416577
+Th01 04 22:14:28 <acoles>	https://imgflip.com/i/1h2g05
+Th01 04 22:16:19 <tdasilva>	donagh: sad to see you go, thank you for all your efforts with the project
+Th01 04 22:20:39 <asettle>	donagh: who is going to button up my jacket now?!
+Th01 04 22:35:12 <donagh>	asettle: Button it up yourself -- I only comitted to sewing it on
+Th01 04 22:36:25 <asettle>	donagh: And I'll never forget your dedication and commitment to the cause :p
+Th01 04 22:36:32 <donagh>	tdasilva: acoles: thanks
+Th01 04 23:06:54 <jrichli>	donagh: you will be very missed.  I wish you the very best!
+Th01 04 23:09:14 <donagh>	jrichli: thanks.
+Th01 04 23:13:34 <notmyname>	good morning
+Th01 04 23:15:39 <notmyname>	donagh: I'm sorry to see you go. good luck with what's next
+Th01 04 23:15:59 <donagh>	thanks
+Th01 04 23:34:34 <jasond>	in what case will swift respond with a 409 Conflict when an object deletion is requested?
+Th01 04 23:36:37 <notmyname>	jasond: when the existing object has a newer timestamp than the timestamp of the DELETE request
+Th01 04 23:37:13 <jasond>	notmyname: great, thank you!
+Th01 04 23:37:46 <notmyname>	jasond: if that's not expected, then check the system time on your servers. it's strongly recommended to keep them in sync (primarily the proxy servers)
+Th01 04 23:40:08 <jasond>	notmyname: good to know
+Th01 05 00:18:23 <openstackgerrit>	Takashi Kajinami proposed openstack/swift: Pass logger instances to AccountBroker/ContainerBroker  https://review.openstack.org/295875
+Th01 05 00:29:46 *	ChanServ gives voice to zaitcev
+Th01 05 00:31:26 <openstackgerrit>	Bryan Keller proposed openstack/swift: Allow Hacking H401, H403 check  https://review.openstack.org/416679
+Th01 05 00:39:18 <briancline>	clayg: wrt prometheus.io, yeah, was actually looking at that a few weeks ago. the need to use an exporter daemon for every individual 'thing' to expose metrics for struck me as overly complex. and the space-delimited format was kind of a downer too. but the central component of it seemed interesting
+Th01 05 00:43:08 <briancline>	would much rather see something like that have a bit more first-class support of push-based metrics. their argument for polling over pushing mostly makes sense, but polling is increasingly annoying at scale
+Th01 05 01:01:06 *	aleph1 is now known as agarner
+Th01 05 01:32:46 *	acoles is now known as acoles_
+Th01 05 01:45:52 <dcourtoi>	hi
+Th01 05 01:45:57 <dcourtoi>	https://opensource.googleblog.com/2017/01/grumpy-go-running-python.html
+Th01 05 01:47:23 <notmyname>	interesting
+Th01 05 01:48:53 <dcourtoi>	don't know why, I immediately thought about swift :)
+Th01 05 01:53:00 <notmyname>	dcourtoi: because it's called "grumpy"? ;-)
+Th01 05 01:56:15 <dcourtoi>	or maybe because I'm working with swift all day long ^^
+Th01 05 02:11:53 <dcourtoi>	or maybe because of that "This one comes from the recent rejection of a resolution proposing to add golang to the list of approved languages, to support merging the hummingbird feature branch into Swift's master branch. A more accurate way to present that decision would be to say that a (short) majority of the TC members was not supporting the addition of golang at that time and under the 
+Th01 05 02:11:54 <patchbot_>	Error: No closing quotation
+Th01 05 02:11:59 <dcourtoi>	proposed conditions. In summary it was more of a "not now, not this way" than a "never"."
+Th01 05 02:15:50 <timburke>	jrichli, tdasilva, et al.: yeah, 14:00 is going to be a bit too early for me. but i totally trust you guys to come up with a sensible plan without me :-)
+Th01 05 02:17:24 <timburke>	that trouble sldk (or was it sdlk? seems to vary by channel) was having seems strange. makes me wonder what SHA that was
+Th01 05 02:17:54 <zaitcev>	Makes me wonder what SLDK/SDLK is.
+Th01 05 02:18:15 <zaitcev>	I know what SDLC is though...
+Th01 05 02:19:34 <timburke>	zaitcev: who, rather than what. was looking for swift3 help ~10 hours back
+Th01 05 02:21:51 <zaitcev>	timburke: okay, I'm backing away slowly
+Th01 05 02:22:40 <timburke>	zaitcev: well, whoever it was doesn't seem to be here now, so i think you're safe ;-)
+Th01 05 02:33:33 <ghada>	hello
+Th01 05 02:37:47 *	nadeem_ is now known as nadeem
+Th01 05 02:37:57 *	ChanServ gives voice to glange
+Th01 05 02:56:02 <tdasilva>	i wish i read french: https://www.ovh.com/fr/cloud/storage/cloud-archive.xml
+Th01 05 03:08:29 <timburke>	seems like it must be tape-backed, given the low cost & high latency
+Th01 05 03:19:17 <tdasilva>	it does seem to refer to EC thou
+Th01 05 03:21:22 <timburke>	it definitely says something about splitting the objects into fragments, but EC alone doesn't take 12 hours
+Th01 05 03:21:39 <tdasilva>	right
+Th01 05 03:21:59 <notmyname>	if only rledisez were here
+Th01 05 03:25:26 <tdasilva>	timburke: i wonder if they could be shutting down stuff to save on power??
+Th01 05 03:31:58 <dcourtoi>	translation is coming soon ;)
+Th01 05 03:37:50 <dcourtoi>	yes, EC is involved, but I don't know which details I could disclose, you'll have to wait for rledisez :)
+Th01 05 03:56:24 <openstackgerrit>	Clay Gerrard proposed openstack/swift: Fix flaky expirer probe test  https://review.openstack.org/416384
+Th01 05 03:58:53 *	acoles_ is now known as acoles
+Th01 05 03:59:43 <notmyname>	swift meeting in 2 minutes in #openstack-meeting
+Th01 05 03:59:43 <kota_>	good morning
+Th01 05 03:59:47 <notmyname>	hello kota
+Th01 05 03:59:59 <kota_>	happy new year notmyname
+Th01 05 04:00:10 <notmyname>	kota_: thanks. you too :-)
+Th01 05 04:26:55 *	ChanServ gives voice to tdasilva
+Th01 05 04:29:23 *	ChanServ gives voice to joeljwright
+Th01 05 04:38:55 <openstackgerrit>	Merged openstack/swift: Allow Hacking H401, H403 check  https://review.openstack.org/416679
+Th01 05 04:50:43 <bkeller`>	^thanks clayg and zaitcev 
+Th01 05 04:50:50 <zaitcev>	what
+Th01 05 04:50:53 <zaitcev>	oh
+Th01 05 04:51:59 <joeljwright>	so, timburke, expiring segments, or pre/postamble first?
+Th01 05 04:52:12 <timburke>	joeljwright: up to you :-)
+Th01 05 04:52:14 <notmyname>	acoles: should we set https://bugs.launchpad.net/swift/+bug/1651530 to high or critical?
+Th01 05 04:52:16 <openstack>	Launchpad bug 1651530 in OpenStack Object Storage (swift) "suffix hash invalidation may be lost" [Undecided,New]
+Th01 05 04:52:34 <joeljwright>	ok, well I have the segment expiry one open
+Th01 05 04:53:34 <joeljwright>	I haven't looked at it since my comments, but there seemed to be a few odd things going on
+Th01 05 04:53:44 <clayg>	yeah that hashing thing is a big deal - i started to look at it
+Th01 05 04:54:10 <timburke>	on that one, i'm trying to figure out whether we have to HEAD before every POST. which would rather suck :-/
+Th01 05 04:54:23 <notmyname>	clayg: acoles says we need to go into a quiet room and think real hard about it
+Th01 05 04:54:34 <clayg>	notmyname: acoles is really smart
+Th01 05 04:54:58 <notmyname>	I set the bug to critical. it needs to be closed asap
+Th01 05 04:55:04 <clayg>	it is rather hard - the code was not super obvious to begin with 
+Th01 05 04:56:14 <clayg>	i kept thinking - no that can't be right - you must be able to just ... oh, no that doesn't work ... revert ... ok next line ... ; no that can't be right - you must just be able to ...
+Th01 05 05:06:49 <acoles>	notmyname: critical seems suitable, gates a release on getting this fix in
+Th01 05 05:07:58 <acoles>	good night
+Th01 05 05:08:34 *	acoles is now known as acoles_
+Th01 05 05:08:50 <dims>	notmyname : need your input here please https://review.openstack.org/#/c/416064/ (also see my update to the -dev list just now for some more context)
+Th01 05 05:08:51 <patchbot_>	patch 416064 - openstack-dev/devstack - Run Swift services under py35
+Th01 05 05:09:12 <dims>	notmyname : mtreinish and i are talking about it in the #openstack-qa channel
+Th01 05 05:10:43 <dims>	notmyname : please take a look and let us know
+Th01 05 05:37:09 <timburke>	quick question: would anyone (torgomatic, maybe?) be opposed to having SLO allow zero-byte segments to be specified by the client, but not actually record them in the on-disk manifest?
+Th01 05 05:37:12 <timburke>	following https://github.com/openstack/swift/commit/7f636a5 we may have (valid) SLOs on disk that can't be copied (or POSTed to, with post-as-copy) because they *end* with a zero-byte segment
+Th01 05 05:38:35 <timburke>	the logical fix is to allow zero-byte segments, but it seems silly to bother recording them
+Th01 05 05:38:55 <joeljwright>	I have no issue with zer-byte segments at all
+Th01 05 05:39:04 <notmyname>	timburke: so a client can say "I want these bytes, then a million of range 0-0 from foo/bar, then swift only records the first stuff and not the rest because there's no actual effective difference
+Th01 05 05:39:04 <patchbot_>	Error: No closing quotation
+Th01 05 05:39:05 <joeljwright>	as long as they're optimised out on read
+Th01 05 05:39:32 <timburke>	notmyname: range:0-0 still has one byte :-)
+Th01 05 05:39:37 <notmyname>	whatever
+Th01 05 05:39:39 <joeljwright>	you got there before me
+Th01 05 05:39:39 <notmyname>	;-)
+Th01 05 05:40:16 <joeljwright>	I can see valid uses for zero-byte segments in SLOs if we're using pre/post data as well...
+Th01 05 06:01:49 <torgomatic>	timburke: don't you need to record the zero-byte segments so the etag calculation doesn't change?
+Th01 05 06:12:26 *	jamielennox is now known as jamielennox|away
+Th01 05 06:15:25 *	jamielennox|away is now known as jamielennox
+Th01 05 06:16:52 <openstackgerrit>	Merged openstack/swift: Fix flaky expirer probe test  https://review.openstack.org/416384
+Th01 05 06:47:28 <openstackgerrit>	Matthew Treinish proposed openstack/swift: Use pbr console_script entrypoints for bin/ scripts  https://review.openstack.org/416776
+Th01 05 06:47:34 <mtreinish>	dims: ^^^
+Th01 05 06:47:45 <mtreinish>	it was a bit more involved than I orginally though
+Th01 05 06:47:46 <mtreinish>	t
+Th01 05 07:18:22 <openstackgerrit>	Matthew Treinish proposed openstack/swift: Use pbr console_script entrypoints for bin/ scripts  https://review.openstack.org/416776
+Th01 05 07:31:48 <openstackgerrit>	Matthew Treinish proposed openstack/swift: Use pbr console_script entrypoints for bin/ scripts  https://review.openstack.org/416776
+Th01 05 07:39:50 <dims>	mtreinish : ack thanks
+Th01 05 07:45:16 <mtreinish>	dims: although timburke brought up a good point the scripts still get their shebang adjusted with setuptools in the current setup.cfg
+Th01 05 07:46:00 <mtreinish>	the reason it's failing for us now with py35 is because lib/swift calls SWIFT_DIR/bin/* manually instead of the installed ones
+Th01 05 08:04:03 *	jamielennox is now known as jamielennox|away
+Th01 05 08:22:20 *	jamielennox|away is now known as jamielennox
+Th01 05 09:00:49 *	kota_ is back to online at his office
+**** BEGIN LOGGING AT Fri Jan  6 14:30:08 2017
+
+Th01 06 14:30:08 *	Now talking on #openstack-swift
+Th01 06 14:30:08 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th01 06 14:30:08 *	Topic for #openstack-swift set by openstackstatus (Thu Dec 29 18:10:46 2016)
+Th01 06 14:30:08 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th01 06 15:32:18 <PavelK>	Hi. Someone interested to review hash calculation optimization in object server? See patch 402043. Thanks
+Th01 06 15:32:19 <patchbot>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+Th01 06 15:33:04 *	EmilienM_ is now known as EmilienM
+Th01 06 15:38:50 *	wilhelm.freenode.net gives voice to openstackstatus jrichli swifterdarrell notmyname
+Th01 06 15:38:50 *	wilhelm.freenode.net gives voice to mattoliverau
+Th01 06 15:38:50 *	wilhelm.freenode.net gives channel operator status to ChanServ clayg
+Th01 06 15:38:50 *	wilhelm.freenode.net gives voice to redbo clayg
+**** BEGIN LOGGING AT Mon Jan 16 15:32:20 2017
+
+Th01 16 15:32:20 *	Now talking on #openstack-swift
+Th01 16 15:32:20 *	Topic for #openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+Th01 16 15:32:20 *	Topic for #openstack-swift set by openstackstatus (Fri Jan 13 03:54:20 2017)
+Th01 16 15:32:21 -ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+Th01 16 16:35:59 <openstackgerrit>	Kota Tsuyuzaki proposed openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+Th01 16 16:47:55 *	asettle is now known as Guest58506
+Th01 16 17:24:28 <openstackgerrit>	Andreas Jaeger proposed openstack/swift: Remove broken links  https://review.openstack.org/420625
+Th01 16 17:41:31 <openstackgerrit>	Merged openstack/swift: Tighten the move-one-replica test  https://review.openstack.org/419107
+Th01 16 17:43:28 <jcaron>	Hi everyone, I am Jean from OVH.com,
+Th01 16 17:43:29 <jcaron>	Some of our customers have the need to use a TXT resource record instead of the CNAME (middleware CNAME lookup)
+Th01 16 17:43:29 <jcaron>	How can this feature be properly implemented ? add the TXT lookup directly in middleware/cname_lookup.py ? rename the middleware (dns_lookup.py) ?
+Th01 16 17:43:29 <jcaron>	add a new middleware dedicated for the TXT lookup (code replication .. ) ?
+Th01 16 17:43:29 <jcaron>	thanks for your incoming advices
+Th01 16 18:13:17 *	asettle is now known as Guest74297
+Th01 16 18:53:38 *	asettle_ is now known as asettle
+Th01 16 19:37:56 <openstackgerrit>	Merged openstack/swift: Removed redundant 'is'  https://review.openstack.org/420561
+Th01 16 19:38:04 <openstackgerrit>	Merged openstack/swift: Cleanup tests from empty suffix quarantined db fix  https://review.openstack.org/405134
+Th01 16 19:38:12 <openstackgerrit>	Merged openstack/swift: Remove broken links  https://review.openstack.org/420625
+Th01 16 21:09:18 <openstackgerrit>	Kota Tsuyuzaki proposed openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+Th01 16 21:10:42 <kota_>	sorry, cschwede i fixed pep8 error in the patch
+Th01 16 21:11:50 <cschwede>	kota_: thx, still LGTM!
+Th01 16 21:12:07 <kota_>	cschwede: thanks for your quick response!
+Th01 16 21:12:52 <kota_>	oops?
+Th01 16 21:12:56 <kota_>	still misindent???
+Th01 16 21:13:04 <kota_>	sorry, I may push wrong patch
+Th01 16 21:13:43 <cschwede>	kota_: but the diff from 1 to 2 looks like it fixes the pep8 error? https://review.openstack.org/#/c/420607/1..2/swift/common/ring/builder.py
+Th01 16 21:13:43 <patchbot>	patch 420607 - swift - Fix unnecessary for-loop and mis docs
+Th01 16 21:14:09 <openstackgerrit>	Kota Tsuyuzaki proposed openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+Th01 16 21:14:32 <cschwede>	http://logs.openstack.org/07/420607/2/check/gate-swift-pep8-ubuntu-xenial/ce4d0a7/console.html#_2017-01-16_14_10_45_007670
+Th01 16 21:14:32 <kota_>	cschwede: I thought but i got mistake again
+Th01 16 21:14:48 <kota_>	cschwede: patch 3 should pass pep8
+Th01 16 21:15:22 <cschwede>	ah yes, patch #1 fixed one of the two lines. makes sense
+Th01 16 21:17:14 <kota_>	cschwede: yeah, sorry. my mistake, again.
+Th01 16 21:17:23 <kota_>	my head seems to go sleep :/
+Th01 16 21:19:52 <cschwede>	kota_: well, all good things come in threes - pep8 passed :)
+Th01 16 21:20:03 <kota_>	yey
+Th01 16 21:21:19 <kota_>	cschwede: thanks!
+Th01 16 21:22:10 *	kota_ is going to offline
+Th01 16 21:25:53 *	acoles_ is now known as acoles
+Th01 16 21:38:17 <acoles>	clayg: jrichli: git branch | wc -l == 137 :P
+Th01 16 21:39:34 <acoles>	kota_: actually the reclaim age patch 374419 didn't land yet, just some associated tests, but looks like cschwede may be on it :)
+Th01 16 21:39:35 <patchbot>	https://review.openstack.org/#/c/374419/ - swift - Move documented reclaim_age option to correct loca...
+Th01 16 21:50:19 <kota_>	acoles: oh, really
+Th01 16 22:11:35 <cschwede>	acoles: indeed, i was looking at that patch! and with your and mahatic's comments i'm fine merging that patch - it's in the gate now :)
+Th01 16 22:12:45 <mahatic>	cschwede: thanks for looking at it!
+Th01 16 22:25:09 <acoles>	cschwede: thanks!
+Th01 16 23:10:12 *	bkeller`_ is now known as bkeller`
+Th01 16 23:17:53 <timburke>	good morning
+Th01 16 23:23:11 <mahatic>	timburke: good morning. Isn't it a holiday in the US?
+Th01 16 23:23:55 <timburke>	i've got something i need to fix for a release this week :-)
+Th01 16 23:24:08 <mahatic>	oic :)
+Th01 16 23:37:18 <openstackgerrit>	Merged openstack/swift: Move documented reclaim_age option to correct location  https://review.openstack.org/374419
+Th01 16 23:37:27 <openstackgerrit>	Merged openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+Th01 16 23:54:45 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+Th01 17 00:15:10 <clayg>	morning
+Th01 17 00:46:30 <openstackgerrit>	Clay Gerrard proposed openstack/swift: Pretend *some* parts min_part_hours_passed  https://review.openstack.org/311226
+Th01 17 00:58:49 <clayg>	kota_: part of the need for the mockig was because on dev it's pretty easy to get a mtime that == on modified files :\
+Th01 17 00:59:48 <clayg>	kota_: in patch 419787 I found using the files inode number to be a bit more reliable and works the same as python stdlib os.path.samefile
+Th01 17 00:59:49 <patchbot>	https://review.openstack.org/#/c/419787/ - swift - Better optimistic lock in get_hashes
+Th01 17 01:01:15 <clayg>	kota_: in particular I guess PavelK had a particularlly low resolution mtime on a COW filesystem (containers) and found the test to be unreliable w/o the mocks
+Th01 17 01:13:05 <acoles>	clayg: I am going to try to loop back to those ^^ suffix hashing patches this week - we're still preferring your 4 (or 5?) separated patches right? I saw your +2 come then go on patch 402043.
+Th01 17 01:13:06 <patchbot>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+Th01 17 01:13:24 <clayg>	acoles: idk :'(
+Th01 17 01:17:26 <acoles>	clayg: heh you got a +2 on one of them patch 418692
+Th01 17 01:17:26 <patchbot>	https://review.openstack.org/#/c/418692/ - swift - Optimize noop case for suffix rehash
+Th01 17 01:18:23 <acoles>	and +1 from Pavel
+Th01 17 01:18:33 <acoles>	so maybe I'll start there
+Th01 17 01:21:27 <clayg>	jesus
+Th01 17 01:22:20 <clayg>	one of the main reasons I was sure we should pull these apart was because we had multiple bug fixes squashed in with a *minor performance enhancement*
+Th01 17 01:22:31 <clayg>	so naturally everyone starts with that ;)
+Th01 17 01:23:17 <timburke>	may as well pick off the easy one, right? :P
+Th01 17 01:29:37 <acoles>	oh gerrit!
+Th01 17 01:31:27 <clayg>	oh look!  now acoles can review ring patches -> p 420607
+Th01 17 01:31:27 <patchbot>	https://review.openstack.org/#/c/420607/ - swift - Fix unnecessary for-loop and mis docs (MERGED)
+Th01 17 01:31:34 *	acoles attempts to infer useful info from "Related Changes"
+Th01 17 01:32:27 <acoles>	clayg: I knew it's a public holiday over there, I didn't know it was national take the p day :)
+Th01 17 01:34:33 <clayg>	acoles: I had to google
+Th01 17 01:34:51 <acoles>	really? TIL
+Th01 17 01:36:17 <clayg>	yeah i'm not sure there's an exactly equivilent 'merican expression https://en.wikipedia.org/wiki/Taking_the_piss
+Th01 17 01:38:37 <acoles>	clayg: huh. toodle-pip :P
+Th01 17 01:40:11 *	acoles is now known as acoles_
+Th01 17 02:28:44 <clayg>	you 
+Th01 17 02:28:49 <clayg>	`
+Th01 17 02:29:08 <clayg>	~
+Th01 17 02:29:13 <clayg>	whoa!
+Th01 17 02:30:02 <clayg>	i've learned recently that `<return>~.` is some magic when you ssh connection goes to sleep - but while trying to remember the corect sequence apparently my ssh connection was re-established - computers are funny
+Th01 17 02:30:27 <clayg>	cschwede: did you ever figure out the thing with openstack-client slowness with swift download?
+Th01 17 02:32:19 <openstackgerrit>	Clay Gerrard proposed openstack/swift: Better optimistic lock in get_hashes  https://review.openstack.org/419787
+Th01 17 02:32:30 <clayg>	^ just a spelling error
+Th01 17 02:33:03 <clayg>	aside from patch 418691 - I think patch 419787 is the most imporant in the sequence
+Th01 17 02:33:04 <patchbot>	https://review.openstack.org/#/c/418691/ - swift - Fix performance regression with hash invalidations
+Th01 17 02:33:05 <patchbot>	https://review.openstack.org/#/c/419787/ - swift - Better optimistic lock in get_hashes
+Th01 17 02:33:09 <clayg>	... if you're prioritizing
+Th01 17 02:33:21 <clayg>	of course they both depend on patch 418689
+Th01 17 02:33:21 <patchbot>	https://review.openstack.org/#/c/418689/ - swift - Extract test pattern to helper
+Th01 17 02:35:06 <lespaul>	Hello. I'm trying to create a container using a storage policy however, I'm getting a 400 Bad Request Invalid X-Storage-Policy-Index 2. I can create a container with the default policy fine. Any ideas?
+Th01 17 02:35:43 <clayg>	lespaul: client api uses the names in /info
+Th01 17 02:35:51 <clayg>	x-storage-policy: <name>
+Th01 17 02:35:53 <clayg>	or alias
+Th01 17 02:36:54 <lespaul>	the name matches fine though. i didn't put any alias, it's commented out.
+Th01 17 02:37:11 <lespaul>	ok let me double check..
+Th01 17 02:37:24 <clayg>	oh - maybe the backend is rejecting it - sorry - restart object servers?
+Th01 17 02:37:29 <clayg>	... or reload
+Th01 17 02:45:53 <lespaul>	once i put an object into a container, is there a command to show which nodes/drives the replicas are contained?
+Th01 17 02:54:47 <clayg>	lespaul: swift-get-nodes is pretty good for that - it'll list ring primaries and handoffs
+Th01 17 02:55:13 <clayg>	lespaul: you can then query them to see which nodes it landed on (generally the primaries unless you're multi-region write_affinity or something went wrong)
+Th01 17 03:08:08 <clayg>	debating if I should try again to consolidate all the suffix hashing fixes or give up and review ec fragment duplication...
+Th01 17 03:14:47 <PavelK>	clayg: hi. I'm not sure tha I understand what means +A patch - should I abandon patch 402043?
+Th01 17 03:14:48 <patchbot>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+Th01 17 03:38:28 <openstackgerrit>	Merged openstack/swift: Confirm receipt of SLO PUT with etag  https://review.openstack.org/390901
+Th01 17 03:39:23 <clayg>	PavelK: idk :'(
+Th01 17 03:40:21 <clayg>	PavelK: what do you think about the getmtime vs. stat/inode/samefile check?
+Th01 17 03:41:03 <clayg>	oh, you +1'd it
+Th01 17 03:41:50 <openstackgerrit>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+Th01 17 03:42:28 <PavelK>	clayg: yes, thats fine - if you merge idea of patch 418691 on it
+Th01 17 03:42:29 <patchbot>	https://review.openstack.org/#/c/418691/ - swift - Fix performance regression with hash invalidations
+Th01 17 03:42:45 <clayg>	yeah, i haven't really come up with a diff I like to merge them :'(
+Th01 17 03:45:34 <clayg>	you'd think the safe_get_inode and read_hashes helpers would make it easier - but idk - there's still this weird schizophrenic thing were we want safe_get_inode under the directory lock but we also want to flag do_listdir/set-hashes-{} and safe_get_inode of any existing file when something goes wrong in consolidate hashes
+Th01 17 03:46:53 <clayg>	I *think* I want like "with dir_lock: try: hashes = _do_consolidate; except Exception: reset-the-business; inode = safe_get_inode()"
+Th01 17 03:46:59 <clayg>	... maybe that's it...
+Th01 17 03:51:31 *	ChanServ gives voice to zaitcev
+Th01 17 03:51:45 <PavelK>	I'm not sure that dir_lock should hold the caller - once can someone forget to lock it. So I preffer function "give me hashes and something how I can compare that it was not changed when I lock the dir later".  
+Th01 17 03:52:10 <lespaul>	clayg: it worked, thanks. where would i find documentation for the more esoteric commands in swift?
+Th01 17 03:52:15 <clayg>	except if something goes wrong in conslidate hashes you still need the inode
+Th01 17 03:52:31 <PavelK>	may be
+Th01 17 03:52:38 <clayg>	you could say "call conslidate hashes and have it return the thing - then if that goes wrong go get it anyway"
+Th01 17 03:54:18 <clayg>	I think you can still make a function that does both "safe_conslidate_hashes_and_get_inode" - but you can method extract that to just do what I had above (lock, _private_unsafe_conslidate, safe_get_inode) - and have it return all the state you need (maybe empty hashes, state-indicating-do_listdir, inode)
+Th01 17 03:55:20 <clayg>	anyway - i'm less worried about cleanliness than correctness - but I need something understandable to reason about correctness
+Th01 17 03:55:56 <clayg>	at a minimum patch 402043 is missing the test(s) form https://review.openstack.org/#/c/419787/4/test/unit/obj/test_diskfile.py
+Th01 17 03:55:57 <patchbot>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+Th01 17 03:55:58 <patchbot>	patch 419787 - swift - Better optimistic lock in get_hashes
+Th01 17 03:56:15 <clayg>	... but I didn't even notice those tests were needed until you pointed it out to me in the split up changes!
+Th01 17 03:56:20 <PavelK>	I'm scared of picle.loads(.pkl) CPU utization, but I'm sure that there are more important thinks where you can spend time
+Th01 17 03:56:37 <clayg>	CPU?  those files are *tiny*
+Th01 17 03:57:45 <PavelK>	You know it better than me :-)
+Th01 17 03:58:29 <clayg>	i mean they have to be?  suffixes are fixed width - 0xfff - how long can it take to pickle deserialize that?
+Th01 17 03:58:51 *	clayg wishes he was timburke could cook up one of those cute timeit lines in 2 seconds
+Th01 17 04:00:48 <timburke>	i dunno, but it looks like we've had trouble with pickle being slow before -- https://bugs.launchpad.net/swift/+bug/1031954
+Th01 17 04:00:50 <openstack>	Launchpad bug 1031954 in OpenStack Object Storage (swift) "Slow Ring Loading in 2.7 due to Ring Unpickling" [High,Fix released] - Assigned to Darrell Bishop (darrellb)
+Th01 17 04:00:58 *	jamielennox|away is now known as jamielennox
+Th01 17 04:03:52 <clayg>	https://gist.github.com/clayg/c6a5c41b12c7f0c4075386d3f23d6d81
+Th01 17 04:04:31 <clayg>	cPickle is definately faster 
+Th01 17 04:04:49 <PavelK>	clayg: yes, it should be small. I don't know swift well, I just little know diskfile.py :-). I'm leaving a comment near to patch that read_pickle can be placed next to write_pickle helper - and it seems good for me
+Th01 17 04:05:44 <clayg>	PavelK: I thought about putting it in utils - but didn't want to try and go fix the updater to use it
+Th01 17 04:05:45 <PavelK>	thanks for hard argument!
+Th01 17 04:05:51 <timburke>	clayg: yeah, cschwede et al. totally figured it out. the follow-up was https://review.openstack.org/#/c/416249/
+Th01 17 04:05:52 <patchbot>	patch 416249 - keystoneauth - Prevent MemoryError when logging response bodies (MERGED)
+Th01 17 04:06:10 <clayg>	timburke: thanks - i found some reference to that on the bug
+Th01 17 04:06:24 <clayg>	timburke ... and I saw that one also merged ...
+Th01 17 04:07:27 <clayg>	PavelK: thanks for pointing out all these bugs!
+Th01 17 04:07:39 <clayg>	and all your help with the solution and review
+Th01 17 04:08:37 <PavelK>	"It's my work" :-)
+Th01 17 04:08:58 <clayg>	... and for not stopping to push on finishing the rest of the cleanup!
+Th01 17 04:09:33 <clayg>	lol @ "it's a damn good thing I'm paid to put up with these %$$holes"
+Th01 17 04:10:25 <PavelK>	clayg: I have not answer for my first question - what to do with old messed patch? Close it as abandoned or what you mean with "+A it"
+Th01 17 04:12:48 <clayg>	PavelK: I apparently can't bring myself to +A patch 402043 as is - I could try to come up with a list of things that would need to be addressed - but ultimately it's just "what is the diff applied ontop of patch 402043 that makes me comfortable with the end state"
+Th01 17 04:12:49 <patchbot>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+Th01 17 04:12:50 <patchbot>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+Th01 17 04:13:12 <clayg>	if I had that diff I'd probably just push it up as a follow up and tell gerrit to merge your patch
+Th01 17 04:13:36 <clayg>	all this crap and all these extra patches and non-sense was me struggling to come up with the followup diff
+Th01 17 04:14:29 <clayg>	if the split up patches got some traction - because they were easier to review - it would have validated that splitting them up was the right way to go - and maybe it'd be easier to iterate and merge the fixes seperately
+Th01 17 04:14:47 <clayg>	but... we're ... 3-4 working days in on that?
+Th01 17 04:15:14 <clayg>	and I've learned it's hard to merge some of the changes together (we were just talking about it - my split patches conflict with each other - we can't just merge them all w/o a rebase)
+Th01 17 04:15:20 <clayg>	so it's a big $%^&*ing mess
+Th01 17 04:15:32 <clayg>	so I'm not going to tell you the right thing to do - because I have no idea
+Th01 17 04:21:43 <clayg>	PavelK: notmyname can attest this whole thing has been a bit of an existential crisis for me
+Th01 17 04:22:25 <clayg>	but no one seems to want to tell me how we should proceed either
+Th01 17 04:26:05 <ahale>	well, i have mostly no idea what you're doing since i havent paid any attention to swift for ages, but i think its cool you're looking at hashes stuff clayg, it used to give me nightmares sometimes. and i also think the coolest parts of swift are the hard bits when noone knows cos its not been done before 
+Th01 17 04:29:31 <clayg>	ahale: not me, PavelK 
+Th01 17 04:29:42 <clayg>	+1 PavelK is awesome for looking at the hard stuff
+Th01 17 04:29:54 <ahale>	thats how little attention i have paid! , yeah +1 to that :)
+Th01 17 04:54:19 <PavelK>	clayg: conflicts was the reason why I made one patch. But I think that your patches can be merged independently and the fourth - "inode" can be rebased on them and merged later.
+Th01 17 04:56:11 <PavelK>	clayg: So I leave my patch as is and abandon it after your patches were merged, right?
+Th01 17 04:57:20 <clayg>	heh, idk == "I don't know" ;)
+Th01 17 04:57:52 <clayg>	maybe folks are scared to review the other suffix fixes because they think I get frustrated things are moving to slowly and go +A you patch anyway (I totaly might!)
+Th01 17 05:00:47 <clayg>	for the moment I'm trying to review patch 219165 (look at the size of the diff to proxy test_server !?)
+Th01 17 05:00:48 <patchbot>	https://review.openstack.org/#/c/219165/ - swift - EC Fragment Duplication - Foundational Global EC C...
+Th01 17 05:14:53 *	ChanServ gives voice to jrichli
+Th01 17 05:29:43 <jrichli>	yay, bouncer restored :-)
+Th01 17 05:38:51 <clayg>	wtf is frags_by_byte_order?
+Th01 17 05:39:07 <clayg>	like ... endianness !?
+Th01 17 05:57:13 <lespaul>	Hello. I uploaded an object to my cluster (6 nodes w/ 2 drives each). I ran swift-get-nodes and found the replicas on the target nodes. I then powered of 2 of the nodes w/ replicas. I checked swift-get-nodes again and it still lists the same. Should the replica be copied to the handoff nodes?
+Th01 17 05:57:37 <lespaul>	*Shouldn't
+Th01 17 06:17:40 <lespaul>	I don't think swift-get-nodes shows accurate information. If I run swift-get-nodes -a /etc/swift/ <ring.gz> <account> then make up a non-existent container and object, a result is still displayed. Thoughts? 
+Th01 17 06:37:09 <torgomatic>	lespaul: swift-get-nodes just performs a ring lookup and shows you the results; it might be where a thing that exists is, it might be where a thing that exists will be after replication, or it might be where a thing that does not exist would go if you created it
+Th01 17 06:48:14 <notmyname>	hello, world
+Th01 17 06:51:57 <lespaul>	torgomatic: that makes sense. is there a command that will give a real-time location of the replicas or fragments?
+Th01 17 07:16:55 <torgomatic>	lespaul: you can run those curl commands that swift-get-nodes spits out and that'll tell you what's where, but AFAIK there's nothing to automate that for a single object
+Th01 17 07:17:26 <torgomatic>	swift-dispersion-report does that for the entire cluster
+Th01 17 07:24:13 <clayg>	r with swift-dispersion-report or something similar you can always make the call to remove dead-not-coming-back nodes from the ring will reassign the primaries
+Th01 17 07:24:27 <clayg>	...
+Th01 17 07:24:44 <clayg>	weird..
+Th01 17 07:25:18 <clayg>	i was trying to say that powering off the nodes won't trigger over-replication - the assumption is unavailability - not a loss in durability
+Th01 17 07:25:50 <clayg>	if you start over-replication on split brain or network congestion or timeout you can fill up your cluster pretty quick
+Th01 17 07:26:59 <clayg>	... and then lastly yeah - if overall partition health dictates - you always have the option to make a ring change to remove the downed nodes and rebalance
+Th01 17 07:42:23 <kota_>	morning
+Th01 17 07:46:08 <notmyname>	if i'm reading the ML correctly, it looks like we need to tag a swiftclient release this week
+Th01 17 07:48:50 <clayg>	notmyname: do you?  i missed that?
+Th01 17 07:50:16 <notmyname>	from http://lists.openstack.org/pipermail/openstack-dev/2017-January/110218.html
+Th01 17 07:50:22 <mattoliverau>	notmyname: richard said this morning he needs to tag or organise a release for horizon this week, so yeah, we probably do.
+Th01 17 07:50:35 <notmyname>	Library projects should be branched with, or shortly after, their
+Th01 17 07:50:35 <notmyname>	  final release this week (use Jan 19 as the deadline)
+Th01 17 07:51:14 <clayg>	are we releasing Octocat this week?
+Th01 17 07:51:38 <notmyname>	no
+Th01 17 07:51:44 <clayg>	scared me
+Th01 17 07:51:55 <notmyname>	but they always want the library projects to release quite a bit earlier
+Th01 17 07:52:49 <notmyname>	oh! I think we have another week https://releases.openstack.org/ocata/schedule.html
+Th01 17 07:52:58 <notmyname>	this is "non-client libraries"
+Th01 17 07:54:17 <mattoliverau>	\o/ now get back to watching a talk or something :P
+Th01 17 07:55:51 <notmyname>	anyone can watch https://linux.conf.au/stream
+Th01 17 08:18:40 <kota_>	clayg: here?
+Th01 17 08:18:51 <clayg>	kota_: hi kota_ :D
+Th01 17 08:19:00 <kota_>	hi clayg
+Th01 17 08:19:10 <kota_>	I'm now looking/condidering about the patch https://review.openstack.org/#/c/418690/
+Th01 17 08:19:11 <patchbot>	patch 418690 - swift - Fix race in new partitions detecting new/invalid s...
+Th01 17 08:20:30 <kota_>	exactly, we should move to drop for using getmtime for file validation (i mean not modified since the last reference)
+Th01 17 08:20:55 <kota_>	clayg: but not sure I could follow your idea completely
+Th01 17 08:21:27 <kota_>	clayg: because the shell for-loop looks to report nothing you expected
+Th01 17 08:21:29 <clayg>	kota_: my thought was just that that change needs to mock getmtime or else it doesn't pass reliably
+Th01 17 08:21:42 <kota_>	clayg: the console log is https://gist.github.com/bloodeagle40234/2239939c6cb42b6b23635936a427ef34
+Th01 17 08:22:05 <clayg>	kota_: oic, on my machine with your diff applied (to drop the getmtime mocking) it fails predicably for me
+Th01 17 08:22:12 <kota_>	clayg: it looks like, all tests passed for 10 times, correctly
+Th01 17 08:22:13 <clayg>	the test works for me as written
+Th01 17 08:22:28 <clayg>	... only fails if I remove the getmtime mocking
+Th01 17 08:22:30 <kota_>	clayg: i ran it with my patch
+Th01 17 08:23:01 <clayg>	perhaps your computer is slower than mine ;)  or your mounted filesystem has better getmtime resolution?
+Th01 17 08:23:21 <kota_>	clayg: and then, I just checked also the situation Pavel reported (i.e. getmtime could increment the mtime in LXC), https://gist.github.com/bloodeagle40234/9eaf53aac466003cc8e6c43b0a0f66b2
+Th01 17 08:24:02 <clayg>	kota_: well I think that as long as you force it to be bigger the mock works
+Th01 17 08:24:10 <kota_>	it also doesn't fail, because even if we got different mtime there, IIRC, it's ok if no new entry comming to invalidation file?
+Th01 17 08:24:19 <clayg>	it's only when the filesystem might return the same mtime for a file that was modified will you loose the second update
+Th01 17 08:25:07 <kota_>	clayg: ah, my laptop may be slower.... though :/

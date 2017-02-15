@@ -1,0 +1,1558 @@
+T 1476787398 19*	Now talking on 22#openstack-glance
+T 1476787398 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1476787398 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1476787425 24*	trananhkma has quit (Remote host closed the connection)
+T 1476787439 24*	stack_ has quit (Remote host closed the connection)
+T 1476787448 20*	You are now known as 18trananhkma
+T 1476787563 23*	david-lyle (~david_lyl@host-67-217-8-253.beyondbb.com23) has joined
+T 1476787580 24*	tsymanczyk has quit (Quit: Connection closed for inactivity)
+T 1476787606 24*	david-lyle has quit (Read error: Connection reset by peer)
+T 1476787648 23*	david-lyle (~david_lyl@host-67-217-8-253.beyondbb.com23) has joined
+T 1476787698 24*	david-lyle has quit (Read error: Connection reset by peer)
+T 1476787736 23*	david-lyle (~david_lyl@host-67-217-8-253.beyondbb.com23) has joined
+T 1476787741 24*	david-lyle has quit (Read error: Connection reset by peer)
+T 1476787970 19*	Now talking on 22#openstack-glance
+T 1476787970 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1476787970 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1476787994 19*	Now talking on 22#openstack-glance
+T 1476787994 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1476787994 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1476788286 18<openstackgerrit18>	Tomoki Sekiyama proposed openstack/glance_store: Add functional tests for cinder  https://review.openstack.org/329825
+T 1476788287 18<openstackgerrit18>	Tomoki Sekiyama proposed openstack/glance_store: Move rootwrap config files from etc/* into etc/glance/*  https://review.openstack.org/329823
+T 1476792222 24*	28jamielennox is now known as 18jamielennox|away
+T 1476794135 24*	28jamielennox|away is now known as 18jamielennox
+T 1476806753 24*	28tesseract is now known as 18Guest85855
+T 1476811766 18<openstackgerrit18>	Ravi Shekhar Jethani proposed openstack/glance: Provide user friendly message for FK failure  https://review.openstack.org/299209
+T 1476883293 19*	Now talking on 22#openstack-glance
+T 1476883293 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1476883293 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1476883397 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1476883685 24*	ducttape_ has quit (Ping timeout: 265 seconds)
+T 1476883888 23*	GB21 (~gb21@182.75.112.20223) has joined
+T 1476883929 24*	btully has quit (Ping timeout: 260 seconds)
+T 1476851780 23*	btully (~btully@ool-18e42df5.dyn.optonline.net23) has joined
+T 1476853311 24*	TravT_ has quit (Remote host closed the connection)
+T 1476853352 23*	TravT (~TravT@73.95.139.1323) has joined
+T 1476853551 23*	ratailor (~ratailor@116.75.7.5023) has joined
+T 1476853559 24*	ratailor has quit (Client Quit)
+T 1476853578 23*	ratailor (~ratailor@116.75.7.5023) has joined
+T 1476853615 24*	TravT has quit (Ping timeout: 260 seconds)
+T 1476853848 23*	raginbaj- (~raginbaji@104.236.243.14923) has joined
+T 1476856286 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1476856317 24*	GB21 has quit (Ping timeout: 252 seconds)
+T 1476856542 24*	btully has quit (Ping timeout: 250 seconds)
+T 1476856595 24*	ducttape_ has quit (Ping timeout: 265 seconds)
+T 1476856631 23*	btully (~btully@ool-18e42df5.dyn.optonline.net23) has joined
+T 1476856858 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1476857060 23*	GB21 (~gb21@182.75.112.20223) has joined
+T 1476857236 19*	Now talking on 22#openstack-glance
+T 1476857236 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1476857236 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1476857282 19*	Now talking on 22#openstack-glance
+T 1476857282 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1476857282 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1476857479 23*	rcernin (rcernin@nat/redhat/x-nkikvjmryzjepsxv23) has joined
+T 1476857549 24*	clayton has quit (Ping timeout: 252 seconds)
+T 1476857650 23*	markvoelker (~markvoelk@62.175.141.158.static.user.ono.com23) has joined
+T 1476857920 24*	markvoelker has quit (Ping timeout: 250 seconds)
+T 1476858408 23*	belmoreira (~belmoreir@2001:1458:202:228::102:fed023) has joined
+T 1476858790 23*	markvoelker (~markvoelk@62.175.141.158.static.user.ono.com23) has joined
+T 1476859076 24*	markvoelker has quit (Ping timeout: 256 seconds)
+T 1476859086 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1476859102 23*	markvoelker (~markvoelk@62.175.141.158.static.user.ono.com23) has joined
+T 1476859617 23*	liwei (~liwei@103.10.86.23423) has joined
+T 1476859990 24*	kebray has quit (Ping timeout: 250 seconds)
+T 1476860160 23*	clayton (~coneill@pool-173-73-171-92.washdc.fios.verizon.net23) has joined
+T 1476860294 23*	kebray (~textual@72.32.180.18023) has joined
+T 1476860825 24*	groen692 has quit (Quit: groen692)
+T 1476860841 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1476860903 23*	tesseract (tesseract@nat/redhat/x-gwhzesoenmoohgjs23) has joined
+T 1476860926 24*	28tesseract is now known as 18Guest90211
+T 1476862386 18<openstackgerrit18>	liujunpeng proposed openstack/glance: Whenever possible translation should not be forced by use of six.text_type() on a message being used with a format string.  https://review.openstack.org/388498
+T 1476862620 18<openstackgerrit18>	liujunpeng proposed openstack/glance: Avoid Forcing the Translation of Translatable Variables  https://review.openstack.org/388498
+T 1476862630 FiSHLiM plugin unloaded
+T 1477303622 19*	Now talking on 22#openstack-glance
+T 1477303622 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1477303622 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1477304043 23*	btully (~btully@ool-18e42df5.dyn.optonline.net23) has joined
+T 1477304117 23*	ccesario (~ccesario@email.logicotelecom.net.br23) has joined
+T 1477304128 23*	mdavidson (~mdavidson@91.194.158.2123) has joined
+T 1477304792 24*	takedakn has quit (Ping timeout: 260 seconds)
+T 1477304948 24*	btully has quit (Ping timeout: 276 seconds)
+T 1477305660 23*	btully (~btully@ool-18e42df5.dyn.optonline.net23) has joined
+T 1477306336 23*	esmiurium (~e@45.63.76.10723) has joined
+T 1477306507 24*	btully has quit (Ping timeout: 265 seconds)
+T 1477306663 23*	namnh_ (~HoaiNam@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1478485632 19*	Now talking on 22#openstack-glance
+T 1478485632 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1478485632 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1478487460 24*	bkopilov has quit (Ping timeout: 250 seconds)
+T 1478487638 24*	bpokorny has quit (Quit: Connection closed for inactivity)
+T 1478488455 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478488754 24*	ducttape_ has quit (Ping timeout: 260 seconds)
+T 1478488762 23*	namnh (~HoaiNam@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1478489223 18<namnh18>	rosmaita, Are you free time, may I ask you a question about rolling-upgrade? :)
+T 1478490937 23*	links (~jaison@125.16.97.11323) has joined
+T 1478492086 20*	Disconnected (20Connection timed out)
+T 1478492116 19*	Now talking on 22#openstack-glance
+T 1478492116 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1478492116 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1478492270 23*	bkopilov (bkopilov@nat/redhat/x-zdkuoylmyleaxvnl23) has joined
+T 1478492478 24*	sdake has quit (Quit: My Mac has gone to sleep. ZZZzzz…)
+T 1478494026 23*	chlong (chlong|gon@nat/redhat/x-oxyzwkpanknoctoa23) has joined
+T 1478494446 23*	prateek (~parora@49.248.81.23223) has joined
+T 1478494446 24*	prateek has quit (Client Quit)
+T 1478495013 23*	GB21 (~gb21@180.151.103.21823) has joined
+T 1478495742 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478496034 24*	ducttape_ has quit (Ping timeout: 260 seconds)
+T 1478496329 24*	GB21 has quit (Ping timeout: 265 seconds)
+T 1478497068 23*	GB21 (~gb21@180.151.103.21823) has joined
+T 1478497111 23*	exploreshaifali (~shaifali@103.217.148.9723) has joined
+T 1478498068 23*	ratailor (~ratailor@116.75.11.5223) has joined
+T 1478498598 23*	rcernin (rcernin@nat/redhat/x-eioyhaeltdyfyzpz23) has joined
+T 1478501883 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1478501998 24*	wxy__ has quit (Read error: Connection timed out)
+T 1478502019 23*	namnh_ (~HoaiNam@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1478502044 23*	wxy__ (~wangxiyua@119.145.15.12123) has joined
+T 1478502170 24*	namnh has quit (Ping timeout: 260 seconds)
+T 1478502384 23*	tesseract (tesseract@nat/redhat/x-ytndnvirndqywkcu23) has joined
+T 1478502407 24*	28tesseract is now known as 18Guest71310
+T 1478502983 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478503019 23*	pcaruana (pcaruana@nat/redhat/x-hxjreegdnsmgfvgv23) has joined
+T 1478503247 24*	ducttape_ has quit (Ping timeout: 244 seconds)
+T 1478504496 23*	khamtamtun (~Android@182.232.109.9823) has joined
+T 1478504575 24*	khamtamtun has quit (Remote host closed the connection)
+T 1478504735 24*	GB21 has quit (Ping timeout: 244 seconds)
+T 1478504759 23*	belmoreira (~belmoreir@2001:1458:202:228::102:fed023) has joined
+T 1478506535 24*	hyakuhei has quit (Ping timeout: 256 seconds)
+T 1478507056 23*	hyakuhei (znc@gateway/shell/panicbnc/x-jiaveytwbsqxbwbf23) has joined
+T 1478507370 23*	namnh (~HoaiNam@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1478507523 24*	namnh_ has quit (Ping timeout: 250 seconds)
+T 1478508103 24*	chlong has quit (Ping timeout: 265 seconds)
+T 1478508354 -18openstackstatus/22#openstack-glance-	NOTICE: Gerrit is going to be restarted due to slowness and proxy errors
+T 1478508489 24*	openstackgerrit has quit (Remote host closed the connection)
+T 1478508496 23*	openstackgerrit (~openstack@review.openstack.org23) has joined
+T 1478508819 23*	GB21 (~gb21@182.75.112.20223) has joined
+T 1478509137 24*	hyakuhei has quit (Changing host)
+T 1478509137 23*	hyakuhei (znc@unaffiliated/robc23) has joined
+T 1478509137 24*	hyakuhei has quit (Changing host)
+T 1478509137 23*	hyakuhei (znc@gateway/shell/panicbnc/x-jiaveytwbsqxbwbf23) has joined
+T 1478509196 24*	zzzeek has quit (Quit: bye)
+T 1478509210 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1478509385 18<openstackgerrit18>	Kairat Kushaev proposed openstack/glance: Do not use service catalog for cache client  https://review.openstack.org/393229
+T 1478510232 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478510532 24*	ducttape_ has quit (Ping timeout: 244 seconds)
+T 1478511123 24*	markvoelker has quit (Remote host closed the connection)
+T 1478512524 23*	sdake (~sdake@128.107.241.18523) has joined
+T 1478512827 23*	sdake_ (~sdake@ip98-165-68-220.ph.ph.cox.net23) has joined
+T 1478512918 23*	e0ne (~e0ne@bl14-33-65.dsl.telepac.pt23) has joined
+T 1478512933 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1478512981 24*	sdake has quit (Ping timeout: 268 seconds)
+T 1478513443 23*	shaifali (~shaifali@103.217.148.4423) has joined
+T 1478513595 24*	exploreshaifali has quit (Ping timeout: 260 seconds)
+T 1478514327 24*	28sdake_ is now known as 18sdake
+T 1478516695 23*	tshefi (~tshefi@109.226.14.7823) has joined
+T 1478517174 24*	haplo37 has quit (Ping timeout: 260 seconds)
+T 1478517204 23*	nicolasbock (~nbock@67-133-86-3.dia.static.qwest.net23) has joined
+T 1478517297 23*	haplo37 (~haplo37@192.207.61.14523) has joined
+T 1478517386 23*	chlong (~chlong|go@110.173.238.21123) has joined
+T 1478517676 24*	shaifali has quit (Quit: Leaving)
+T 1478517892 23*	e0ne (~e0ne@194.213.110.8723) has joined
+T 1478518133 24*	bhagyashris has quit (Quit: Leaving)
+T 1478518218 24*	tshefi has quit (Ping timeout: 250 seconds)
+T 1478518355 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478518679 24*	markvoelker has quit (Ping timeout: 268 seconds)
+T 1478519243 24*	e0ne has quit (Ping timeout: 244 seconds)
+T 1478519253 24*	wxy__ has quit (Read error: Connection reset by peer)
+T 1478519279 23*	wxy__ (~wangxiyua@119.145.15.12123) has joined
+T 1478519739 23*	takedakn (~Thunderbi@p3073-ipbf2509souka.saitama.ocn.ne.jp23) has joined
+T 1478519863 23*	abhishek_k (~abhishek@121.241.234.223) has joined
+T 1478520411 24*	takedakn has quit (Quit: takedakn)
+T 1478520769 24*	ratailor has quit (Quit: Leaving)
+T 1478521295 24*	bkopilov has quit (Ping timeout: 260 seconds)
+T 1478521451 24*	kairat has quit (Read error: Connection reset by peer)
+T 1478521625 24*	namnh has quit (Remote host closed the connection)
+T 1478521892 23*	kairat (~kairat@91.207.132.7223) has joined
+T 1478522447 24*	sdake has quit (Changing host)
+T 1478522447 23*	sdake (~sdake@fedora/sdake23) has joined
+T 1478522620 24*	rcernin has quit (Quit: WeeChat 1.5)
+T 1478522638 23*	rcernin (rcernin@nat/redhat/x-vqgxthcxejeviunf23) has joined
+T 1478522772 24*	lin_yang has quit (Ping timeout: 245 seconds)
+T 1478522795 24*	GB21 has quit (Ping timeout: 260 seconds)
+T 1478522900 23*	lin_yang (uid131615@gateway/web/irccloud.com/x-qqcbsrzzdycbifla23) has joined
+T 1478523945 23*	ccesario (~ccesario@2804:4f8:0:abce:b41e:dd87:8c3a:e3fb23) has joined
+T 1478524214 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478524666 23*	edmondsw (~edmondsw@129.42.208.16723) has joined
+T 1478524679 23*	thiagolib (uid117865@gateway/web/irccloud.com/x-flmptyufpsqoyxja23) has joined
+T 1478524898 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478525779 24*	ducttape_ has quit (Remote host closed the connection)
+T 1478525932 24*	mvk has quit (Ping timeout: 260 seconds)
+T 1478526006 24*	links has quit (Ping timeout: 268 seconds)
+T 1478526475 24*	sdake has quit (Quit: My Mac has gone to sleep. ZZZzzz…)
+T 1478526755 23*	bkopilov (~bkopilov@bzq-79-181-117-50.red.bezeqint.net23) has joined
+T 1478527118 24*	Guest71310 has quit (Ping timeout: 244 seconds)
+T 1478527905 23*	mvk (mkrcmari@nat/redhat/x-ywodorlmqmjjatzi23) has joined
+T 1478527959 23*	Guest71310 (tesseract@nat/redhat/x-oygdundbvesdyeqw23) has joined
+T 1478528027 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478528275 24*	ducttape_ has quit (Remote host closed the connection)
+T 1478528321 24*	Guest71310 has quit (Quit: Leaving)
+T 1478528341 23*	tesseract (tesseract@nat/redhat/x-ubbizmktgpjjbggp23) has joined
+T 1478528364 24*	28tesseract is now known as 18Guest41117
+T 1478528536 24*	Guest41117 has quit (Client Quit)
+T 1478528866 23*	tesseract- (tesseract@nat/redhat/x-fezqaaxwkomhzjju23) has joined
+T 1478529237 24*	chlong has quit (Quit: Leaving)
+T 1478529895 23*	rvasilets___ (uid53574@gateway/web/irccloud.com/x-ciflyhsccxceiiud23) has joined
+T 1478530738 23*	ducttape_ (~ducttape_@2001:1998:860:100d:290f:40e5:bfca:73df23) has joined
+T 1478530836 24*	28alex_bash|pto is now known as 18alex_bash
+T 1478530962 24*	mvk has quit (Ping timeout: 244 seconds)
+T 1478531885 23*	mvk (mkrcmari@nat/redhat/x-kxihjkgjeteovtwj23) has joined
+T 1478532146 18<openstackgerrit18>	Alexander Bashmakov proposed openstack/glance: Added unit tests for disabled notifications in Notifier  https://review.openstack.org/354387
+T 1478532449 23*	exploreshaifali (~shaifali@103.217.148.4423) has joined
+T 1478532771 23*	aleph1 (~aleph1@104.236.74.17223) has joined
+T 1478532843 24*	28aleph1 is now known as 18agarner
+T 1478532913 23*	links (~jaison@114.143.86.16423) has joined
+T 1478533278 23*	rrecio (~rrecio@cpe-70-113-68-35.austin.res.rr.com23) has joined
+T 1478533289 24*	serverascode has quit (Ping timeout: 250 seconds)
+T 1478533344 24*	cargonza has quit (Ping timeout: 250 seconds)
+T 1478533345 24*	nikhil has quit (Ping timeout: 250 seconds)
+T 1478533345 24*	zhiyan has quit (Ping timeout: 250 seconds)
+T 1478533367 24*	lin_yang has quit (Ping timeout: 250 seconds)
+T 1478533368 24*	28raginbaj- is now known as 18raginbajin
+T 1478533393 24*	ameade has quit (Ping timeout: 250 seconds)
+T 1478533394 24*	clif_h has quit (Ping timeout: 250 seconds)
+T 1478533419 24*	fungi has quit (Ping timeout: 250 seconds)
+T 1478533419 24*	odyssey4me has quit (Ping timeout: 250 seconds)
+T 1478533420 24*	toan has quit (Ping timeout: 250 seconds)
+T 1478533494 23*	rrecio_ (~rrecio@72.32.180.17723) has joined
+T 1478533504 23*	zhiyan (sid37502@gateway/web/irccloud.com/x-uxxlfdzreyxglvbq23) has joined
+T 1478533535 23*	nikhil (sid145333@gateway/web/irccloud.com/x-isdrethpnwykxrcs23) has joined
+T 1478533559 24*	rrecio has quit (Ping timeout: 260 seconds)
+T 1478533563 23*	lin_yang (uid131615@gateway/web/irccloud.com/x-jevqhybcwjyxjwcl23) has joined
+T 1478533598 23*	cargonza (sid149795@gateway/web/irccloud.com/x-geaakdzuvwdsmyun23) has joined
+T 1478533637 23*	toan (~quassel@2001:4800:7818:103:32bc:145a:657e:e14623) has joined
+T 1478533668 23*	ameade (sid32189@gateway/web/irccloud.com/x-uozykkqgxxzxfylr23) has joined
+T 1478533684 23*	serverascode (sid28313@gateway/web/irccloud.com/x-sivsdwiswnhrzhzm23) has joined
+T 1478533710 23*	odyssey4me (~odyssey4m@104.239.233.7023) has joined
+T 1478533731 24*	groen692 has quit (Ping timeout: 250 seconds)
+T 1478534086 23*	clif_h (~clif@2001:4800:7817:101:be76:4eff:fe05:660b23) has joined
+T 1478534096 24*	rcernin has quit (Quit: WeeChat 1.5)
+T 1478534119 23*	fungi (~fungi@cthulhu.yuggoth.org23) has joined
+T 1478535146 24*	ducttape_ has quit (Remote host closed the connection)
+T 1478535158 24*	pcaruana has quit (Quit: Leaving)
+T 1478535913 23*	sdake (~sdake@128.107.241.17523) has joined
+T 1478536205 24*	belmoreira has quit (Quit: belmoreira)
+T 1478536269 24*	tesseract- has quit (Quit: Leaving)
+T 1478536736 18<openstackgerrit18>	Kairat Kushaev proposed openstack/glance: Do not use service catalog for cache client  https://review.openstack.org/393229
+T 1478537052 18<openstackgerrit18>	Timothy Symanczyk proposed openstack/glance: Implement and Enable Community Images  https://review.openstack.org/369110
+T 1478537193 18<openstackgerrit18>	Timothy Symanczyk proposed openstack/glance: Implement and Enable Community Images  https://review.openstack.org/369110
+T 1478537505 23*	ducttape_ (~ducttape_@2001:1998:860:100d:290f:40e5:bfca:73df23) has joined
+T 1478537767 24*	sdake has quit (Quit: My Mac has gone to sleep. ZZZzzz…)
+T 1478538643 24*	mvk has quit (Ping timeout: 260 seconds)
+T 1478538787 23*	smatzek (smatzek@nat/ibm/x-jrkuucmukmdeqqjt23) has joined
+T 1478538924 23*	flwang1 (~feilong@210.246.52.15623) has joined
+T 1478539197 24*	links has quit (Quit: Leaving)
+T 1478539365 23*	mvk (mkrcmari@nat/redhat/x-aaczsiooblwgxdzk23) has joined
+T 1478539581 24*	exploreshaifali has quit (Quit: Leaving)
+T 1478540118 18<openstackgerrit18>	Merged openstack/glance_store: Move rootwrap config files from etc/* into etc/glance/*  https://review.openstack.org/329823
+T 1478540944 24*	28hemanthm|away is now known as 18hemanth
+T 1478541268 23*	cdelatte (~cdelatte@cpe-71-75-20-42.carolina.res.rr.com23) has joined
+T 1478541767 24*	mvk has quit (Ping timeout: 268 seconds)
+T 1478543225 18<openstackgerrit18>	Srinivas Sakhamuri proposed openstack/glance_store: Make the image uploads atomic  https://review.openstack.org/242084
+T 1478543303 24*	rvasilets___ has quit (Quit: Connection closed for inactivity)
+T 1478543722 18<openstackgerrit18>	Merged openstack/glance: Updated from global requirements  https://review.openstack.org/394083
+T 1478543927 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/glance_store: Updated from global requirements  https://review.openstack.org/392725
+T 1478544888 23*	markvoelker_ (~markvoelk@107.15.89.20123) has joined
+T 1478544975 23*	Zer0Byte__ (~Zer0Byte@200.46.91.21323) has joined
+T 1478544986 24*	markvoelker has quit (Ping timeout: 268 seconds)
+T 1478545055 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478545185 24*	28hemanth is now known as 18hemanth|lunch
+T 1478545187 24*	markvoelker_ has quit (Ping timeout: 256 seconds)
+T 1478545722 24*	flwang1 has quit (Quit: Leaving.)
+T 1478547002 18<harlowja18>	qq, are folks aware of http://logs.openstack.org/periodic/periodic-glance-py27-with-oslo-master/b4a278f/console.html#_2016-11-07_06_19_23_225309 ?
+T 1478547012 18*	harlowja wants to see if thats a false-positive or something actually an issue
+T 1478547026 24*	d0ugal has quit (Ping timeout: 250 seconds)
+T 1478547074 23*	d0ugal (~dougal@cpc80927-thor6-2-0-cust705.14-2.cable.virginm.net23) has joined
+T 1478547074 24*	d0ugal has quit (Changing host)
+T 1478547074 23*	d0ugal (~dougal@pdpc/supporter/active/d0ugal23) has joined
+T 1478547095 24*	28hemanth|lunch is now known as 18hemanth
+T 1478550292 24*	jmccrory has quit (Excess Flood)
+T 1478550303 23*	jmccrory (~jmccrory@2604:a880:1:20::1e4:100123) has joined
+T 1478550362 24*	d0ugal has quit (Remote host closed the connection)
+T 1478550454 23*	d0ugal (~dougal@cpc80927-thor6-2-0-cust705.14-2.cable.virginm.net23) has joined
+T 1478550454 24*	d0ugal has quit (Changing host)
+T 1478550454 23*	d0ugal (~dougal@pdpc/supporter/active/d0ugal23) has joined
+T 1478550620 23*	flwang1 (~feilong@2404:130:0:1000:949b:1c56:2710:b05a23) has joined
+T 1478552012 23*	e0ne (~e0ne@bl14-33-65.dsl.telepac.pt23) has joined
+T 1478552309 24*	thiagolib has quit (Quit: Connection closed for inactivity)
+T 1478552335 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1478552409 23*	e0ne (~e0ne@bl14-33-65.dsl.telepac.pt23) has joined
+T 1478552719 24*	Zer0Byte__ has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1478552803 23*	Zer0Byte__ (~Zer0Byte@200.46.91.21323) has joined
+T 1478553545 24*	28jamielennox is now known as 18jamielennox|away
+T 1478553803 24*	smatzek has quit (Ping timeout: 260 seconds)
+T 1478554247 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1478554562 24*	Zer0Byte__ has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1478554691 23*	e0ne (~e0ne@bl14-33-65.dsl.telepac.pt23) has joined
+T 1478556154 24*	28jamielennox|away is now known as 18jamielennox
+T 1478556338 23*	Zer0Byte__ (~Zer0Byte@200.46.91.21323) has joined
+T 1478556432 24*	Zer0Byte__ has quit (Client Quit)
+T 1478556435 24*	e0ne has quit (Ping timeout: 260 seconds)
+T 1478556916 24*	edmondsw has quit (Quit: Leaving)
+T 1478556959 18<rosmaita18>	harlowja: sorry for the delayed response, looking now
+T 1478556964 18<harlowja18>	np
+T 1478557771 23*	mvk (~mkrcmari@ip4-62-4-104-42.cust.nbox.cz23) has joined
+T 1478559334 18<rosmaita18>	harlowja: not sure what's up with that, the test should pass
+T 1478559340 18<rosmaita18>	it's a pretty weird test, though
+T 1478559375 18<rosmaita18>	harlowja: i gotta go, ping me if you want me to follow up
+T 1478559377 18<harlowja18>	ya, maybe its just getting unlucky and when the oslo periodic job runs (once a day) this happens to fail
+T 1478559383 18<harlowja18>	let's see if it happens again
+T 1478559396 18<rosmaita18>	ok
+T 1478559410 18<rosmaita18>	looks like it's been consistently failing past two weeks or so, though
+T 1478559430 18<rosmaita18>	i ran it on stable/newton by hand and it passed
+T 1478559523 18<rosmaita18>	but let's wait and see what happens
+T 1478559666 24*	rrecio_ has quit (Read error: Connection reset by peer)
+T 1478559684 23*	rrecio (~rrecio@72.32.180.17723) has joined
+T 1478560982 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1478561610 24*	cdelatte has quit (Quit: Leaving)
+T 1478562379 24*	rrecio has quit (Read error: Connection reset by peer)
+T 1478563484 18<openstackgerrit18>	Tomoki Sekiyama proposed openstack/glance_store: Add functional tests for cinder  https://review.openstack.org/329825
+T 1478563900 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478564051 24*	28jamielennox is now known as 18jamielennox|away
+T 1478564518 24*	ducttape_ has quit (Remote host closed the connection)
+T 1478564868 23*	esmiurium (~e@45.63.76.10723) has joined
+T 1478565590 24*	markvoelker has quit (Remote host closed the connection)
+T 1478567609 24*	abhishek_k has quit (Read error: Connection reset by peer)
+T 1478567717 23*	abhishek_k (~abhishek@121.241.234.223) has joined
+T 1478567724 24*	lin_yang has quit (Read error: Connection reset by peer)
+T 1478567744 23*	lin_yang (uid131615@gateway/web/irccloud.com/x-vnpzoefqyxijxejw23) has joined
+T 1478569149 20*	Disconnected (20Connection timed out)
+T 1478569182 19*	Now talking on 22#openstack-glance
+T 1478569182 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1478569182 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Mon Sep 26 23:08:43 2016)
+T 1478569219 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478569517 24*	markvoelker has quit (Ping timeout: 250 seconds)
+T 1478571942 24*	ducttape_ has quit (Remote host closed the connection)
+T 1478572831 23*	smatzek (~smatzek@216.38.34.18623) has joined
+T 1478573538 24*	smatzek has quit (Read error: Connection reset by peer)
+T 1478575645 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478575830 24*	ducttape_ has quit (Read error: Connection reset by peer)
+T 1478575833 23*	_ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478576491 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478576779 24*	markvoelker has quit (Ping timeout: 260 seconds)
+T 1478577618 23*	links (~jaison@125.16.97.12423) has joined
+T 1478578947 24*	nicolasbock has quit (Ping timeout: 260 seconds)
+T 1478580486 24*	flwang1 has quit (Ping timeout: 256 seconds)
+T 1478581683 23*	pdeore (~pdeore@125.16.97.11523) has joined
+T 1478582223 24*	odyssey4me has quit (Ping timeout: 260 seconds)
+T 1478582316 23*	odyssey4me (~odyssey4m@2001:4802:7800:1:be76:4eff:fe20:f54123) has joined
+T 1478582390 23*	ratailor (~ratailor@125.16.97.12323) has joined
+T 1478582677 24*	_ducttape_ has quit (Remote host closed the connection)
+T 1478582730 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478583011 24*	ducttape_ has quit (Ping timeout: 244 seconds)
+T 1478584469 23*	rcernin (rcernin@nat/redhat/x-xapisoejksunvbwy23) has joined
+T 1478584573 24*	wxy__ has quit (Read error: Connection reset by peer)
+T 1478584623 23*	wxy__ (~wangxiyua@119.145.15.12123) has joined
+T 1478584877 23*	GB21 (~gb21@182.75.112.20223) has joined
+T 1478586976 18<openstackgerrit18>	Abhishek Kekane proposed openstack/python-glanceclient: Move old oslo-incubator code out of openstack/common  https://review.openstack.org/394780
+T 1478587308 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1478587391 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478587655 24*	markvoelker has quit (Ping timeout: 260 seconds)
+T 1478587844 23*	belmoreira (~belmoreir@2001:1458:202:228::101:fed023) has joined
+T 1478587977 23*	pcaruana (~pcaruana@ip-94-112-190-93.net.upcbroadband.cz23) has joined
+T 1478588074 24*	ratailor has quit (Quit: Leaving)
+T 1478588208 23*	ratailor (~ratailor@125.16.97.11823) has joined
+T 1478588426 23*	namnh (~HoaiNam@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1478588585 23*	tesseract (tesseract@nat/redhat/x-nzfwpiimqycuavar23) has joined
+T 1478588607 24*	28tesseract is now known as 18Guest6570
+T 1478588622 24*	david-lyle has quit (Ping timeout: 244 seconds)
+T 1478591828 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478592095 24*	ducttape_ has quit (Ping timeout: 248 seconds)
+T 1478593734 24*	links has quit (Ping timeout: 258 seconds)
+T 1478593760 23*	exploreshaifali (~shaifali@103.217.148.9923) has joined
+T 1478594629 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478594699 23*	links (~jaison@125.16.97.12323) has joined
+T 1478594930 24*	markvoelker has quit (Ping timeout: 265 seconds)
+T 1478595596 24*	zzzeek has quit (Quit: bye)
+T 1478595610 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1478595775 24*	groen692 has quit (Quit: groen692)
+T 1478595847 24*	exploreshaifali has quit (Ping timeout: 260 seconds)
+T 1478596073 23*	khamtamtun (~Android@202.129.204.2923) has joined
+T 1478596197 24*	khamtamtun has quit (Remote host closed the connection)
+T 1478596217 24*	links has quit (Ping timeout: 244 seconds)
+T 1478596848 24*	mvk has quit (Ping timeout: 245 seconds)
+T 1478596976 24*	lin_yang has quit (Quit: Connection closed for inactivity)
+T 1478597040 23*	links (~jaison@125.16.97.12223) has joined
+T 1478597264 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478597569 24*	ducttape_ has quit (Ping timeout: 265 seconds)
+T 1478597666 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1478598334 24*	kairat has quit (Remote host closed the connection)
+T 1478598568 23*	mvk (mkrcmari@nat/redhat/x-iukheemqwmenaqqr23) has joined
+T 1478598676 24*	pcaruana has quit (Quit: Leaving)
+T 1478598797 23*	MattMan (~mattk@inet-hqmc04-o.oracle.com23) has joined
+T 1478598810 23*	exploreshaifali (~shaifali@103.217.148.7823) has joined
+T 1478599328 24*	namnh has quit (Quit: Leaving)
+T 1478599966 24*	Jokke_ has quit (Ping timeout: 252 seconds)
+T 1478600471 24*	sabari has quit (Ping timeout: 256 seconds)
+T 1478600869 23*	sabari (sabari@gateway/shell/elitebnc/x-beimwhjmifpyjfax23) has joined
+T 1478601020 23*	kairat (~kairat@91.207.132.7223) has joined
+T 1478601530 23*	maestropandy (~Pandy@49.38.34.3823) has joined
+T 1478601702 24*	maestropandy (~Pandy@49.38.34.3824) has left
+T 1478601832 24*	exploreshaifali has quit (Ping timeout: 265 seconds)
+T 1478602401 23*	rvasilets___ (uid53574@gateway/web/irccloud.com/x-zkqhapnbhpvgfjzw23) has joined
+T 1478603595 23*	jokke_ (~jokke@unaffiliated/jokke/x-628176723) has joined
+T 1478604806 24*	mvk has quit (Ping timeout: 252 seconds)
+T 1478604953 23*	nicolasbock (~nbock@67-133-86-3.dia.static.qwest.net23) has joined
+T 1478605540 23*	mvk (mkrcmari@nat/redhat/x-pvtrgduyzyweuamk23) has joined
+T 1478606421 23*	khamtamtun (~Android@182.232.6.13023) has joined
+T 1478606723 24*	khamtamtun has quit (Remote host closed the connection)
+T 1478606746 23*	khamtamtun (~Android@182.232.6.13023) has joined
+T 1478606816 24*	khamtamtun has quit (Remote host closed the connection)
+T 1478607147 23*	exploreshaifali (~shaifali@103.217.148.7823) has joined
+T 1478607435 23*	khamtamtun (~Android@182.232.6.13023) has joined
+T 1478607473 24*	ratailor has quit (Quit: Leaving)
+T 1478607726 24*	pdeore has quit (Ping timeout: 260 seconds)
+T 1478608570 23*	e0ne (~e0ne@dial-b2-166-58.telepac.pt23) has joined
+T 1478608638 23*	david-lyle (~david_lyl@host-67-217-8-253.beyondbb.com23) has joined
+T 1478608705 24*	GB21 has quit (Ping timeout: 265 seconds)
+T 1478608995 23*	croelandt (~cyril@tal33-3-82-233-82-24.fbx.proxad.net23) has joined
+T 1478609125 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1478609406 24*	markvoelker has quit (Ping timeout: 260 seconds)
+T 1478609618 18<openstackgerrit18>	Tomislav Sukser proposed openstack/glance: Fix for a bug 1599123. URL construction is now considering what is defined as a hostname (IPv6 address or something else). The change results in a url constructed as http?://IPv4_address:port/, or http?://hostname:port/, or http?://[IPv6_address]:port/. T  https://review.openstack.org/394946
+T 1478609619 18<openstack18>	bug 1599123 in Glance "Glance API doesn't work in IPv6 only environment" [Medium,Opinion] https://launchpad.net/bugs/1599123
+T 1478609791 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1478609823 18<openstackgerrit18>	Merged openstack/glance: Add DeprecationWarning in test environments  https://review.openstack.org/380042
+T 1478609890 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1478609927 18<openstackgerrit18>	Tomislav Sukser proposed openstack/glance: Fix for a bug 1599123. URL construction is now considering what is defined as a hostname (IPv6 address or something else). The change results in a url constructed as http?://IPv4_address:port/, or http?://hostname:port/, or http?://[IPv6_address]:port/. T  https://review.openstack.org/394946
+T 1478609927 18<openstack18>	bug 1599123 in Glance "Glance API doesn't work in IPv6 only environment" [Medium,Opinion] https://launchpad.net/bugs/1599123
+T 1478609994 18<openstackgerrit18>	Tomislav Sukser proposed openstack/glance: IPv6 fix in Glance for malformed URLs.  https://review.openstack.org/394946
+T 1481782029 19*	Now talking on 22#openstack-glance
+T 1481782029 22*	Topic for 22#openstack-glance is: Discussion of OpenStack Glance | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1481782029 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Wed Dec 14 00:00:19 2016)
+T 1481782742 24*	zul has quit (Ping timeout: 256 seconds)
+T 1481782984 23*	zul (~chuck@CPEa84e3f422493-CMa84e3f422490.cpe.net.cable.rogers.com23) has joined
+T 1481783694 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1481784255 23*	namnh (~HoaiNam@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1481784295 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1481784748 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1481785014 24*	markvoelker has quit (Ping timeout: 246 seconds)
+T 1481785302 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1481785751 23*	ezoszed (~ezoszed@194.237.142.1023) has joined
+T 1481786030 23*	rcernin (rcernin@nat/redhat/x-xzmidugvmyjigqvv23) has joined
+T 1481787392 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1481787441 24*	groen692 has quit (Quit: groen692)
+T 1481787606 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1481788009 23*	tshefi (tshefi@nat/redhat/x-yfqnmuxejvwxcfau23) has joined
+T 1481789809 24*	wxy_ has quit (Read error: Connection reset by peer)
+T 1481789869 23*	wxy_ (~wangxiyua@119.145.15.12123) has joined
+T 1481790570 24*	pdeore has quit (Ping timeout: 258 seconds)
+T 1481790633 24*	tshefi has quit (Ping timeout: 260 seconds)
+T 1481790996 23*	tshefi (tshefi@nat/redhat/x-ycpjdwaztsgungwd23) has joined
+T 1481791076 23*	pcaruana (pcaruana@nat/redhat/x-tgntyyokqdlpopjc23) has joined
+T 1481791361 23*	GB21 (~gb21@2405:204:1186:be48:41da:7be2:7dbd:34fb23) has joined
+T 1481792011 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1481792070 24*	ducttape_ has quit (Read error: Connection reset by peer)
+T 1481792366 24*	markvoelker has quit (Ping timeout: 264 seconds)
+T 1481792438 24*	zzzeek has quit (Quit: bye)
+T 1481792453 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1481793906 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1481793986 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1481793999 24*	e0ne has quit (Client Quit)
+T 1481794022 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1481794047 24*	e0ne has quit (Client Quit)
+T 1481794070 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1481794083 24*	e0ne has quit (Client Quit)
+T 1481794983 23*	pdeore (~pdeore@103.249.90.2123) has joined
+T 1481796599 23*	exploreshaifali (~shaifali@103.217.150.223) has joined
+T 1481797056 24*	GB21 has quit (Ping timeout: 258 seconds)
+T 1481797143 24*	openstackgerrit has quit (Remote host closed the connection)
+T 1481797144 18<bhagyashris18>	jokke_ :  Hi, thanks for your opinion for your on bug : https://bugs.launchpad.net/glance/+bug/1585917.  But according to the comment put on Bug : https://bugs.launchpad.net/glance/+bug/1585917/comments/11 there needs  some changes on glance code.
+T 1481797145 18<openstack18>	Launchpad bug 1585917 in Glance "member-create will raise 500 error if member-id is greater than 255 characters" [Undecided,Confirmed] - Assigned to Bhagyashri Shewale (bhagyashri-shewale)
+T 1481797259 23*	Linkmark (~Linkmark@194.158.1.23423) has joined
+T 1481797377 18<jokke_18>	bhagyashris: yes I understood that
+T 1481797406 18<jokke_18>	bhagyashris: and my point was, we should do those changes to accommodate the schema changes
+T 1481797554 18<bhagyashris18>	jokke_: ok.  I will push the patch asap.
+T 1481797580 18<bhagyashris18>	jokke_ : thank you for your opinion. : )
+T 1481797800 18<bhagyashris18>	jokke_ : I want to discuss one more point regarding the use of `oslo_utils.uuidutils.generate_uuid` function instead of uuid4() in the glance. Bug : https://bugs.launchpad.net/glance/+bug/156275.
+T 1481797801 18<openstack18>	Launchpad bug 156275 in linux-source-2.6.22 (Ubuntu) "system 7.10 crashes on connection wlan usb sagem" [Undecided,Invalid]
+T 1481798354 24*	exploreshaifali has quit (Quit: Leaving)
+T 1481798969 23*	GB21 (~gb21@2405:204:1186:be48:41da:7be2:7dbd:34fb23) has joined
+T 1481799313 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1481799585 24*	markvoelker has quit (Ping timeout: 258 seconds)
+T 1481799799 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481799856 24*	pdeore has quit (Remote host closed the connection)
+T 1481799941 24*	MattMan has quit (Remote host closed the connection)
+T 1481799950 23*	MattMan (~mattk@inet-hqmc08-o.oracle.com23) has joined
+T 1481800093 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1481800377 23*	pdeore (~pdeore@103.249.90.2123) has joined
+T 1481800966 24*	mvk has quit (Ping timeout: 256 seconds)
+T 1481800980 24*	pdeore has quit (Quit: Leaving)
+T 1481801000 23*	pdeore (~pdeore@103.249.90.2123) has joined
+T 1481801818 24*	namnh has quit (Remote host closed the connection)
+T 1481802662 24*	bkopilov has quit (Ping timeout: 264 seconds)
+T 1481802662 23*	mvk (mkrcmari@nat/redhat/x-kefxtxkibzvxkvuy23) has joined
+T 1481803512 23*	nicolasbock (~nicolasbo@gentoo/developer/nicolasbock23) has joined
+T 1481803547 24*	david-lyle has quit (Read error: Connection reset by peer)
+T 1481803558 23*	david-lyle (~david_lyl@host-67-217-12-180.beyondbb.com23) has joined
+T 1481804241 24*	pdeore has quit (Quit: Leaving)
+T 1481804422 24*	udesale has quit (Remote host closed the connection)
+T 1481805657 24*	GB21 has quit (Ping timeout: 258 seconds)
+T 1481805722 23*	GB21 (~gb21@2405:204:1186:be48:41da:7be2:7dbd:34fb23) has joined
+T 1481806084 18<jokke_18>	bhagyashris: how is that bug related ^^
+T 1481806336 23*	chlong (~chlong|go@71.169.186.10623) has joined
+T 1481806557 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1481806840 23*	catintheroof (~catinther@186.136.14.5423) has joined
+T 1481806848 24*	markvoelker has quit (Ping timeout: 256 seconds)
+T 1481806934 24*	catintheroof has quit (Remote host closed the connection)
+T 1481806946 23*	catintheroof (~catinther@186.136.14.5423) has joined
+T 1481807364 18<bhagyashris18>	jokke_: Basically we can't say this as bug but to make the code standard we should use  to generate uuid's  using the standard third party lib `oslo_utils.uuidutils`  instead of uuid4().
+T 1481807489 24*	GB21 has quit (Ping timeout: 245 seconds)
+T 1481807892 18<jokke_18>	bhagyashris: why? what's the benefit? What does oslo provide vs. standard _python_ function to do that? And lastly I still don't understand how ~10 years old ubuntu bug you linked is related
+T 1481807902 23*	GB21 (~gb21@2405:204:1186:be48:41da:7be2:7dbd:34fb23) has joined
+T 1481808221 24*	ratailor has quit (Quit: Leaving)
+T 1481808233 24*	GB21 has quit (Ping timeout: 240 seconds)
+T 1481808753 24*	links has quit (Ping timeout: 240 seconds)
+T 1481809027 23*	bkopilov (~bkopilov@bzq-79-177-230-187.red.bezeqint.net23) has joined
+T 1481809160 23*	GB21 (~gb21@47.30.84.823) has joined
+T 1481809223 18<sigmavirus18>	bhagyashris: there is little benefit to oslo.utils' uuidtoools
+T 1481809246 18<sigmavirus18>	uuid.uuid4().hex and oslo_utils.uuidutils.generate_uuid() are equivalent
+T 1481809409 23*	ezoszed1 (~ezoszed@194.237.142.1023) has joined
+T 1481809578 24*	ezoszed has quit (Read error: Connection reset by peer)
+T 1481810136 18<bhagyashris18>	jokke_: sorry the bug link is https://bugs.launchpad.net/glance/+bug/1562758  mistakenly the last digit got erased.
+T 1481810137 18<openstack18>	Launchpad bug 1562758 in Glance "generate an uuid for image id" [Undecided,New] - Assigned to wuyuting (wytdahu)
+T 1481810361 18<rosmaita18>	Courtesy meeting reminder on #openstack-meeting-4: ativelkov, cpallares, flaper87, flwang1, hemanthm, jokke_, kragniz, lakshmiS, mclaren, mfedosin, nikhil_k, Nikolay_St, Olena, pennerc, rosmaita, sigmavirus24, sabari, TravT, ajayaa, GB21, bpoulos, harshs, abhishek, bunting, dshakhray, wxy, dhellmann, kairat, aavraham, alex_bash
+T 1481810470 18<bhagyashris18>	jokke_: yeah as sigmavirus suggested that is the only thing. otherwise both are equivalent
+T 1481810502 18<sigmavirus18>	bhagyashris: "there is little benefit" means there is almost none
+T 1481810507 18<sigmavirus18>	I'm not supporting you
+T 1481810509 18<sigmavirus18>	:)
+T 1481810522 18<rosmaita18>	meeting time
+T 1481810534 18<rosmaita18>	we have room during open discussion to talk about this
+T 1481810620 24*	ezoszed1 has quit (Read error: Connection reset by peer)
+T 1481811245 23*	ashb_ (~ashb@218.155.206.9523) has joined
+T 1481811286 24*	GB21 has quit (Read error: Connection reset by peer)
+T 1481811676 23*	ezoszed (~ezoszed@194.237.142.1023) has joined
+T 1481811689 24*	chlong has quit (Ping timeout: 260 seconds)
+T 1481811726 23*	openstackgerrit (~openstack@review.openstack.org23) has joined
+T 1481811727 18<openstackgerrit18>	Alexander Bashmakov proposed openstack/glance: Port Glance Migrations to Alembic  https://review.openstack.org/382958
+T 1481811806 23*	chlong (~chlong|go@71.169.186.10623) has joined
+T 1481812053 24*	chlong has quit (Max SendQ exceeded)
+T 1481812130 23*	chlong (~chlong|go@71.169.186.10623) has joined
+T 1481813147 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1481813383 18<catintheroof18>	Hi to all! quick question, does the glance image conversion feature supports on-line convertion if integrated with Ceph ?
+T 1481813443 18<jokke_18>	catintheroof: currently it's kind of not supported at all
+T 1481813460 18<jokke_18>	as there is no valid way to trigger it
+T 1481813506 18<jokke_18>	catintheroof: and more specifically there has no work made that would have been backend specific. So I'd say no for that in foreseeable future as well
+T 1481813563 18<catintheroof18>	jokke_: here says that should/might work > https://www.sebastien-han.fr/blog/2015/05/11/openstack-glance-a-first-glimpse-at-image-conversion/
+T 1481813582 18<catintheroof18>	jokke_: kinda old, but ... i think would be an amazing feature
+T 1481813590 18<catintheroof18>	jokke_: isn't possible ?
+T 1481813839 23*	TravT (~TravT@c-107-2-143-217.hsd1.co.comcast.net23) has joined
+T 1481813871 23*	udesale (~udesale@106.221.139.24623) has joined
+T 1481814127 18<catintheroof18>	jokke_: thoughts ? ^
+T 1481814156 23*	links (~links@114.143.81.623) has joined
+T 1481814160 18<jokke_18>	catintheroof: sorry we were on the glance weekly meeting
+T 1481814173 18<catintheroof18>	jokke_: no problem, i can wait ^_^
+T 1481814173 18<jokke_18>	so I don't think that will happen at least anytime soon
+T 1481814184 18<jokke_18>	I don't see it impossible, just unlikely
+T 1481814242 18<stevelle18>	jokke_: any news on the import work?
+T 1481814247 24*	chlong has quit (Remote host closed the connection)
+T 1481814250 18<catintheroof18>	jokke_: wow ... thats bad news, what should i do to keep on the radar ? bug post ? or feature request in launchpad ?
+T 1481814325 18<jokke_18>	catintheroof: it's definitely not a bug ... you can submit a spec for it if you want to do it for future cycles
+T 1481814358 18<catintheroof18>	jokke_: thanks !
+T 1481814411 18<jokke_18>	stevelle: when I get rid of these hardcoded conditional dpeendencies blocking me to trigger the tasks I should have most if it apart from tests to push to gerrit
+T 1481814479 18<jokke_18>	stevelle: hoping to be there by end of next week but gotta see how much I need to rewrite to make that happening
+T 1481814503 18<jokke_18>	stevelle: the current implementation is just horrible
+T 1481814550 18<stevelle18>	thx for the update. not surprised untangling the current impl is giving problems.
+T 1481814891 18<jokke_18>	thanks for asking :D
+T 1481814905 18<jokke_18>	nice ot hear that someone still remember it :D
+T 1481815125 24*	mdavidson has quit (Quit: Leaving)
+T 1481815436 24*	ezoszed has quit (Quit: Leaving.)
+T 1481815934 23*	burgerk (burgerk@nat/ibm/x-eelurvcympaaghzq23) has joined
+T 1481816666 23*	GB21 (~gb21@2405:204:1186:be48:41da:7be2:7dbd:34fb23) has joined
+T 1481817431 24*	ashb_ has quit (Remote host closed the connection)
+T 1481817696 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1481817876 24*	links has quit (Quit: Leaving)
+T 1481817957 24*	udesale has quit (Remote host closed the connection)
+T 1481818553 24*	tshefi has quit (Ping timeout: 240 seconds)
+T 1481818775 23*	mtanino (mtanino@nat/redhat/x-fthtriyxijsnxcmk23) has joined
+T 1481819173 23*	Zer0Byte__ (~Zer0Byte@200.46.91.20823) has joined
+T 1481819226 18<sigmavirus18>	rosmaita: ping
+T 1481819254 24*	Zer0Byte__ has quit (Client Quit)
+T 1481819516 23*	itisha (uid33702@gateway/web/irccloud.com/x-lkyovovzyfzokbhr23) has joined
+T 1481819580 18<rosmaita18>	sigmavirus: pong
+T 1481819694 24*	rcernin has quit (Quit: WeeChat 1.5)
+T 1481819747 24*	Linkmark has quit (Quit: Leaving)
+T 1481819753 24*	cmart has quit (Ping timeout: 240 seconds)
+T 1481819754 18<sigmavirus18>	rosmaita: what do you think about adding links to the mailing list priority messages to the topic?
+T 1481819791 18<rosmaita18>	how do you mean?
+T 1481819963 24*	GB21 has quit (Ping timeout: 258 seconds)
+T 1481819982 18<sigmavirus18>	so you send out those priority emails
+T 1481819998 18<sigmavirus18>	after you do, there's a link you can use from the mailing list archives
+T 1481820007 18<sigmavirus18>	we could toss that in the topic of this channel
+T 1481820035 18<rosmaita18>	oh, sorry, completely misunderstood
+T 1481820039 18<rosmaita18>	that's a great idea
+T 1481820065 18<rosmaita18>	though, i'm not sure i have permissions for that
+T 1481820159 24*	pcaruana has quit (Quit: Leaving)
+T 1481820396 18<sigmavirus18>	rosmaita: hmph
+T 1481820432 18*	sigmavirus wonders how keystone has operator status for their PTL set-upp
+T 1481820475 18<stevelle18>	I used to know the answer to this
+T 1481820490 18<stevelle18>	infra has those keys?
+T 1481820537 18<rosmaita18>	i'll ask in infra
+T 1481820560 18<stevelle18>	betting you can ask their bot for topic perms, but best to ask
+T 1481820726 23*	GB21 (~gb21@2405:204:3188:c0b0:41da:7be2:7dbd:34fb23) has joined
+T 1481820736 23*	cmart (~cmart@128.196.38.3323) has joined
+T 1481820931 23*	rcernin (~rcernin@77.240.179.19523) has joined
+T 1481821194 18<stevemar18>	sigmavirus: hmm?
+T 1481821229 18<stevemar18>	sigmavirus: i have operator status? ohh in -keystone
+T 1481821249 18<sigmavirus18>	stevemar: forgot you idled here :)
+T 1481821254 18<stevemar18>	sigmavirus: ask infra to set it up for ya :P just make sure your nick is registered
+T 1481821260 18<stevemar18>	sigmavirus: i idle EVERYWHERE!
+T 1481821260 18<sigmavirus18>	rosmaita: ^
+T 1481821264 18<sigmavirus18>	stevemar: creeper
+T 1481821273 18<stevemar18>	sigmavirus: eye of sauron
+T 1481821282 18<jokke_18>	:)
+T 1481821287 18<sigmavirus18>	eye of steveron?
+T 1481821293 18<sigmavirus18>	stevemar: is your middle name ron?
+T 1481821423 18<stevemar18>	sigmavirus: i don't have one :D
+T 1481821430 18<rosmaita18>	stevemar: ty, fungi set me up
+T 1481821467 18<fungi18>	after briefly confusing you for a cinder contributor, yes ;)
+T 1481821478 18*	fungi should remember who all the ptls are
+T 1481821489 18<stevemar18>	fungi: that's a long list
+T 1481821500 18<fungi18>	longer every cycle too
+T 1481821502 18<stevemar18>	fungi: so can i get operator status here too :P
+T 1481821508 18<stevemar18>	fungi: jk jk
+T 1481821515 18<stevemar18>	no finders fee?
+T 1481821557 18<sigmavirus18>	stevemar: I thusly provide you with the middlest name of "Ron John"
+T 1481821562 18<sigmavirus18>	You are welcome
+T 1481821579 18<fungi18>	stevemar: if rosmaita wants, he can add you as an operator with /msg chanserv access #openstack-glance add /msg chanserv access #openstack-glance add blah, blah, blah
+T 1481821604 18<fungi18>	er, my paste button is doubling pastes again
+T 1481821606 18*	fungi sighs
+T 1481821634 18*	sigmavirus wonders how many horses are killed by double pasting in a year
+T 1481821641 18<stevemar18>	hehe
+T 1481821647 18<fungi18>	too many, sigmavirus... too many
+T 1481821663 18<rosmaita18>	sigmavirus: you're thinking of glue
+T 1481821672 22*	26ChanServ has changed the topic to: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/108704.html
+T 1481821674 18<sigmavirus18>	rosmaita: isn't that how a computer's paste function works?
+T 1481821688 18<sigmavirus18>	rosmaita: should probably have kept the eavesdrop link in there
+T 1481821693 18*	sigmavirus is ever the critic
+T 1481821705 18<rosmaita18>	sigmavirus: i can try
+T 1481821713 18<rosmaita18>	i only get one line in irssi, i think
+T 1481821722 18<sigmavirus18>	rosmaita: you can use chanserv to appendtopic
+T 1481821731 18<sigmavirus18>	or topicappend
+T 1481821826 22*	26ChanServ has changed the topic to: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/108704.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1481821862 24*	ducttape_ has quit (Remote host closed the connection)
+T 1481821896 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481821906 18<rosmaita18>	sigmavirus: how's that? or do you prefer the "Discussion of" | logs | priorities  order
+T 1481822005 18<sigmavirus18>	That looks great to me
+T 1481822183 24*	ducttape_ has quit (Ping timeout: 256 seconds)
+T 1481822239 24*	GB21 has quit (Ping timeout: 245 seconds)
+T 1481822561 18<stevelle18>	+1 rosmaita looks good
+T 1481822575 23*	Zer0Byte__ (~Zer0Byte@200.46.91.21323) has joined
+T 1481823023 24*	jdurgin has quit (Ping timeout: 258 seconds)
+T 1481823123 23*	jdurgin (~jdurgin@206.169.83.14623) has joined
+T 1481823250 24*	burgerk has quit (Ping timeout: 252 seconds)
+T 1481823288 23*	ducttape_ (~ducttape_@2001:1998:860:100d:10dc:d58f:db0a:d5c223) has joined
+T 1481823414 23*	catinthe_ (~catinther@177.54.157.11123) has joined
+T 1481823529 24*	catintheroof has quit (Ping timeout: 248 seconds)
+T 1481823779 24*	mtanino has quit (Quit: Leaving...)
+T 1481823988 24*	mvk has quit (Ping timeout: 258 seconds)
+T 1481825063 18<openstackgerrit18>	Maxim Nestratov proposed openstack/glance: expand hypervisor_type meta data with Virtuozzo hypervisor  https://review.openstack.org/341623
+T 1481825695 23*	chlong (~chlong|go@71.169.186.10623) has joined
+T 1481826750 23*	harlowja (~harlowja@64.202.160.23323) has joined
+T 1481827972 24*	itisha has quit (Quit: Connection closed for inactivity)
+T 1481828005 24*	harlowja has quit (Quit: Bye bye....)
+T 1481828607 23*	catintheroof (~catinther@186.136.14.5423) has joined
+T 1481828852 24*	catinthe_ has quit (Ping timeout: 268 seconds)
+T 1481830158 23*	itisha (uid33702@gateway/web/irccloud.com/x-bhizbzseboprblxs23) has joined
+T 1481830603 24*	Zer0Byte__ has quit (Quit: Textual IRC Client: www.textualapp.com)
+T 1481831350 23*	hyakuhei (hyakuhei@gateway/shell/panicbnc/x-imqhpbvxwtoyxphq23) has joined
+T 1481831595 23*	Zer0Byte__ (~Zer0Byte@200.46.91.21323) has joined
+T 1481831628 23*	mtanino (mtanino@nat/redhat/x-gucmkoyqkzefbdxv23) has joined
+T 1481832301 24*	hyakuhei has quit (Changing host)
+T 1481832301 23*	hyakuhei (hyakuhei@unaffiliated/robc23) has joined
+T 1481832301 24*	hyakuhei has quit (Changing host)
+T 1481832301 23*	hyakuhei (hyakuhei@gateway/shell/panicbnc/x-imqhpbvxwtoyxphq23) has joined
+T 1481832512 24*	cmart has quit (Ping timeout: 252 seconds)
+T 1481832592 18<openstackgerrit18>	Merged openstack/glance_store: Updated from global requirements  https://review.openstack.org/405807
+T 1481833305 24*	TravT has quit (Ping timeout: 260 seconds)
+T 1481833414 24*	catintheroof has quit (Ping timeout: 252 seconds)
+T 1481833457 23*	cmart (~cmart@128.196.38.3423) has joined
+T 1481834140 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1481834154 24*	cmart has quit (Ping timeout: 246 seconds)
+T 1481834167 23*	catintheroof (~catinther@186.136.14.5423) has joined
+T 1481834251 23*	TravT (~TravT@cce02cs4042-fa12-z.ams.hpecore.net23) has joined
+T 1481834676 23*	cmart (~cmart@uawifi-nat-210-46.arizona.edu23) has joined
+T 1481835877 24*	groen692 has quit (Ping timeout: 250 seconds)
+T 1481836016 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1481836773 24*	cmart has quit (Ping timeout: 240 seconds)
+T 1481837688 23*	cmart (~cmart@128.196.38.3423) has joined
+T 1481839023 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1481839510 18<openstackgerrit18>	Merged openstack/glance-specs: Database strategy for rolling upgrades  https://review.openstack.org/331740
+T 1481839929 24*	groen692 has quit (Quit: groen692)
+T 1481840450 23*	_ducttape_ (~ducttape_@51nat.mystrotv.com23) has joined
+T 1481840641 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1481840693 24*	_ducttape_ has quit (Ping timeout: 240 seconds)
+T 1481842022 24*	catintheroof has quit (Remote host closed the connection)
+T 1481843028 23*	mvk (~mkrcmari@95-105-240-169.dynamic.orange.sk23) has joined
+T 1481843653 24*	markvoelker has quit (Remote host closed the connection)
+T 1481843908 23*	catintheroof (~catinther@186.23.88.21223) has joined
+T 1481843913 24*	catintheroof has quit (Remote host closed the connection)
+T 1481843929 23*	catintheroof (~catinther@186.23.88.21223) has joined
+T 1481844172 24*	itisha has quit (Quit: Connection closed for inactivity)
+T 1481844962 24*	cmart has quit (Ping timeout: 256 seconds)
+T 1481845095 23*	cmart (~cmart@128.196.38.3423) has joined
+T 1481845621 24*	28jamielennox is now known as 18jamielennox|away
+T 1481845895 24*	28jamielennox|away is now known as 18jamielennox
+T 1481846139 24*	TravT has quit (Ping timeout: 245 seconds)
+T 1481846147 24*	cdelatte has quit (Quit: Leaving)
+T 1481846361 23*	harlowja (~harlowja@64.202.160.23323) has joined
+T 1481846824 24*	harlowja has quit (Max SendQ exceeded)
+T 1481847816 24*	mtanino has quit (Ping timeout: 258 seconds)
+T 1481848510 23*	harlowja (~harlowja@64.202.160.23323) has joined
+T 1481849721 24*	cmart has quit (Remote host closed the connection)
+T 1481849766 23*	cmart (~cmart@150.135.210.19723) has joined
+T 1481849906 24*	28jamielennox is now known as 18jamielennox|away
+T 1481850014 24*	cmart has quit (Ping timeout: 245 seconds)
+T 1481850141 24*	28jamielennox|away is now known as 18jamielennox
+T 1481850366 24*	Zer0Byte__ has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1481850375 18<openstackgerrit18>	Merged openstack/python-glanceclient: Updated from global requirements  https://review.openstack.org/411077
+T 1481850881 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1481851193 24*	markvoelker has quit (Ping timeout: 240 seconds)
+T 1481851581 24*	harlowja has quit (Ping timeout: 250 seconds)
+T 1481852540 24*	28jamielennox is now known as 18jamielennox|away
+T 1481852830 24*	mvk has quit (Ping timeout: 258 seconds)
+T 1481852887 24*	28jamielennox|away is now known as 18jamielennox
+T 1481855541 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1481855814 24*	markvoelker has quit (Ping timeout: 245 seconds)
+T 1481857174 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481857389 24*	ducttape_ has quit (Remote host closed the connection)
+T 1481857408 24*	zhiyan has quit (Quit: Connection closed for inactivity)
+T 1481857476 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481858583 18<openstackgerrit18>	Merged openstack/glance: Updated from global requirements  https://review.openstack.org/408088
+T 1481858817 24*	ducttape_ has quit (Remote host closed the connection)
+T 1481859513 24*	ccesario has quit (Ping timeout: 260 seconds)
+T 1481860445 23*	pdeore (~pdeore@45.113.249.18123) has joined
+T 1481861112 23*	ccesario (~ccesario@187.17.166.16223) has joined
+T 1481861203 24*	catintheroof has quit (Remote host closed the connection)
+T 1481861228 23*	catintheroof (~catinther@186.23.88.21223) has joined
+T 1481861253 24*	catintheroof has quit (Remote host closed the connection)
+T 1481862448 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481862762 24*	ducttape_ has quit (Ping timeout: 252 seconds)
+T 1481862854 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481862895 23*	mvk (~mkrcmari@95-105-240-169.dynamic.orange.sk23) has joined
+T 1481862904 24*	nicolasbock has quit (Ping timeout: 258 seconds)
+T 1481863673 23*	GB21 (~gb21@47.31.245.13623) has joined
+T 1481863817 24*	ccesario has quit (Ping timeout: 248 seconds)
+T 1481863923 23*	udesale (~udesale@106.221.151.4023) has joined
+T 1481864385 24*	GB21 has quit (Ping timeout: 260 seconds)
+T 1481864442 24*	ducttape_ has quit (Remote host closed the connection)
+T 1481865228 23*	prateek (~parora@125.16.97.12123) has joined
+T 1481865362 23*	ratailor (~ratailor@116.75.4.23923) has joined
+T 1481865749 23*	links (~links@125.16.97.12223) has joined
+T 1481866760 23*	GB21 (~gb21@2405:204:3188:c0b0:41da:7be2:7dbd:34fb23) has joined
+T 1481868073 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481868380 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1481868802 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1481868866 24*	rcernin has quit (Ping timeout: 264 seconds)
+T 1481869111 23*	TravT (~TravT@cce02cs4044-fa12-z.ams.hpecore.net23) has joined
+T 1481869571 24*	TravT has quit (Remote host closed the connection)
+T 1481870256 23*	rcernin (~rcernin@77.240.179.19523) has joined
+T 1481870629 24*	rcernin has quit (Ping timeout: 260 seconds)
+T 1481871090 23*	ccesario (~ccesario@187.17.166.16223) has joined
+T 1481871292 23*	rcernin (rcernin@nat/redhat/x-gntpzkqzfmsyltii23) has joined
+T 1481871559 23*	ezoszed (~ezoszed@sessfw99-sesbfw99-89.ericsson.net23) has joined
+T 1481871754 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481872087 24*	ducttape_ has quit (Ping timeout: 265 seconds)
+T 1481873003 24*	mvk has quit (Ping timeout: 258 seconds)
+T 1481873111 18<openstackgerrit18>	Maxim Nestratov proposed openstack/glance: expand hypervisor_type meta data with Virtuozzo hypervisor  https://review.openstack.org/341623
+T 1481873529 23*	mvk (~mkrcmari@95-105-240-169.dynamic.orange.sk23) has joined
+T 1481873831 18<openstackgerrit18>	Maxim Nestratov proposed openstack/glance: add ploop to supported disk_formats  https://review.openstack.org/341633
+T 1481874705 24*	GB21 has quit (Ping timeout: 258 seconds)
+T 1481874799 24*	pdeore has quit (Quit: Leaving)
+T 1481874814 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1481875032 23*	pcaruana (pcaruana@nat/redhat/x-uqyvyxgbotwmignf23) has joined
+T 1481875102 23*	tesseract (tesseract@nat/redhat/x-pjxmtcshpjmjweey23) has joined
+T 1481875125 24*	28tesseract is now known as 18Guest31304
+T 1481875660 24*	28jamielennox is now known as 18jamielennox|away
+T 1481876104 24*	28jamielennox|away is now known as 18jamielennox
+T 1481876399 23*	GB21 (~gb21@2405:204:3188:c0b0:d5fa:74cb:40e:85ae23) has joined
+T 1481876727 23*	ntt (~smuxi@195.60.190.15623) has joined
+T 1481876802 18<ntt18>	Hi, I'm trying to use swift as a backend for glance images and it works well.... I have a question: when the compute node need to download the image for starting a new vm, how image will be transferred? with swift or with http from glance?
+T 1481877029 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1481877815 24*	hogepodge has quit (Ping timeout: 250 seconds)
+T 1481877882 24*	udesale has quit (Read error: Connection reset by peer)
+T 1481877915 23*	hogepodge (~hogepodge@c-24-20-238-120.hsd1.or.comcast.net23) has joined
+T 1481878837 24*	zzzeek has quit (Quit: bye)
+T 1481878854 23*	udesale (~udesale@27.58.34.16123) has joined
+T 1481878974 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1481879090 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1481879384 24*	ducttape_ has quit (Ping timeout: 250 seconds)
+T 1481879908 23*	itisha (uid33702@gateway/web/irccloud.com/x-cowqqbyjiglycgym23) has joined
+T 1481880293 24*	GB21 has quit (Ping timeout: 240 seconds)
+T 1482112054 19*	Now talking on 22#openstack-glance
+T 1482112054 22*	Topic for 22#openstack-glance is: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/108704.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1482112054 22*	Topic for 22#openstack-glance set by 26rosmaita (24Fri Dec 16 00:09:49 2016)
+T 1482112240 24*	ducttape_ has quit (Remote host closed the connection)
+T 1482113577 23*	ducttape_ (~ducttape_@73.14.191.4823) has joined
+T 1482114578 24*	catintheroof has quit (Remote host closed the connection)
+T 1482114648 23*	catintheroof (~catinther@186.23.88.21223) has joined
+T 1482114920 24*	catintheroof has quit (Ping timeout: 258 seconds)
+T 1482115065 24*	ducttape_ has quit (Remote host closed the connection)
+T 1482115079 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482115992 24*	ducttape_ has quit (Remote host closed the connection)
+T 1482116741 18<openstackgerrit18>	Cao Xuan Hoang proposed openstack/glance: Removes unnecessary utf-8 encoding  https://review.openstack.org/410106
+T 1482117005 24*	ediardo has quit (Ping timeout: 240 seconds)
+T 1482117125 23*	ediardo (sid156931@gateway/web/irccloud.com/x-tazfqeiooxzvhdqa23) has joined
+T 1482117378 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482117809 23*	udesale (~udesale@125.16.97.12023) has joined
+T 1482118019 24*	ducttape_ has quit (Remote host closed the connection)
+T 1482119641 23*	nicolasbock (~nicolasbo@gentoo/developer/nicolasbock23) has joined
+T 1482121649 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482121958 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1482122634 24*	nicolasbock has quit (Ping timeout: 264 seconds)
+T 1482123035 23*	prateek (~parora@125.16.97.11323) has joined
+T 1482123687 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482124025 23*	pdeore (~pdeore@125.16.97.11723) has joined
+T 1482124355 23*	tshefi (~tshefi@109.226.14.7823) has joined
+T 1482124889 23*	ratailor (~ratailor@125.16.97.12523) has joined
+T 1482125988 24*	ducttape_ has quit (Remote host closed the connection)
+T 1482127497 23*	bkopilov (~bkopilov@bzq-218-175-203.red.bezeqint.net23) has joined
+T 1482128313 24*	bkopilov has quit (Ping timeout: 250 seconds)
+T 1482129125 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1482129129 23*	enginy (~enginy@88.247.119.11623) has joined
+T 1482129260 24*	e0ne has quit (Client Quit)
+T 1482129296 23*	ezoszed (~ezoszed@sessfw99-sesbfw99-89.ericsson.net23) has joined
+T 1482129324 24*	enginy has quit (Quit: Leaving)
+T 1482129395 23*	enginy (~enginy@88.247.119.11623) has joined
+T 1482129411 24*	enginy has quit (Remote host closed the connection)
+T 1482129445 23*	qwertyco (~qwertyco@88.247.119.11623) has joined
+T 1482129449 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1482129537 24*	e0ne has quit (Client Quit)
+T 1482130421 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1482130682 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482130974 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1482131124 23*	tesseract (tesseract@nat/redhat/x-vnavsplthmzdgxor23) has joined
+T 1482131148 24*	28tesseract is now known as 18Guest33254
+T 1482132844 23*	pcaruana (pcaruana@nat/redhat/x-cfbtspnidqaseqks23) has joined
+T 1482134110 18<openstackgerrit18>	Tuan Luong-Anh proposed openstack/python-glanceclient: Replace dict.iteritems() with dict.items()  https://review.openstack.org/363367
+T 1482135147 23*	mosulica (~textual@82.208.160.8823) has joined
+T 1482135917 24*	qwertyco has quit (Ping timeout: 248 seconds)
+T 1482136150 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482136299 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1482136448 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1482136654 23*	qwertyco (~qwertyco@213.14.72.10823) has joined
+T 1482138042 24*	zzzeek has quit (Quit: bye)
+T 1482138148 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1482138421 24*	qwertyco has quit (Ping timeout: 256 seconds)
+T 1482139794 23*	hieulq (~hieulq@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1482141182 23*	bkopilov (bkopilov@nat/redhat/x-hhjltweuuaievbtj23) has joined
+T 1482141320 23*	Dinesh_Bhor (~100310@121.241.234.223) has joined
+T 1482141565 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482141853 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1482142175 23*	bkopilov_ (bkopilov@nat/redhat/x-bsbzapsuylwrniom23) has joined
+T 1482200601 19*	Now talking on 22#openstack-glance
+T 1482200601 22*	Topic for 22#openstack-glance is: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/108704.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1482200601 22*	Topic for 22#openstack-glance set by 26rosmaita (24Fri Dec 16 00:09:49 2016)
+T 1482200900 24*	ducttape_ has quit (Remote host closed the connection)
+T 1482200934 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482201199 24*	ducttape_ has quit (Ping timeout: 248 seconds)
+T 1482202174 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1482203343 24*	28jamielennox is now known as 18jamielennox|away
+T 1482204196 24*	28jamielennox|away is now known as 18jamielennox
+T 1482204691 23*	udesale (~udesale@125.16.97.12023) has joined
+T 1482204789 23*	burgerk (~burgerk@24-179-128-9.dhcp.stcd.mn.charter.com23) has joined
+T 1482205059 24*	burgerk has quit (Ping timeout: 240 seconds)
+T 1482205178 24*	ducttape_ has quit (Remote host closed the connection)
+T 1482206683 18<openstackgerrit18>	Tuan Luong-Anh proposed openstack/python-glanceclient: Replace dict.iteritems() with dict.items()  https://review.openstack.org/363367
+T 1482206796 23*	namnh (~HoaiNam@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1482207612 23*	prateek (~parora@125.16.97.12723) has joined
+T 1482207750 18<openstackgerrit18>	Tovin Seven proposed openstack/glance: Support new OSProfiler API  https://review.openstack.org/316799
+T 1482207865 18<openstackgerrit18>	Tovin Seven proposed openstack/glance: Support new OSProfiler API  https://review.openstack.org/316799
+T 1482208056 23*	pdeore__ (~pdeore@45.113.250.16623) has joined
+T 1482208643 18<openstackgerrit18>	Merged openstack/glance: Change cfg.set_defaults into cors.set_defaults  https://review.openstack.org/393579
+T 1483415980 19*	Now talking on 22#openstack-glance
+T 1483415980 22*	Topic for 22#openstack-glance is: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/109375.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1483415980 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Thu Dec 29 18:07:53 2016)
+T 1483416674 23*	udesale (~udesale@125.16.97.11823) has joined
+T 1483418170 23*	pdeore (~pdeore@115.112.130.22023) has joined
+T 1483418221 24*	pdeore has quit (Client Quit)
+T 1483418972 23*	pdeore (~pdeore@115.112.130.22023) has joined
+T 1483419375 23*	bkopilov (bkopilov@nat/redhat/x-yvpmhubormvvqvim23) has joined
+T 1483419603 23*	ratailor (~ratailor@125.16.97.11723) has joined
+T 1483419910 23*	nicolasbock (~nicolasbo@gentoo/developer/nicolasbock23) has joined
+T 1483421599 23*	prateek (~parora@123.252.240.17523) has joined
+T 1483422841 24*	28jamielennox is now known as 18jamielennox|away
+T 1483422873 24*	prateek has quit (Ping timeout: 264 seconds)
+T 1483423294 24*	28jamielennox|away is now known as 18jamielennox
+T 1483425457 23*	prateek (~parora@125.16.97.11523) has joined
+T 1483425669 23*	ezoszed (~ezoszed@194.237.142.1023) has joined
+T 1483426329 24*	ezoszed has quit (Ping timeout: 248 seconds)
+T 1483426630 24*	udesale has quit (Ping timeout: 246 seconds)
+T 1483426862 23*	ezoszed (~ezoszed@194.237.142.1023) has joined
+T 1483427165 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1483427546 23*	udesale (~udesale@125.16.97.11423) has joined
+T 1483427984 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483428538 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483428578 23*	tshefi (tshefi@nat/redhat/x-qmziuitqstukdnsj23) has joined
+T 1483428720 23*	tesseract (tesseract@nat/redhat/x-wrisbvbnugexgrve23) has joined
+T 1483428784 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483429083 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483429321 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483429354 23*	pcaruana (pcaruana@nat/redhat/x-imgrbipxutkeeodo23) has joined
+T 1483429450 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483429697 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483430143 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483430405 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483430527 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483430695 23*	rcernin (rcernin@nat/redhat/x-rzysnvsnelgkbmje23) has joined
+T 1483430774 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483430809 23*	mosulica (~textual@82.208.160.8823) has joined
+T 1483431073 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483431297 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483431994 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483432232 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483432371 24*	e0ne has quit (Client Quit)
+T 1483433813 24*	pdeore has quit (Quit: Leaving)
+T 1483433905 23*	david-lyle (~david_lyl@host-67-217-12-180.beyondbb.com23) has joined
+T 1483434069 24*	zzzeek has quit (Quit: bye)
+T 1483434177 24*	david-lyle has quit (Ping timeout: 264 seconds)
+T 1483434236 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1483434674 23*	pdeore (~pdeore@115.112.130.22023) has joined
+T 1483435055 24*	mvk has quit (Ping timeout: 258 seconds)
+T 1483435321 24*	nicolasbock has quit (Ping timeout: 248 seconds)
+T 1483435723 23*	abhishekk (~abhishek@121.241.234.223) has joined
+T 1483435820 24*	links has quit (Ping timeout: 256 seconds)
+T 1483437133 23*	mvk (mkrcmari@nat/redhat/x-tezvvqvaumomiytd23) has joined
+T 1483437507 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1483437554 23*	david-lyle (~david_lyl@host-67-217-12-180.beyondbb.com23) has joined
+T 1483437825 24*	david-lyle has quit (Ping timeout: 256 seconds)
+T 1483438314 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1483438586 24*	markvoelker has quit (Ping timeout: 248 seconds)
+T 1483438743 24*	hieulq has quit (Ping timeout: 256 seconds)
+T 1483438803 23*	hieulq (~hieulq@p31007-ipngnfx01hodogaya.kanagawa.ocn.ne.jp23) has joined
+T 1483440546 24*	mvk has quit (Ping timeout: 256 seconds)
+T 1483441255 24*	udesale has quit (Remote host closed the connection)
+T 1483441306 23*	mvk (mkrcmari@nat/redhat/x-bjmcufqrnmyiopjf23) has joined
+T 1483441957 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1483442234 24*	markvoelker has quit (Ping timeout: 248 seconds)
+T 1483442842 24*	prateek has quit (Ping timeout: 248 seconds)
+T 1483443755 23*	smatzek (~smatzek@216.38.34.18623) has joined
+T 1483444846 23*	david-lyle (~david_lyl@host-67-217-12-180.beyondbb.com23) has joined
+T 1483445114 24*	david-lyle has quit (Ping timeout: 248 seconds)
+T 1483445395 23*	prateek (~parora@123.252.240.17523) has joined
+T 1483445601 23*	markvoelker (~markvoelk@107.15.89.20123) has joined
+T 1483445679 24*	bkopilov has quit (Ping timeout: 256 seconds)
+T 1483445882 24*	markvoelker has quit (Ping timeout: 248 seconds)
+T 1483446040 24*	serverascode has quit (*.net *.split)
+T 1483446374 23*	serverascode (sid28313@gateway/web/irccloud.com/x-zbipsltyfrdkwcnq23) has joined
+T 1483492428 19*	Now talking on 22#openstack-glance
+T 1483492428 22*	Topic for 22#openstack-glance is: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/109375.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1483492428 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Thu Dec 29 18:07:53 2016)
+T 1483494646 23*	smatzek (~smatzek@216.38.34.18623) has joined
+T 1483495933 23*	openstackgerrit (~openstack@review.openstack.org23) has joined
+T 1483495933 18<openstackgerrit18>	Davanum Srinivas (dims) proposed openstack/glance_store: [WIP] Trying to add insecure/cafile for swift authentication  https://review.openstack.org/416399
+T 1483498545 19*	Now talking on 22#openstack-glance
+T 1483498545 22*	Topic for 22#openstack-glance is: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/109375.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1483498545 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Thu Dec 29 18:07:53 2016)
+T 1483499139 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483499175 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483499429 24*	ducttape_ has quit (Ping timeout: 245 seconds)
+T 1483501029 24*	prateek has quit (Quit: Leaving)
+T 1483501047 23*	prateek (~parora@123.252.243.24423) has joined
+T 1483501202 24*	mvk has quit (Ping timeout: 256 seconds)
+T 1483501592 24*	prateek has quit (Quit: Leaving)
+T 1483501952 24*	28jamielennox is now known as 18jamielennox|away
+T 1483502242 23*	links (~links@125.16.97.11323) has joined
+T 1483502468 24*	28jamielennox|away is now known as 18jamielennox
+T 1483502595 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483503757 23*	pdeore (~pdeore@115.112.130.22023) has joined
+T 1483504016 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483504034 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483504047 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483504069 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483504179 24*	bkopilov has quit (Ping timeout: 272 seconds)
+T 1483504912 23*	bkopilov (~bkopilov@bzq-79-178-220-152.red.bezeqint.net23) has joined
+T 1483505041 23*	nicolasbock (~nicolasbo@gentoo/developer/nicolasbock23) has joined
+T 1483505593 23*	adisky_ (uid152021@gateway/web/irccloud.com/x-stuqadxyotpruwar23) has joined
+T 1483505830 18<adisky_18>	hi can anybody help me on this bug https://bugs.launchpad.net/glance/+bug/1595335?? I just want to know this is a bug or a new feature??
+T 1483505832 18<openstack18>	Launchpad bug 1595335 in Glance "Add image location fails when show_multiple_locations = false" [Undecided,Confirmed]
+T 1483506784 23*	ratailor (~ratailor@125.16.97.12023) has joined
+T 1483508600 23*	udesale (~udesale@125.16.97.12023) has joined
+T 1483508730 23*	prateek (~parora@125.16.97.12023) has joined
+T 1483509091 23*	mvk (~mkrcmari@ip4-62-4-104-42.cust.nbox.cz23) has joined
+T 1483510348 24*	mvk has quit (Ping timeout: 256 seconds)
+T 1483510639 24*	pdeore has quit (Quit: Leaving)
+T 1483510755 24*	udesale has quit (Ping timeout: 258 seconds)
+T 1483510896 23*	udesale (~udesale@125.16.97.12123) has joined
+T 1483511302 23*	pdeore (~pdeore@115.112.130.22023) has joined
+T 1483512777 23*	pcaruana (~pcaruana@ip-94-112-189-30.net.upcbroadband.cz23) has joined
+T 1483512827 24*	bkopilov has quit (Quit: Leaving)
+T 1483512935 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483513385 23*	mosulica (~textual@82.208.160.8823) has joined
+T 1483513567 23*	groen692 (~Thunderbi@62.1.177.21423) has joined
+T 1483514215 23*	rcernin (rcernin@nat/redhat/x-upqqtwptwsugvres23) has joined
+T 1483514335 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1483514355 23*	tesseract (tesseract@nat/redhat/x-uzcdvsaeovrzcskr23) has joined
+T 1483515139 18<jokke_18>	adisky_: that's not a bug ;)
+T 1483515262 23*	bkopilov (~bkopilov@bzq-79-178-220-152.red.bezeqint.net23) has joined
+T 1483516277 18<adisky_18>	ok ..thats a functionality???
+T 1483516719 24*	haplo37 has quit (Read error: Connection reset by peer)
+T 1483516858 23*	ezoszed (~ezoszed@sessfw99-sesbfw99-89.ericsson.net23) has joined
+T 1483517258 23*	haplo37 (~haplo37@192.207.61.14523) has joined
+T 1483518212 23*	tshefi (tshefi@nat/redhat/x-gxyzidhfmrckcamh23) has joined
+T 1483520471 24*	zzzeek has quit (Quit: bye)
+T 1483520483 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1483524419 23*	pdeore__ (~pdeore@45.113.248.13123) has joined
+T 1483524526 24*	pdeore has quit (Ping timeout: 256 seconds)
+T 1483525226 23*	mvk (mkrcmari@nat/redhat/x-gjzlsilgyebpdlah23) has joined
+T 1483525336 24*	pdeore__ has quit (Quit: Leaving)
+T 1483525362 23*	pdeore (~pdeore@45.113.248.13123) has joined
+T 1483525443 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1483526367 24*	pdeore has quit (Quit: Leaving)
+T 1483526412 23*	pdeore (~pdeore@45.113.248.13123) has joined
+T 1483527265 24*	udesale has quit (Remote host closed the connection)
+T 1483527518 24*	links has quit (Ping timeout: 256 seconds)
+T 1483527850 24*	pdeore has quit (Quit: Leaving)
+T 1483528958 23*	links (~links@125.16.97.11723) has joined
+T 1483529199 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483529859 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483530079 23*	smatzek (~smatzek@216.38.34.18623) has joined
+T 1483530965 24*	ducttape_ has quit ()
+T 1483532165 23*	catintheroof (~catinther@160-77-245-190.fibertel.com.ar23) has joined
+T 1483533094 23*	cdelatte (~cdelatte@cpe-2606-A000-6E4C-1C00-C8A1-A8D7-1EE5-F12A.dyn6.twc.com23) has joined
+T 1483533250 24*	openstackgerrit has quit (Remote host closed the connection)
+T 1483533464 23*	gabor_antal (~gabor_ant@i111nat.inf.u-szeged.hu23) has joined
+T 1483533479 23*	gabor_antal_ (~gabor_ant@i111nat.inf.u-szeged.hu23) has joined
+T 1483533564 24*	gabor_antal_ has quit (Client Quit)
+T 1483534605 23*	udesale (~udesale@27.58.62.6223) has joined
+T 1483535097 24*	mosulica has quit (Ping timeout: 248 seconds)
+T 1483536169 23*	itisha (uid33702@gateway/web/irccloud.com/x-cqbdcoykhktmtjfi23) has joined
+T 1483536762 24*	ratailor has quit (Quit: Leaving)
+T 1483536798 23*	ratailor (~ratailor@125.16.97.11823) has joined
+T 1483537337 24*	prateek has quit (Ping timeout: 248 seconds)
+T 1483537466 23*	wxy| (~wangxiyua@36.47.163.15223) has joined
+T 1483538205 24*	ratailor has quit (Quit: Leaving)
+T 1483539097 23*	agrebennikov (~agrebenni@66.194.162.16623) has joined
+T 1483539337 24*	zul has quit (Read error: Connection reset by peer)
+T 1483539385 23*	zul (~chuck@CPEa84e3f422493-CMa84e3f422490.cpe.net.cable.rogers.com23) has joined
+T 1483539389 24*	seanhandley (~seanhandl@185.98.149.1424) has left
+T 1483539724 23*	ducttape_ (~ducttape_@2001:1998:860:100d:9099:f720:97a:d6623) has joined
+T 1483539754 24*	smatzek has quit (Ping timeout: 245 seconds)
+T 1483541129 24*	udesale has quit (Ping timeout: 245 seconds)
+T 1483541699 18<agrebennikov18>	hi there everybody! Can somebody let me know if glance nowadays (more interested in mitaka) can terminate ssl on the api service? And also, is there a wsgi script I may use to run glance-api behind apache
+T 1483541876 23*	smatzek (smatzek@nat/ibm/x-nllktlnflwviukpd23) has joined
+T 1483542065 24*	links has quit (Quit: Leaving)
+T 1483542096 23*	udesale (~udesale@27.58.62.6223) has joined
+T 1483542458 23*	mosulica (~textual@82.208.160.8823) has joined
+T 1483542865 24*	wxy| has quit (Read error: Connection reset by peer)
+T 1483542865 24*	haplo37 has quit (Ping timeout: 258 seconds)
+T 1483542866 24*	zzzeek has quit (Ping timeout: 258 seconds)
+T 1483542868 23*	wxy|_ (~wangxiyua@36.47.163.15223) has joined
+T 1483542918 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1483542958 23*	haplo37 (~haplo37@192.207.61.14523) has joined
+T 1483543578 24*	udesale has quit (Quit: Leaving)
+T 1483543596 23*	udesale (~udesale@27.58.62.6223) has joined
+T 1483543707 24*	ativelkov_ has quit (Ping timeout: 258 seconds)
+T 1483543823 24*	Guest66666 has quit (Ping timeout: 258 seconds)
+T 1483543866 23*	Guest66666 (~kragniz@nyaa.kragniz.eu23) has joined
+T 1483544009 23*	ativelkov (~ativelkov@91.218.144.12923) has joined
+T 1483544181 24*	udesale has quit (Remote host closed the connection)
+T 1483544953 24*	mvk has quit (Ping timeout: 272 seconds)
+T 1483545527 18<sigmavirus18>	agrebennikov: I believe Glance itself has been able to terminate TLS since liberty. That said, Apache can do that for you as well. But I odn't believe we have wsgi scripts in tree for that
+T 1483545554 23*	dirk (sid33928@kde/mueller23) has joined
+T 1483545666 23*	_ducttape_ (~ducttape_@51nat.mystrotv.com23) has joined
+T 1483545702 18<agrebennikov18>	sigmavirus, this is what I was afraid of... keeping in mind the main trend over the projects - use apache/nginx for running apis
+T 1483545748 18<agrebennikov18>	sigmavirus, per ssl on python - I'm jsut struggling with it for a while (trying to set it up with glance)
+T 1483545751 18<sigmavirus18>	agrebennikov: I do believe pbr has a way of generating them for us but I don't believe anyone's added those magic lines to our setup.cfg yet (nor am I certain that those magic lines would work the way we want them to)
+T 1483545779 18<sigmavirus18>	agrebennikov: I know there are some config options in Glance around TLS certificates but I've never configured Glance to do TLS termination
+T 1483545800 22*	26ChanServ removes channel operator status from 18sigmavirus
+T 1483545817 18<agrebennikov18>	sigmavirus, correct. But the problem is - whenever I set up those 3 lines (cert, key, ca) - api just stops responding
+T 1483545834 18<agrebennikov18>	even though the docs are saying - is is all I need for making it working
+T 1483545834 18<sigmavirus18>	agrebennikov: nothing in logs?
+T 1483545838 18<agrebennikov18>	nope
+T 1483545847 18<agrebennikov18>	let me puul up the latest, sec
+T 1483545857 24*	ducttape_ has quit (Ping timeout: 240 seconds)
+T 1483545858 18<agrebennikov18>	since I gave up and switched to cinder :)
+T 1483545863 18<sigmavirus18>	agrebennikov: have you tried using openssl s_client to see if TLS is working?
+T 1483545865 18<agrebennikov18>	which works as wsgi
+T 1483545892 18<sigmavirus18>	agrebennikov: also need some basic details before I can be of very much help, e.g., python version, os, etc.
+T 1483545924 18<agrebennikov18>	ok, this is openstack-ansible mitaka installation
+T 1483545964 18<agrebennikov18>	I'll bring the details in a bit.... have to spend some time on the meeting now. Are you around in general?
+T 1483546240 24*	rcernin has quit (Quit: WeeChat 1.6)
+T 1483546310 18<agrebennikov18>	so it is ubuntu, python2.7, openstack mitaka upstream
+T 1483546387 18<agrebennikov18>	sigmavirus, so yeah, the request just hangs
+T 1483546405 18<sigmavirus18>	agrebennikov: thta's not descriptive
+T 1483546422 18<sigmavirus18>	what request hangs?
+T 1483546424 18<agrebennikov18>	I understand that :)
+T 1483546444 18<agrebennikov18>	if I curl to the port of glance-api - request ends up with timeout
+T 1483546451 18<agrebennikov18>	since glance doesn't respond
+T 1483546459 18<agrebennikov18>	this happens if I curl with http
+T 1483546471 18<agrebennikov18>	if it is https - root@osa-cntl-glance-container-8dfe5d91:~# curl --insecure https://127.0.0.1:9292
+T 1483546471 18<agrebennikov18>	curl: (35) error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure
+T 1483546620 18<agrebennikov18>	let me go ahead and try to pdb and at least see which module it hangs in
+T 1483546625 18<sigmavirus18>	agrebennikov: so if you're using osa, are you not using a LB? Isn't that part of the reference architecture of that project?
+T 1483546636 18<sigmavirus18>	agrebennikov: more useful would be to see what openssl s_client tells you
+T 1483546662 18<sigmavirus18>	also what details do you have about the certificate you've put in place? What CN do you have in it?
+T 1483546700 18<agrebennikov18>	I have an LB. But the problem is that it is not enough for the security team over here to terminate ssl on the balancer and I have to reconfigure it to terminate ssl on each service
+T 1483546730 18<agrebennikov18>	cn is a wildcard, works perfectly with keystone and cinder behind apache
+T 1483547101 24*	dillaman has quit (Remote host closed the connection)
+T 1483547184 18<agrebennikov18>	http://paste.openstack.org/show/593879/
+T 1483547197 18<agrebennikov18>	basically this is the last pattern from pdb
+T 1483547382 23*	jose-phillips (~Zer0Byte@200.46.91.21323) has joined
+T 1483547402 23*	dillaman (~jdillaman@pool-108-18-97-95.washdc.fios.verizon.net23) has joined
+T 1483547416 24*	ezoszed has quit (Quit: Leaving.)
+T 1483547483 24*	groen692 has quit (Ping timeout: 248 seconds)
+T 1483547574 18<sigmavirus18>	agrebennikov: don't set "ca_certs" because that means that the client is supposed to provide a certificate to authenticate with
+T 1483547587 18<sigmavirus18>	In other words, only use cert_file and key_file
+T 1483547659 24*	_ducttape_ has quit (Remote host closed the connection)
+T 1483547687 23*	ducttape_ (~ducttape_@2001:1998:860:100d:298a:3dcb:b908:c8fb23) has joined
+T 1483548040 18<sigmavirus18>	rosmaita_: ping
+T 1483548120 18<agrebennikov18>	sigmavirus, I have to use ca
+T 1483548140 18<agrebennikov18>	and it is used across all the services :/
+T 1483548317 18<sigmavirus18>	agrebennikov: you need to use client certificate authentication?
+T 1483548353 18<sigmavirus18>	agrebennikov: if that's teh case, you're not passing it appropriately from what I can tell from your curl command
+T 1483548382 24*	mosulica has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1483548397 23*	edmondsw_ (edmondsw@nat/ibm/x-geqssfnhxxjlfzvo23) has joined
+T 1483548401 24*	edmondsw_ has quit (Remote host closed the connection)
+T 1483548750 18<sigmavirus18>	jokke_: ping
+T 1483549565 23*	TravT (~TravT@cce02cs4040-fa12-z.ams.hpecore.net23) has joined
+T 1483550147 24*	wxy|_ has quit ()
+T 1483550180 18<agrebennikov18>	sigmavirus, this is completely offtopic from what I can tell. If there is any issue with the certs themselves I'd expect to get an error. While here I definitely have a code issue since it is hanging somewhere
+T 1483550231 18<sigmavirus18>	agrebennikov: when you start glance, do a list your processes. Glance should be spawning subprocesses to listen which is why you think you're seeing a hang
+T 1483550241 18<sigmavirus18>	And glance just feeds the certs into the ssl module of Python
+T 1483550366 24*	tshefi has quit (Ping timeout: 256 seconds)
+T 1483550390 18<agrebennikov18>	sigmavirus, I'm using single process service to avoid it
+T 1483550425 24*	smatzek has quit (Ping timeout: 272 seconds)
+T 1483550444 18<sigmavirus18>	agrebennikov: also whether or not you're using client certificate verification is absolutely relevant
+T 1483550460 18<sigmavirus18>	If your client does not provide the certificate that the server expects, you'll never complete teh TLS handshake
+T 1483550485 18<sigmavirus18>	agrebennikov: if you don't know what I'm talking about, then you shouldn't be using it because ca_certs is not doing what you think it's doing
+T 1483550541 23*	mvk (~mkrcmari@ip4-62-4-104-42.cust.nbox.cz23) has joined
+T 1483550572 24*	tesseract has quit (Quit: Leaving)
+T 1483551091 18<agrebennikov18>	sigmavirus, nevertheless this option doesn't make any difference
+T 1483551102 18<agrebennikov18>	wsgi server just hangs
+T 1483551130 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1483551321 24*	nicolasbock has quit (Ping timeout: 248 seconds)
+T 1483551540 18<agrebennikov18>	sigmavirus, but.... seems you were right about CA :) in fact the problem was in the connection between api to registry. when I removed registry_ca_file - it started to work
+T 1483551547 18<agrebennikov18>	sigmavirus, thanks! :)
+T 1483551569 18<sigmavirus18>	HTH
+T 1483552055 23*	smatzek (~smatzek@216.38.34.18623) has joined
+T 1483552132 23*	flwang1 (~feilong@210.246.48.9423) has joined
+T 1483552866 24*	28aleph1 is now known as 18agarner
+T 1483553854 24*	28dharinic is now known as 18dharinic|lunch
+T 1483554904 18<smatzek18>	I'm looking for some clarity on the show_multiple_locations setting.  In Newton it is deprecated for removal and the release notes point at setting things in policy.json to control this behavior.  Using policy.json alone to control this behavior doesn't work in Newton and it appears to not work yet in Ocata.  Is removal of this property and migration to use only policy to control this still planned for Ocata?
+T 1483555080 18<stevelle18>	smatzek: I would not expect actual removal to happen in Ocata
+T 1483555120 18<flwang118>	stevelle: i think smatzek is asking if we can fix it in Ocata :)
+T 1483555126 18<flwang118>	if it doesn't work now
+T 1483555136 18<flwang118>	smatzek: may i know more background?
+T 1483555146 18<flwang118>	smatzek: are you looking for using this option?
+T 1483555161 18<flwang118>	or i should reword it: are you trying to use multi locations?
+T 1483555163 18<stevelle18>	flwang1: you're probably right, I'm only answering the half I can speak to right now :)
+T 1483555194 18<smatzek18>	show_multiple_locations must be set to allow Nova snapshot of a Ceph backed instance to a Ceph backed Glance.  I need this functionality.
+T 1483555201 18<flwang118>	stevelle: btw, congrats for glance core and happy new year :)
+T 1483555216 18<stevelle18>	flwang1: thx and hny
+T 1483555233 18<flwang118>	smatzek: oh, yes, if you're using ceph, you need it
+T 1483555236 18<smatzek18>	so my question is, to get this functionality in Newton, and currently in Ocata I must continue to set this deprecated setting, per https://github.com/openstack/glance/blob/master/glance/api/v2/images.py#L294
+T 1483555274 18<smatzek18>	and where I'm looking for clarity is if the code above will change in Ocata to make it so that conf setting goes away and it's 100% controlled by policy.
+T 1483555318 18<flwang118>	smatzek: hmm... that code is only using for locations update
+T 1483555329 18<smatzek18>	which is used during the Nova snapshot flow
+T 1483555343 18<flwang118>	i don't think the nova/ceph CoW functions will be impacted by that line
+T 1483555360 18<flwang118>	oh, really? i didn't dig
+T 1483555393 18<flwang118>	smatzek: you mean nova will call that line?
+T 1483555405 18<smatzek18>	when Nova ephemeral disk and Glance backing store are both Ceph backed Nova creates a queued image, does efficient snapshot direct in Ceph and updates the image location via PATCH API to point at the new RBD object.
+T 1483555481 18<smatzek18>	what's really driving this question is my proposed change to OpenStack-Ansible to set show_multiple_locations=True when Ceph is in use in this review  https://review.openstack.org/#/c/413174/1
+T 1483555488 18<flwang118>	ah
+T 1483555507 18<flwang118>	i see, you're talking about nova snapshot, sorry i missed it
+T 1483555532 18<smatzek18>	the question is, if that property isn't going to be necessary in Ocata for the Nova Snapshot flow to work, should we be setting it in OpenStack-Ansible master/Ocata.  So I'm wondering if the current Ocata behavior will change to be 100% controlled via policy.
+T 1483555575 18<flwang118>	smatzek: we met each other btw,  at rochester lab in 2013
+T 1483555646 18<flwang118>	smatzek: at that moment, you worked for VMcontrol team IIRC :D
+T 1483555686 18<smatzek18>	yep, I worked on VMControl at that time.  Now I'm working on OpenStack and Ceph cluster deployments using ansible.
+T 1483555721 18<flwang118>	awesome
+T 1483555747 18<flwang118>	i will look into this and will comment on your patch
+T 1483555765 18<flwang118>	but it's not a promise we can fix it in Ocata
+T 1483555772 18<flwang118>	i may need to talk with rosmaita_
+T 1483555795 18<sigmavirus18>	flwang1: rosmaita_'s on a much deserved vacation :)
+T 1483555818 18<flwang118>	sigmavirus: ha, good to know, thanks
+T 1483555832 18<sigmavirus18>	just so you didn't get worried about him having disappeared ;)
+T 1483555879 18<smatzek18>	flaper87 may also know since his tag is in other glance comments talking about removal of that property.
+T 1483555964 18<flwang118>	smatzek: yep, i think so, i will try and get back asap
+T 1483556016 24*	pcaruana has quit (Ping timeout: 258 seconds)
+T 1483556068 18<smatzek18>	I'm not really worried about if it goes away in Ocata or not.  If it's staying for Ocata, fine by me, we just need to know how to set the property (or not) for Ocata. Another item of note, is that mfedosin put a similar change into DevStack here: https://review.openstack.org/#/c/279630/
+T 1483556660 18<flwang118>	ok, i see. no problem
+T 1483557292 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483557606 24*	28dharinic|lunch is now known as 18dharinic
+T 1483558146 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1483558216 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1483558232 23*	mosulica (~textual@79.112.164.823) has joined
+T 1483558554 24*	flwang1 has quit (Ping timeout: 248 seconds)
+T 1483558632 24*	raginbajin has quit (*.net *.split)
+T 1483558632 24*	lifeless has quit (*.net *.split)
+T 1483558632 24*	slunkad has quit (*.net *.split)
+T 1483558632 24*	cburgess has quit (*.net *.split)
+T 1483558632 24*	d34dh0r53 has quit (*.net *.split)
+T 1483558632 24*	dharinic has quit (*.net *.split)
+T 1483558632 24*	eglute has quit (*.net *.split)
+T 1483558643 23*	eglute (~eglute@irc.cloudnull.io23) has joined
+T 1483558653 23*	d34dh0r53 (~d34dh0r53@2001:4802:7800:1:adbb:e94c:ff20:c3023) has joined
+T 1483558655 23*	slunkad (slunkad@nat/suse/x-zmyhfjlzqqswrrsf23) has joined
+T 1483558657 23*	cburgess (~cburgess@vrt1.liquidreality.org23) has joined
+T 1483558659 23*	lifeless (~robertc@122-57-100-209.jetstream.xtra.co.nz23) has joined
+T 1483558763 23*	raginbajin (~raginbaji@104.236.243.14923) has joined
+T 1483558986 23*	dharinic (~dharinic@172.99.106.12423) has joined
+T 1483559002 24*	mosulica has quit (Ping timeout: 256 seconds)
+T 1483559830 18<dharinic18>	sigmavirus: Would you like to have a look at this if free? It seems very close to merging. https://review.openstack.org/#/c/367528/
+T 1483559972 18<sigmavirus18>	Thanks for the reminder dharinic
+T 1483559988 18<dharinic18>	Sure sigmavirus :)
+T 1483559995 18<sigmavirus18>	I had tested it and it looks to be working correctly
+T 1483560006 18<dharinic18>	Great.
+T 1483560083 18<dharinic18>	stevelle, hemanthm https://review.openstack.org/#/c/367528/
+T 1483560185 18<hemanthm18>	dharinic: ack, added to review queue
+T 1483560198 18<dharinic18>	Awesome. Thanks hemanthm
+T 1483560586 24*	TravT has quit (Remote host closed the connection)
+T 1483560623 18<stevelle18>	smatzek: seems like we need to fix that policy / conf option code so that the conf becomes truly optional, and policy works by-itself.
+T 1483560690 18<smatzek18>	stevelle, yes that's the way I read the code as well and I'm wondering if that is still planned to make Ocata or not.  Given the date and cut offs I'm guessing it won't make Ocata
+T 1483560751 18<smatzek18>	this release note says it will be removed in Ocata. https://github.com/openstack/glance/blob/stable/newton/releasenotes/notes/deprecate-show-multiple-location-9890a1e961def2f6.yaml
+T 1483560794 18<stevelle18>	smatzek: we don't have a patch submitted to make the above true that I have found. Further I am -1 on removing the conf option until the above is true for at least 1 full cycle, so I am against removing it in Ocata and would want to push that removal out to a later cycle TBD.
+T 1483560861 18<smatzek18>	thanks
+T 1483560866 18<stevelle18>	smatzek: if you want to help by contributing the needed glance patch, that could help. I am core in OSA as well and we can make sure the right thing happens there.
+T 1483561017 18<smatzek18>	thanks.  The OSA review link was noted above.  Based on this, I think we need to get that submitted to master / backported to Newton, but we can take that up over in the openstack-ansible channel or the review itself.
+T 1483561136 18<stevelle18>	smatzek: yeah, adding a comment on the review now.
+T 1483561532 23*	TravT (~TravT@2601:280:102:f114:dc0c:a2d:ef55:94e123) has joined
+T 1483561691 24*	TravT has quit (Remote host closed the connection)
+T 1483561720 23*	TravT (~TravT@2601:280:102:f114:dc0c:a2d:ef55:94e123) has joined
+T 1483561949 23*	TravT_ (~TravT@2601:280:102:fa59:9c24:4f43:f4fb:214123) has joined
+T 1483561977 24*	TravT has quit (Ping timeout: 240 seconds)
+T 1483562423 23*	TravT (~TravT@c-107-2-143-217.hsd1.co.comcast.net23) has joined
+T 1483562437 24*	TravT_ has quit (Ping timeout: 240 seconds)
+T 1483562454 24*	d0ugal has quit (Ping timeout: 245 seconds)
+T 1483563399 23*	d0ugal (~dougal@pdpc/supporter/active/d0ugal23) has joined
+T 1483564233 24*	adisky_ has quit (Quit: Connection closed for inactivity)
+T 1483564388 23*	flwang1 (~feilong@2404:130:0:1000:e041:e563:ab2e:f33b23) has joined
+T 1483564745 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1483565061 23*	_ducttape_ (~ducttape_@51nat.mystrotv.com23) has joined
+T 1483565277 24*	ducttape_ has quit (Ping timeout: 240 seconds)
+T 1483565329 24*	_ducttape_ has quit (Ping timeout: 245 seconds)
+T 1483565477 18<flwang118>	smatzek: still around?
+T 1483565489 18<smatzek18>	yep
+T 1483565511 18<flwang118>	smatzek: may i know how did you test the multi locations?
+T 1483565570 18<flwang118>	did you just set show_multiple_locations=false and set get_image_location and delete_image_location with admin only in policy file?
+T 1483565592 18<smatzek18>	set up OpenStack with Ceph backed Nova and Ceph backed Glance without the show_multiple_locations property set in glance api conf.  Launch and instance from horizon.  Snapshot instance from horizon.  Fails with 403 from Glance inside Nova compute.
+T 1483565648 18<flwang118>	smatzek: ok, i see, thanks
+T 1483565658 18<smatzek18>	policy.json has:      "context_is_admin":  "role:admin",
+T 1483565658 18<smatzek18>	    "default": "role:admin",
+T 1483565658 18<smatzek18>	 and     "delete_image_location": "",
+T 1483565658 18<smatzek18>	    "get_image_location": "",
+T 1483565658 18<smatzek18>	    "set_image_location": "",
+T 1483565675 18<smatzek18>	so admin has policy authority to the actions
+T 1483565753 18<flwang118>	yep, i understand. basically we need to replace the check at https://github.com/openstack/glance/blob/master/glance/api/v2/images.py#L294 with a policy check
+T 1483565853 18<smatzek18>	though you could do this without Nova in the picture with Glance alone, create an image in the queued state and then use the PATCH api, http://developer.openstack.org/api-ref/image/v2/?expanded=update-an-image-detail, to add the location
+T 1483565932 18<flwang118>	right, got it
+T 1483565937 18<flwang118>	thanks for the clarification
+T 1483567680 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483568089 24*	smatzek has quit (Ping timeout: 248 seconds)
+T 1483570452 24*	openstack has quit (Remote host closed the connection)
+T 1483570468 23*	openstack (~openstack@openstack/openstack23) has joined
+T 1483570939 23*	openstackgerrit (~openstack@review.openstack.org23) has joined
+T 1483570939 18<openstackgerrit18>	Dharini Chandrasekar proposed openstack/glance: Stricter checks for registry API calls  https://review.openstack.org/416766
+T 1483571362 24*	agrebennikov has quit (Ping timeout: 246 seconds)
+T 1483571546 24*	28jamielennox is now known as 18jamielennox|away
+T 1483571725 24*	28jamielennox|away is now known as 18jamielennox
+T 1483571873 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483571907 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483572185 24*	ducttape_ has quit (Ping timeout: 248 seconds)
+T 1483572305 24*	cdelatte has quit (Quit: Leaving)
+T 1483572347 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483572982 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483573016 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483573281 24*	ducttape_ has quit (Ping timeout: 256 seconds)
+T 1483573318 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483574609 24*	itisha has quit (Quit: Connection closed for inactivity)
+T 1483575168 24*	ducttape_ has quit (Read error: Connection reset by peer)
+T 1483575181 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483575345 24*	jose-phillips has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1483575992 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483577558 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483577599 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483577613 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483578243 24*	28jamielennox is now known as 18jamielennox|away
+T 1483578253 23*	jose-phillips (~Zer0Byte@190.140.211.18123) has joined
+T 1483578802 24*	jose-phillips has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1483579340 24*	28jamielennox|away is now known as 18jamielennox
+T 1483580318 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483580579 24*	bkopilov has quit (Ping timeout: 258 seconds)
+T 1483580771 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483581190 23*	bkopilov (~bkopilov@bzq-79-178-243-253.red.bezeqint.net23) has joined
+T 1483582961 24*	ducttape_ has quit (Remote host closed the connection)
+T 1483583092 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1483687808 19*	Now talking on 22#openstack-glance
+T 1483687808 22*	Topic for 22#openstack-glance is: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2016-December/109375.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1483687808 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Thu Dec 29 18:07:53 2016)
+T 1483690393 23*	ezoszed (~ezoszed@194.237.142.1023) has joined
+T 1483690833 24*	28abashmak_ is now known as 18alex_bash
+T 1483690955 23*	mvk (~mkrcmari@ip4-62-4-104-42.cust.nbox.cz23) has joined
+T 1483691082 24*	ativelkov has quit (Ping timeout: 245 seconds)
+T 1483691147 23*	EmilienM_ (~emilien@kim.macchi.pro23) has joined
+T 1483691207 24*	bkopilov has quit (Ping timeout: 245 seconds)
+T 1483691560 24*	hogepodge has quit (*.net *.split)
+T 1483691561 24*	jdurgin has quit (*.net *.split)
+T 1483691562 24*	raginbajin has quit (*.net *.split)
+T 1483691563 24*	bhagyashris has quit (*.net *.split)
+T 1483691564 24*	stevelle has quit (*.net *.split)
+T 1483691564 24*	pooja_j has quit (*.net *.split)
+T 1483691566 24*	bapalm has quit (*.net *.split)
+T 1483691567 24*	stevemar has quit (*.net *.split)
+T 1483691567 24*	freerunner has quit (*.net *.split)
+T 1483691568 24*	sigmavirus has quit (*.net *.split)
+T 1483691569 24*	briancurtin has quit (*.net *.split)
+T 1483691570 24*	dhellmann has quit (*.net *.split)
+T 1483691571 24*	EmilienM has quit (*.net *.split)
+T 1483691572 24*	mfisch has quit (*.net *.split)
+T 1483691572 24*	jistr has quit (*.net *.split)
+T 1483691572 24*	ameade has quit (*.net *.split)
+T 1483691573 24*	lin_yang has quit (*.net *.split)
+T 1483691573 24*	zigo has quit (*.net *.split)
+T 1483691573 24*	jmccrory has quit (*.net *.split)
+T 1483691573 24*	toan has quit (*.net *.split)
+T 1483691573 24*	melwitt has quit (*.net *.split)
+T 1483691574 24*	redrobot has quit (*.net *.split)
+T 1483691576 24*	fnordahl has quit (*.net *.split)
+T 1483691576 24*	dirk has quit (*.net *.split)
+T 1483691577 24*	jcook has quit (*.net *.split)
+T 1483691577 24*	aarefiev_afk has quit (*.net *.split)
+T 1483691578 24*	rosmaita has quit (*.net *.split)
+T 1483691579 24*	kuzko has quit (*.net *.split)
+T 1483691579 24*	comstud has quit (*.net *.split)
+T 1483691579 24*	flwang has quit (*.net *.split)
+T 1483691580 24*	cargonza has quit (*.net *.split)
+T 1483691580 24*	mgagne has quit (*.net *.split)
+T 1483691581 24*	vkmc has quit (*.net *.split)
+T 1483691581 24*	dims has quit (*.net *.split)
+T 1483691581 24*	darrenc has quit (*.net *.split)
+T 1483691581 24*	Daviey has quit (*.net *.split)
+T 1483691581 24*	openstack has quit (*.net *.split)
+T 1483691581 24*	openstackstatus has quit (*.net *.split)
+T 1483691582 24*	mnaser has quit (*.net *.split)
+T 1483691583 24*	diegows has quit (*.net *.split)
+T 1483691583 24*	hemanthm has quit (*.net *.split)
+T 1483691583 24*	mdbooth has quit (*.net *.split)
+T 1483691584 24*	jinli has quit (*.net *.split)
+T 1483691584 24*	mugsie has quit (*.net *.split)
+T 1483691584 24*	cjloader has quit (*.net *.split)
+T 1483691584 24*	28EmilienM_ is now known as 18EmilienM
+T 1483691616 23*	ativelkov (~ativelkov@91.218.144.12923) has joined
+T 1483691706 24*	DuncanT has quit (Ping timeout: 242 seconds)
+T 1483691926 23*	openstackstatus (~openstack@eavesdrop.openstack.org23) has joined
+T 1483691926 23*	openstack (~openstack@openstack/openstack23) has joined
+T 1483691926 23*	raginbajin (~raginbaji@104.236.243.14923) has joined
+T 1483691926 23*	dirk (sid33928@kde/mueller23) has joined
+T 1483691926 23*	briancurtin (sid64503@python/psf/briancurtin23) has joined
+T 1483691926 23*	bhagyashris (~bhagyashr@121.241.234.223) has joined
+T 1483691926 23*	jcook (~jcook@162.209.4.11823) has joined
+T 1483691926 23*	hogepodge (~hogepodge@c-24-20-238-120.hsd1.or.comcast.net23) has joined
+T 1483691926 23*	aarefiev_afk (~aarefiev@194.213.110.7123) has joined
+T 1483691926 23*	stevelle (~stevelle@bouncer.stevelle.me23) has joined
+T 1483691926 23*	pooja_j (~openstack@121.241.234.223) has joined
+T 1483691926 23*	rosmaita (~rosmaita@198.61.227.7923) has joined
+T 1483691926 23*	mnaser (~mnaser@unaffiliated/mnaser23) has joined
+T 1483691926 23*	dhellmann (~dhellmann@ip-208-113-130-200.nodes.dream.io23) has joined
+T 1483691926 23*	kuzko (~quassel@greenblood.fr23) has joined
+T 1483691926 23*	comstud (~cbehrens@2001:4800:7818:104:be76:4eff:fe04:912523) has joined
+T 1483691926 23*	diegows (~diegows@main.woitasen.com.ar23) has joined
+T 1483691926 23*	cjloader (~cloader89@irc.cloudnull.io23) has joined
+T 1483691926 23*	jdurgin (~jdurgin@206.169.83.14623) has joined
+T 1483691926 23*	bapalm (~bapalm@96-42-248-149.dhcp.roch.mn.charter.com23) has joined
+T 1483691926 23*	flwang (feilong@202.78.240.723) has joined
+T 1483691926 23*	fnordahl (frode@u.fnordahl.com23) has joined
+T 1483691926 23*	mfisch (~mfisch@ubuntu/member/mfisch23) has joined
+T 1483691926 23*	hemanthm (~hemanth@162.242.243.20423) has joined
+T 1483691926 23*	mdbooth (mdbooth@nat/redhat/x-jmojheyqxxkyxoca23) has joined
+T 1483691926 23*	cargonza (sid149795@gateway/web/irccloud.com/x-bgaixwpmglofhcxe23) has joined
+T 1483691926 23*	jistr (~jistr@smrk.jistr.com23) has joined
+T 1483691926 23*	mgagne (~mgagne@unaffiliated/mgagne23) has joined
+T 1483691926 23*	vkmc (vkmc@unaffiliated/vkmc23) has joined
+T 1483691926 23*	ameade (sid32189@gateway/web/irccloud.com/x-cifnmwryjwhgotlj23) has joined
+T 1483691926 23*	lin_yang (uid131615@gateway/web/irccloud.com/x-qpcabyvtbyzjltgj23) has joined
+T 1483691926 23*	jinli (~jinli@miintdef.sbc.com23) has joined
+T 1483691926 23*	dims (~dims@c-71-192-249-191.hsd1.ma.comcast.net23) has joined
+T 1483691926 23*	stevemar (~stevemar@ec2-54-175-162-221.compute-1.amazonaws.com23) has joined
+T 1483691926 23*	darrenc (~quassel@2401:1801:7800:101:be76:4eff:fe18:1a6723) has joined
+T 1483691926 23*	Daviey (~Daviey@ubuntu/member/daviey23) has joined
+T 1483691926 23*	zigo (~quassel@gplhost-3-pt.tunnel.tserv18.fra1.ipv6.he.net23) has joined
+T 1483691926 23*	freerunner (~freerunne@frostman.ru23) has joined
+T 1483691926 23*	mugsie (mugsie@unaffiliated/mugsie23) has joined
+T 1483691926 23*	jmccrory (~jmccrory@2604:a880:1:20::1e4:100123) has joined
+T 1483691926 23*	toan (~quassel@2001:4800:7818:103:32bc:145a:657e:e14623) has joined
+T 1483691926 23*	melwitt (~melwitt@2604:a880:1:20::519:100123) has joined
+T 1483691926 23*	sigmavirus (~sigmaviru@unaffiliated/sigmavirus2423) has joined
+T 1483691926 23*	redrobot (~redrobot@104.130.30.9823) has joined
+T 1483691926 22*	26wilhelm.freenode.net gives voice to 18openstackstatus
+T 1483691964 23*	bkopilov (~bkopilov@bzq-79-176-34-210.red.bezeqint.net23) has joined
+T 1483692027 24*	EmilienM has quit (Changing host)
+T 1483692027 23*	EmilienM (~emilien@unaffiliated/emilienm23) has joined
+T 1483692082 24*	ediardo has quit (Ping timeout: 240 seconds)
+T 1483692091 24*	ameade has quit (Ping timeout: 260 seconds)
+T 1483692105 24*	cargonza has quit (Ping timeout: 258 seconds)
+T 1483692147 24*	serverascode has quit (Ping timeout: 258 seconds)
+T 1483692156 24*	nikhil has quit (Ping timeout: 245 seconds)
+T 1483692384 23*	DuncanT (sid53099@gateway/web/irccloud.com/x-jkcvfqncewbfopkn23) has joined
+T 1484555540 19*	Now talking on 22#openstack-glance
+T 1484555540 22*	Topic for 22#openstack-glance is: OpenStack Glance | priorities: http://lists.openstack.org/pipermail/openstack-dev/2017-January/109772.html | logs at http://eavesdrop.openstack.org/irclogs/%23openstack-glance/
+T 1484555540 22*	Topic for 22#openstack-glance set by 26openstackstatus (24Fri Jan 13 03:52:53 2017)
+T 1484555607 23*	obre (~obre@frappuccino.rothaugane.com23) has joined
+T 1484555792 23*	adisky_ (uid152021@gateway/web/irccloud.com/x-ubugrhsazovplkbu23) has joined
+T 1484556570 23*	mingyu (~mingyu-li@223.104.3.18423) has joined
+T 1484557288 24*	zzzeek has quit (Quit: bye)
+T 1484557305 23*	zzzeek (~classic@ool-18bd83ef.dyn.optonline.net23) has joined
+T 1484557796 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1484557845 23*	houming (~houming-w@103.10.86.23423) has joined
+T 1484558702 24*	ezoszed has quit (Quit: Leaving.)
+T 1484558836 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1484558863 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1484560130 24*	mvk has quit (Ping timeout: 258 seconds)
+T 1484560602 24*	e0ne has quit (Ping timeout: 240 seconds)
+T 1484560731 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1484562126 23*	mvk (mkrcmari@nat/redhat/x-ydscdwjyvfdbdguc23) has joined
+T 1484562567 24*	udesale has quit (Remote host closed the connection)
+T 1484563255 18<openstackgerrit18>	Merged openstack/glance: Adjust test suite for new psutil versions  https://review.openstack.org/409140
+T 1484563742 24*	mingyu has quit (Remote host closed the connection)
+T 1484567083 23*	ccesario (~ccesario@187.17.166.16223) has joined
+T 1484567303 24*	ratailor has quit (Quit: Leaving)
+T 1484567506 24*	pdeore has quit (Ping timeout: 252 seconds)
+T 1484567961 24*	bkopilov_ has quit (Quit: Leaving)
+T 1484567981 23*	bkopilov_ (~bkopilov@bzq-79-178-180-240.red.bezeqint.net23) has joined
+T 1484568001 24*	ccesario has quit (Read error: No route to host)
+T 1484568249 23*	ccesario (~ccesario@187.17.166.16223) has joined
+T 1484569145 23*	smatzek (~smatzek@216.38.34.18623) has joined
+T 1484569218 23*	thiagolib (uid117865@gateway/web/irccloud.com/x-dvccfheravnolihz23) has joined
+T 1484570114 18<openstackgerrit18>	Gábor Antal proposed openstack/glance: Fix NameError in metadef_namespaces.py  https://review.openstack.org/342189
+T 1484570178 23*	nicolasbock (~nicolasbo@gentoo/developer/nicolasbock23) has joined
+T 1484570970 24*	gb21 has quit (Remote host closed the connection)
+T 1484571085 24*	houming has quit (Ping timeout: 240 seconds)
+T 1484571753 24*	gcb has quit (Quit: Leaving)
+T 1484572645 24*	tshefi has quit (Ping timeout: 240 seconds)
+T 1484573448 24*	mosulica has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1484573606 23*	gb21 (gbatra@nat/redhat/x-asdgawqehgevkxsj23) has joined
+T 1484573609 23*	gbatra_ (gbatra@nat/redhat/x-fryvnjwbjtezhllj23) has joined
+T 1484573633 23*	mosulica (~textual@82.208.160.8823) has joined
+T 1484573667 24*	mfedosin has quit (Ping timeout: 248 seconds)
+T 1484573754 23*	mingyu (~mingyu-li@223.104.3.18423) has joined
+T 1484573843 23*	mfedosin (~mfedosin@broadband-46-188-125-214.2com.net23) has joined
+T 1484574297 24*	gb21 has quit (Ping timeout: 258 seconds)
+T 1484574331 24*	gbatra_ has quit (Ping timeout: 240 seconds)
+T 1484574766 24*	mingyu has quit (Remote host closed the connection)
+T 1484575304 24*	mosulica has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1484575534 23*	mosulica (~textual@82.208.160.8823) has joined
+T 1484577125 24*	links has quit (Quit: Leaving)
+T 1484577504 23*	mingyu (~mingyu-li@223.104.3.18423) has joined
+T 1484578037 24*	ccesario has quit (Ping timeout: 260 seconds)
+T 1484578139 18<openstackgerrit18>	Gábor Antal proposed openstack/glance: Fix NameError in metadef_namespaces.py  https://review.openstack.org/342189
+T 1484578289 23*	gcb (~gcb@1.180.215.9623) has joined
+T 1484578386 24*	mingyu has quit (Remote host closed the connection)
+T 1484578522 23*	mingyu (~mingyu-li@223.104.3.18423) has joined
+T 1484578921 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1484578998 23*	mtanino (mtanino@nat/redhat/x-vkvimrccikokscsk23) has joined
+T 1484579729 23*	e0ne (~e0ne@194.213.110.8223) has joined
+T 1484581813 24*	thiagolib has quit (Quit: Connection closed for inactivity)
+T 1484581843 18<openstackgerrit18>	Jesse J. Cook proposed openstack/glance-specs: Eliminate Redundant Downloads of Uncached Images  https://review.openstack.org/206120
+T 1484581884 18<jcook18>	hemanthm dharinic ^
+T 1484581926 24*	mvk has quit (Ping timeout: 240 seconds)
+T 1484582023 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484582188 18<openstackgerrit18>	Jesse J. Cook proposed openstack/glance-specs: Eliminate Redundant Downloads of Uncached Images  https://review.openstack.org/206120
+T 1484582210 24*	ducttape_ has quit (Remote host closed the connection)
+T 1484582277 23*	ratailor (~ratailor@116.75.13.5923) has joined
+T 1484582294 23*	thiagolib (uid117865@gateway/web/irccloud.com/x-zshllwjthsfcnbyp23) has joined
+T 1484582407 18<jcook18>	flaper87 can you remove procedural -2? ^
+T 1484583265 23*	burgerk (burgerk@nat/ibm/x-olvyczicodalgqkk23) has joined
+T 1484583481 24*	mosulica has quit (Quit: Textual IRC Client: www.textualapp.com)
+T 1484583551 24*	mingyu has quit (Remote host closed the connection)
+T 1484583867 23*	mingyu (~mingyu-li@223.104.3.18423) has joined
+T 1484584122 24*	mingyu has quit (Remote host closed the connection)
+T 1484584137 23*	mingyu (~mingyu-li@223.104.3.18423) has joined
+T 1484584275 24*	ratailor has quit (Quit: Leaving)
+T 1484584410 18<hemanthm18>	jcook: saw that, will review it
+T 1484584418 18<hemanthm18>	jcook: also, dharinic is off today
+T 1484584575 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484585019 24*	gcb has quit (Quit: Leaving)
+T 1484585193 24*	e0ne has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+T 1484585639 23*	jose-phillips (~Zer0Byte@200.46.91.21323) has joined
+T 1484585722 23*	jose-phi_ (~Zer0Byte@200.46.91.21323) has joined
+T 1484585767 24*	jose-phillips has quit (Read error: No route to host)
+T 1484585850 23*	MarcF (~marc@182.95.88.92.rev.sfr.net23) has joined
+T 1484585861 24*	MarcF has quit (Remote host closed the connection)
+T 1484586004 24*	ducttape_ has quit (Remote host closed the connection)
+T 1484586837 24*	mingyu has quit (Remote host closed the connection)
+T 1484587193 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/glance: Updated from global requirements  https://review.openstack.org/415961
+T 1484587195 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/glance_store: Updated from global requirements  https://review.openstack.org/420832
+T 1484587285 23*	mingyu (~mingyu-li@223.104.3.18423) has joined
+T 1484587501 24*	burgerk has quit (Ping timeout: 240 seconds)
+T 1484587552 24*	jose-phi_ has quit (Max SendQ exceeded)
+T 1484587731 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/python-glanceclient: Updated from global requirements  https://review.openstack.org/420853
+T 1484587873 24*	tesseract has quit (Quit: Leaving)
+T 1484587889 23*	jose-phillips (~Zer0Byte@200.46.91.21323) has joined
+T 1484588044 18<stevelle18>	dirk: good luck on the requirements deadline
+T 1484588239 24*	jose-phillips has quit (Read error: No route to host)
+T 1484588275 23*	jose-phillips (~Zer0Byte@200.46.91.21323) has joined
+T 1484588339 24*	mingyu has quit (Remote host closed the connection)
+T 1484588370 18<openstackgerrit18>	Dharini Chandrasekar proposed openstack/glance_store: Buffered reader: Upload recovery for swift store  https://review.openstack.org/120866
+T 1484588510 23*	jose-phi_ (~Zer0Byte@200.46.91.21323) has joined
+T 1484588675 24*	jose-phillips has quit (Ping timeout: 248 seconds)
+T 1484588887 18<dharinic18>	jcook, hemanthm: Thanks.
+T 1484589571 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1484589635 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484589913 24*	ducttape_ has quit (Ping timeout: 258 seconds)
+T 1484590051 23*	mvk (~mkrcmari@ip4-62-4-104-42.cust.nbox.cz23) has joined
+T 1484590835 24*	e0ne has quit (Read error: Connection reset by peer)
+T 1484591723 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1484591994 24*	e0ne has quit (Ping timeout: 255 seconds)
+T 1484592524 23*	e0ne (~e0ne@178.151.129.19323) has joined
+T 1484593764 24*	groen692 has quit (Ping timeout: 240 seconds)
+T 1484594206 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484594454 24*	ducttape_ has quit (Ping timeout: 240 seconds)
+T 1484594797 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484595089 24*	ducttape_ has quit (Remote host closed the connection)
+T 1484595093 23*	avarner (~avarner__@71-90-82-243.dhcp.ftbg.wi.charter.com23) has joined
+T 1484595299 24*	avarner has quit (Client Quit)
+T 1484595307 18<openstackgerrit18>	Merged openstack/python-glanceclient: Updated from global requirements  https://review.openstack.org/420853
+T 1484595598 18<dharinic18>	rosmaita: Tempest ceph test failing at the gate for glance_store:
+T 1484595609 18<dharinic18>	https://review.openstack.org/#/c/120866/
+T 1484595616 18<dharinic18>	https://review.openstack.org/#/c/420832/
+T 1484596644 18<openstackgerrit18>	Jesse J. Cook proposed openstack/glance-specs: Eliminate Redundant Downloads of Uncached Images  https://review.openstack.org/206120
+T 1484597809 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/glance: Updated from global requirements  https://review.openstack.org/415961
+T 1484598053 24*	adisky_ has quit (Quit: Connection closed for inactivity)
+T 1484598900 24*	jose-phi_ has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1484599050 23*	jose-phillips (~Zer0Byte@200.46.91.21323) has joined
+T 1484599540 23*	flwang1 (~feilong@2404:130:0:1000:84bd:7b1b:74f:703523) has joined
+T 1484599611 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484599874 24*	ducttape_ has quit (Ping timeout: 248 seconds)
+T 1484600458 24*	28jamielennox|away is now known as 18jamielennox
+T 1484601053 18<rosmaita18>	dharinic: problem may be connected with Change-Id: I77be1cf85a946bf72e852f6378f0d7b43af8023a , it changed the way tempest decided to skip manage/unmanage snapshot tests
+T 1484601177 18<dharinic18>	rosmaita: What do we do from Glance's side?
+T 1484601211 24*	jose-phillips has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1484601223 18<rosmaita18>	dharinic: not sure, i think it's a problem with the way that test is configured
+T 1484601237 18<rosmaita18>	take a look at http://logs.openstack.org/32/420832/1/check/gate-tempest-dsvm-full-ceph-plugin-src-glance_store-ubuntu-xenial/dab27eb/logs/tempest_conf.txt.gz
+T 1484601267 18<rosmaita18>	search for manage_snapshot ... it should be False for ceph (I think), but it's True
+T 1484601268 18<dharinic18>	Timing is bad..with the glance_store freeze coming up.
+T 1484601273 18<rosmaita18>	no kidding
+T 1484601325 23*	jose-phillips (~Zer0Byte@200.46.91.21323) has joined
+T 1484602471 24*	smatzek has quit (Ping timeout: 240 seconds)
+T 1484602645 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484603117 24*	ducttape_ has quit (Remote host closed the connection)
+T 1484603133 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484603164 24*	ducttape_ has quit (Remote host closed the connection)
+T 1484604121 24*	mfedosin has quit (Ping timeout: 240 seconds)
+T 1484604438 23*	smatzek (~smatzek@216.38.34.18623) has joined
+T 1484605218 18<dharinic18>	sigmavirus^ glance_store changes failing at the gate.
+T 1484605254 24*	smatzek has quit (Ping timeout: 240 seconds)
+T 1484606479 24*	jdurgin has quit (Ping timeout: 252 seconds)
+T 1484606798 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484607066 24*	ducttape_ has quit (Ping timeout: 240 seconds)
+T 1484607514 23*	jdurgin (~jdurgin@66-194-8-225.static.twtelecom.net23) has joined
+T 1484609073 24*	jose-phillips has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1484609494 23*	jose-phillips (~Zer0Byte@200.46.91.21323) has joined
+T 1484609820 23*	ducttape_ (~ducttape_@c-73-14-191-48.hsd1.co.comcast.net23) has joined
+T 1484611970 23*	catintheroof (~catinther@186.23.88.21223) has joined
+T 1484612341 24*	jdurgin has quit (Ping timeout: 240 seconds)
+T 1484612431 23*	david-lyle (~David@134.134.139.7623) has joined
+T 1484613001 23*	mtan_____ (mtanino@nat/redhat/x-xasomcmgeynlpbwz23) has joined
+T 1484613061 24*	mtanino has quit (Ping timeout: 240 seconds)
+T 1484613208 23*	jdurgin (~jdurgin@206.169.83.14623) has joined
+T 1484613695 24*	jose-phillips has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+T 1484613899 24*	david-lyle has quit (Ping timeout: 245 seconds)
+T 1484615433 24*	catintheroof has quit (Remote host closed the connection)

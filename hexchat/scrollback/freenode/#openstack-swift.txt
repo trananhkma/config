@@ -1,0 +1,1471 @@
+T 1476787398 19*	Now talking on 22#openstack-swift
+T 1476787398 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+T 1476787398 22*	Topic for 22#openstack-swift set by 26notmyname (24Thu Sep 29 01:24:23 2016)
+T 1476787398 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1476787425 24*	trananhkma has quit (Remote host closed the connection)
+T 1476787439 24*	stack_ has quit (Remote host closed the connection)
+T 1476787448 20*	You are now known as 18trananhkma
+T 1476787576 23*	david-lyle (~david_lyl@host-67-217-8-253.beyondbb.com23) has joined
+T 1476787606 24*	david-lyle has quit (Read error: Connection reset by peer)
+T 1476787651 23*	david-lyle (~david_lyl@host-67-217-8-253.beyondbb.com23) has joined
+T 1476787698 24*	david-lyle has quit (Read error: Connection reset by peer)
+T 1476787919 FiSHLiM plugin unloaded
+T 1476787971 19*	Now talking on 22#openstack-swift
+T 1476787971 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+T 1476787971 22*	Topic for 22#openstack-swift set by 26notmyname (24Thu Sep 29 01:24:23 2016)
+T 1476787971 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1476787976 Python interface unloaded
+T 1476787976 FiSHLiM plugin unloaded
+T 1476787994 19*	Now talking on 22#openstack-swift
+T 1476787994 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+T 1476787994 22*	Topic for 22#openstack-swift set by 26notmyname (24Thu Sep 29 01:24:23 2016)
+T 1476787994 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1476788071 24*	vint_bra has quit (Quit: Leaving.)
+T 1476788187 18<jamielennox18>	zaitcev: there's no automatic dependency on keystoneauth1, ideally i would like to just add this to requirements
+T 1476788205 18<zaitcev18>	jamielennox: but what package is it?
+T 1476788207 18<jamielennox18>	zaitcev: in practice anyone who is passing a session to the client has already got keystoneauth1 installed to have made the session 
+T 1476788219 18<jamielennox18>	openstack/keystoneauth or pip install keystoneauth
+T 1476788224 18<jamielennox18>	yea - the 1 is annoying
+T 1476788275 18<jamielennox18>	it was launched in a time where we had lots of compatibility problems
+T 1476788276 18<zaitcev18>	Interesting. It lookg like RDO does not have anything called "keystoneauth".
+T 1476788292 18<jamielennox18>	yum would be python-keystoneauth 
+T 1476788309 18<jamielennox18>	or maybe python-keysotneauth1
+T 1476788316 18<jamielennox18>	it's been out for a while now, RDO must have it 
+T 1476788356 18<jamielennox18>	it's a required dependency of pretty much every other client
+T 1476791694 18<openstackgerrit18>	Matthew Oliver proposed openstack/swift: Mirror X-Trans-Id to X-OpenStack-Request-Id  https://review.openstack.org/387354
+T 1476791794 18<clayg18>	kota_: i'm back on for awhile
+T 1476791827 18<mattoliverau18>	^^ just correcting a commit message
+T 1476791870 18<clayg18>	X-OpenStack-Request-Id nice
+T 1476791962 18<clayg18>	wait i thought the idea with that is that when glance makes a request to swift it could have a transaction associated with that requst which we'd then use to track any subrequests etc
+T 1476791980 18<clayg18>	do we not expect the osreqid to be passed in from other services?  should it be?
+T 1476792222 24*	28jamielennox is now known as 18jamielennox|away
+T 1476793083 18<kota_18>	clayg: woow, I was in the lunch just a bit
+T 1476793092 18<kota_18>	and now back to my desk
+T 1476793248 18<mahatic18>	good morning
+T 1476793290 18<kota_18>	mahatic: o/
+T 1476794135 24*	28jamielennox|away is now known as 18jamielennox
+T 1476794686 18<mattoliverau18>	clayg: according to the bug, it looks like its just mirroring our trans-id.. that is so we have a common return header in openstack that people can look for. 
+T 1476794707 18<mattoliverau18>	mahatic: morning
+T 1476794722 18<mahatic18>	kota_: mattoliverau: o/
+T 1476796550 18<kota_18>	hmmm, i noticed that i don't have the permission to add +2 for stable branch.
+T 1476796898 18<mattoliverau18>	kota_: yeah, stable branch is owned by the stable team. notmyname I think is the only swift core with +2 there
+T 1476796912 18<mattoliverau18>	tho I could be wrong... but I don't either
+T 1476797001 18<kota_18>	mattoliverau: it looks like https://review.openstack.org/#/admin/groups/542,members ?
+T 1476797002 18<mattoliverau18>	You might have to ping stable team for review, or call out to tonyb and entice him with meat to smoke :P But they'll be looking for Swift core's +1s to know that we think patches are good
+T 1476797011 18<mattoliverau18>	kota_: ^^
+T 1476797032 18<mattoliverau18>	kota_: yeah that'll be it
+T 1476797054 18<kota_18>	mattolvierau: thx
+T 1476797071 18<tonyb18>	kota_: what needs looking at?
+T 1476797121 18<kota_18>	tonyb: we have 2 backport patches for stable/mitaka and stable/newton
+T 1476797136 18<kota_18>	https://review.openstack.org/#/c/387123/ and https://review.openstack.org/#/c/387172/
+T 1476797137 18<patchbot18>	patch 387123 - swift (stable/newton) - Prevent ssync writing bad fragment data to diskfile
+T 1476797138 18<patchbot18>	patch 387172 - swift (stable/mitaka) - Prevent ssync writing bad fragment data to diskfile
+T 1476797181 18<tonyb18>	kota_, mattoliverau: I'll take a look at them from a stable team POV
+T 1476797192 18<kota_18>	the original patch for the master has landed and i just am wondering who one could make it to land to stable branch
+T 1476797206 18<mattoliverau18>	tonyb: thanks man
+T 1476797219 18<kota_18>	tonyb: notmyname may be able to work on it tommorrow-ish though.
+T 1476797235 18<mattoliverau18>	tonyb: if you need kota and I to +1 em or anything then let us know
+T 1476797236 18<kota_18>	tonyb: but thanks ;-)
+T 1476797257 18<tonyb18>	kota_, mattoliverau: +1 would be good
+T 1476797322 18<mattoliverau18>	k, I'll fire up my stable saio's so I can run the tests etc.. cause I wanna be sure
+T 1476797352 18<kota_18>	mattoliverau: thanks too :D
+T 1476797954 18*	mattoliverau hasn't built a saio to track stable newton yet... so am building one... glad I have a script to do that thing.
+T 1476798178 18<tonyb18>	mattoliverau: scripting for the win!
+T 1476798196 18<mattoliverau18>	\o/ 
+T 1476798424 18<openstackgerrit18>	Pete Zaitcev proposed openstack/swift: Add InfoGet handler with test  https://review.openstack.org/387790
+T 1476799338 18<openstackgerrit18>	Hanxi Liu proposed openstack/swift: Add links for more detailed overview in overview_architecture  https://review.openstack.org/381446
+T 1476800749 18<clayg18>	is there no way to shutup liberasure code 1.1 printing to stdout with pyeclib 1.3.1?
+T 1476800758 18<clayg18>	... other than upgrade liberasurecode?
+T 1476800798 18<clayg18>	... where upgrade ~= build and install from source since no distos package the liberasurecode that goes with pyeclib 1.3.1?
+T 1476800801 18<mattoliverau18>	clayg: good question and if you find the answer let me know ;P
+T 1476800910 18<clayg18>	as much as I'm sure that if i would just go update my vsaio stuff to clone/build/install liberasure from source I'd be happier ...
+T 1476800926 18<clayg18>	... i keep feeling like it's a distraction from what i'm trying to do *right now*
+T 1476800935 18<clayg18>	meanwhile - gd, shut up liberasurecode!
+T 1476800964 18<clayg18>	i *would* just install an olderish pyeclib but we went and bumped requirements?  so it ends up being a real mess :\
+T 1476801061 24*	28sure is now known as 18Guest29440
+T 1476801186 18<mattoliverau18>	clayg: I have the xenial vsaio branch on my OSX dev laptop, and swift is logging directly into /var/log/syslog.. is this the normal setup (ie not logging to /var/log/swift/*), a problem with my chef build, or a vsaio xenial bug?
+T 1476801189 18<Guest2944018>	hi all, I deployed openstack swift, Right now i am getting all swift related logs in "/var/log/syslog" i want these logs in "/var/log/swift/swift.log" file
+T 1476801203 18<Guest2944018>	is there any way to do please help?
+T 1476801232 18<mattoliverau18>	Guest29440: yeah, you need to make sure you set up the rules correctly in rsyslog
+T 1476801285 18<zaitcev18>	RDO installs those automatically
+T 1476801295 18<Guest2944018>	mattoliverau: can you elaborate the process 
+T 1476801329 18<mattoliverau18>	Guest29440: you can either do it via log facility (set in the swift config files) and then catch them and redirect.. including send them to a remote syslog server if thats what you do. 
+T 1476801371 18<zaitcev18>	either ... or what?
+T 1476801399 18<mattoliverau18>	you can see some examples of how its done in the documentation, or even in the swift all in one doco.. I'll try and find some (on phone atm). 
+T 1476801404 18<mattoliverau18>	zaitcev: good point :P
+T 1476801408 18<clayg18>	zaitcev: syslog-ng lets you pick out log lines based on pattern matching and shiz
+T 1476801423 18<mattoliverau18>	yeah, so depends on what syslog your using
+T 1476801434 18<Guest2944018>	mattoliverau: yeah, i will try to find
+T 1476801473 18<clayg18>	Guest29440: this section is a quick read -> http://docs.openstack.org/developer/swift/development_saio.html#optional-setting-up-rsyslog-for-individual-logging
+T 1476801482 18<clayg18>	might give you a general sense of the idea
+T 1476801526 18<Guest2944018>	clayg: thanks and if got struck anywhere i will ask your help
+T 1476801533 18<zaitcev18>	Guest29440: basically https://bugzilla.redhat.com/show_bug.cgi?id=997983
+T 1476801534 18<openstack18>	bugzilla.redhat.com bug 997983 in openstack-swift "swift in RDO logs container, object and account to LOCAL2 log facility which floods /var/log/messages" [Low,Closed: currentrelease] - Assigned to zaitcev
+T 1476801604 18<zaitcev18>	or, better yet, stand by for flood
+T 1476801623 18<zaitcev18>	[root@rhev-a24c-01 ~]# cat /etc/rsyslog.d/openstack-swift.conf 
+T 1476801623 18<zaitcev18>	# LOCAL0 is the upstream default and LOCAL2 is what Swift gets in
+T 1476801623 18<zaitcev18>	# RHOS and RDO if installed with Packstack (also, in docs).
+T 1476801623 18<zaitcev18>	# The breakout action prevents logging into /var/log/messages, bz#997983.
+T 1476801623 18<zaitcev18>	local0.*;local2.*        /var/log/swift/swift.log
+T 1476801624 18<zaitcev18>	&                        ~
+T 1476801625 18<zaitcev18>	[root@rhev-a24c-01 ~]# 
+T 1476801689 18<Guest2944018>	zaitcev: that is in the case of redhat here i am using ubuntu14.04
+T 1476802334 18<mattoliverau18>	Guest29440: in each swift service you can set specific syslog settings e.g: https://github.com/openstack/swift/blob/master/etc/proxy-server.conf-sample#L42-L46
+T 1476802399 18<mattoliverau18>	once you know the log facility (or set it to what you want) (And you can use a few different facilitys if you want to seperate your swift logs even more). You can specify rules 
+T 1476802474 18<mattoliverau18>	Guest29440: for example on the rsyslog side, this is what we do for the Swift All In One (SAIO) dev environment: https://github.com/openstack/swift/blob/master/doc/saio/rsyslog.d/10-swift.conf
+T 1476802611 18<mattoliverau18>	Guest29440:  you can see again in the SAIO's proxy server configuration we are sending all logs to syslog facilty 1: https://github.com/openstack/swift/blob/master/doc/saio/swift/proxy-server.conf#L6
+T 1476802650 18<Guest2944018>	i have given parameters like this in proxyserver.conf http://paste.openstack.org/show/586103/
+T 1476802670 18*	zaitcev facepalms
+T 1476802688 18<Guest2944018>	mattoliverau: is it corrrcet or not
+T 1476802754 18<mattoliverau18>	Guest29440: the log address needs to stay /dev/log as thats the syslog device we write logs to
+T 1476802771 18<mattoliverau18>	and now you have no log facility set
+T 1476802862 18<mattoliverau18>	you dont tell swift where to log (ie /var/log/swift/), you just tell swift where syslog is and what facility to tag the logs as.
+T 1476802902 18<mattoliverau18>	then in syslog you say things coming from this facility write them to /var/log/swift/<something>.log
+T 1476803012 18<mattoliverau18>	you could use a few different facilities (LOG_LOCAL0, LOG_LOCAL1) and then seperate say to proxy from storage, or use more and seperate the eventual consistancy engine from the storage node requests and proxy, etc.. really the skies the limit
+T 1476803060 18<Guest2944018>	mattoliverau: is this is correct configuration and tell me how can write in to /va/log/swift/<something>.log file
+T 1476803071 18<Guest2944018>	http://paste.openstack.org/show/586105/
+T 1476803238 18<mattoliverau18>	Sure, so now your saying send to /dev/log and tag with the LOG_LOCAL0 facility. now you need to tell rsyslog (if that's what your using) to filter on LOG_LOCAL0. 
+T 1476803322 18<mattoliverau18>	Syslog has different levels, for things like warnings, errors, debug, info level messages etc. You can just send them all to a log. or seperate them some more (like the saio is doing). 
+T 1476803669 18<mattoliverau18>	Guest29440: so a very basic (just dump everything on log facility 0 to say /var/log/swift/swift.log would be do do somethink like: create the file /etc/rsyslog.d/10-swift.conf and then in that file place something like http://paste.openstack.org/show/586107/
+T 1476803725 18<mattoliverau18>	then make sure /var/log/swift dir exists and the permissions are correct for syslog (look at /var/log/).. then restart syslog
+T 1476803771 18<clayg18>	whoa!  go mattoliverau!
+T 1476803827 18<Guest2944018>	mattoliverau: thanks i got logs in /var/log/swift/swift.olg
+T 1476803849 18<mattoliverau18>	the saio rsyslog file a linked before shows examples of how you can split it up some more.. and if you want to push logs to a remote syslog server you can do that too. This is where reading the rsyslog documentation can tell you more.. really the skies the limit
+T 1476803857 18<mattoliverau18>	Guest29440: \o/
+T 1476803875 18<Guest2944018>	ohhh!!! now i will seperate the logs 
+T 1476803892 18<mattoliverau18>	Guest29440: now you can play with serperating them if you find that log is way too verbose and noisy (which it would be) :)
+T 1476804658 18<Guest2944018>	mattoliverau: You have any idea about container synchronization please let me know
+T 1476804720 18<mattoliverau18>	Guest29440: in what regards? syslog seperating, container sync, container replication, something else?
+T 1476804768 18<Guest2944018>	mattoliverau: container sync
+T 1476804903 18<mattoliverau18>	Guest29440: ahh ok, what are you trying to do? sync between 2 clusters? 
+T 1476804953 18<Guest2944018>	as of now i want to sync between two clusters
+T 1476804986 18<Guest2944018>	mattoliverau: and is it possible to sync in same cluster?
+T 1476805110 18<mattoliverau18>	Guest29440: yeah, again you can look at how the SAIO has set it up. Because it has container sync setup to sync with itself as we need that to test container sync code.
+T 1476805165 18<Guest2944018>	mattoliverau: you have any reference links regarding this 
+T 1476805180 18<mattoliverau18>	Guest29440: I don't know how much longer I'll be around as it's getting to the end of my day and could get pulled away any minute :)
+T 1476805184 18<mattoliverau18>	Guest29440: sure :)
+T 1476805198 18<mattoliverau18>	let me find some starting points for you :)
+T 1476805221 18<Guest2944018>	mattoliverau: thank you for giving your time
+T 1476805249 18<mattoliverau18>	Guest29440: so start my reading the container sync overview here: http://docs.openstack.org/developer/swift/overview_container_sync.html
+T 1476805290 18<mattoliverau18>	Guest29440: the high level idea is, you need to have a realm config for all clusters that trust each other.. in your case it can just contain one cluster
+T 1476805326 18<mattoliverau18>	the realm key is a unique secret that the clusters will use to authenticate each other
+T 1476805446 18<mattoliverau18>	once this trust is set up, you then mark containers to sync with anther cluster (as it appears in the real file) and to what account/container it syncs with. Again doing that invoves having container level secret keys for extra security.
+T 1476805457 18<mattoliverau18>	in your cases, you'd point to the same cluster
+T 1476805482 18<Guest2944018>	the realm key we need to set like a header while creation of container?
+T 1476805516 18<mattoliverau18>	The saio realm file is here: https://github.com/openstack/swift/blob/master/doc/saio/swift/container-sync-realms.conf
+T 1476805534 18<mattoliverau18>	the realm key for the clusters are in the conf. the container keys are as a header yes
+T 1476805545 18<mattoliverau18>	sorry need to step away for a bit
+T 1476806031 18<mattoliverau18>	Guest29440: when you add the key to a container, it's just setting metadata, so you can do that or change that anytime. So no it doesn't have to be at creation
+T 1476806101 18<Guest2944018>	mattoliverau: yeah i am doing right now if any i got any doubts let you know
+T 1476806248 18<mattoliverau18>	Guest29440: great, good luck, I'm always in channel, even when I'm not here. so ping if you have any other questions
+T 1476806504 18<Guest2944018>	mattoliverau: here is my container-sync-realms.conf file http://paste.openstack.org/show/586114/
+T 1476806539 18<Guest2944018>	while creating container i am getting this error "swift post -t '//realm1/192.168.2.187/AUTH_51a527847ebf4004a1e0f4b133fbdcca/container2' -k 'suresh' container1"
+T 1476806552 18<Guest2944018>	error is "Container POST failed: http://192.168.2.187:8080/v1/AUTH_51a527847ebf4004a1e0f4b133fbdcca/container1 400 Bad Request   No cluster endpoint for 'realm1' '192.168.2.187'"
+T 1476806556 18<mattoliverau18>	Guest29440: because you are only using the 1 cluster, you only need 1 cluster defined
+T 1476806658 18<Guest2944018>	mattoliverau: then what i need to mention in this file
+T 1476806753 24*	28tesseract is now known as 18Guest85855
+T 1476806821 18<mattoliverau18>	Guest29440: in your case it shouhld be //realm1/clustername1/AUTH_51a527847ebf4004a1e0f4b133fbdcca/container2
+T 1476806851 18<Guest2944018>	yeah i got it
+T 1476806860 18<mattoliverau18>	Guest29440: //<realm name from config>/<cluster name (after cluster_) from realm config>/<account>/<container>
+T 1476806865 18<Guest2944018>	just now i created container
+T 1476806865 18<mattoliverau18>	Guest29440: nice :)
+T 1476807052 18<Guest2944018>	mattoliverau: i created two containers named "container1" & "container2" and uploaded object to "container1" but while doing "swift list container2"
+T 1476807062 18<Guest2944018>	it is not showing that object
+T 1476807082 18<mattoliverau18>	is your continer-sync daemon running?
+T 1476807127 18<mattoliverau18>	and container-sync also runs on a interval (runs every now and then, which can set). 
+T 1476807147 18<Guest2944018>	mattoliverau: yeah it is running
+T 1476807175 18<mattoliverau18>	then maybe it hasn't run since you've added the objects
+T 1476807232 18<Guest2944018>	mattoliverau: just now i restarted the service
+T 1476807344 18<mattoliverau18>	oh and you need to make sure you have container sync in your pipeline on the proxy and that if you've changed the realm file you may need to make sure the changes have taken effect. I've mainly only run container sync for development and testing patches. So I'm not too experienced with what exactly needs to be restarted or what not
+T 1476807398 18<mattoliverau18>	well I have to go to dinner.. so I'm out for now. Night swift land
+T 1476807505 24*	28amoralej|off is now known as 18amoralej
+T 1476807550 18<Guest2944018>	mattoliverau: ok thankyou for your patience and help...!!!
+T 1476807692 22*	26ChanServ gives voice to 18clayg
+T 1476808077 18<clayg18>	i just noticed that an invalid or missing X-Object-Sysmeta-Ec-Frag-Index on PUT to object server raises an unhandled DiskFileError - object server returns it as a 500 with a traceback in the body :\
+T 1476808182 18<clayg18>	... seems like 400 would be better, i.e. same as we handle missing x-timestamp
+T 1476808196 18<clayg18>	but i'm not sure if it's worth a wishlist bug - might not hurt?
+T 1476808711 18<deep_18>	Hi, I am trying to setup swift proxy under httpd on rhel. I am facing issue with s3,  s3 bucket create is returning with error related Signature mismatch. Bucket is getting created but s3curl is getting error. Any clue what can be the issue ?? 
+T 1476810673 18<Guest2944018>	Hi all, i am doing container synchronization but it is not syncing the objects to other container
+T 1476810684 18<Guest2944018>	please some one help..!!
+T 1476810804 18<clayg18>	deep_: what's the error that s3curl reports?  does the swift log 201 w/o error?
+T 1476810853 18<clayg18>	Guest29440: is the container-sync daemon running?  Does it leave an errors in the logs?
+T 1476810904 18<Guest2944018>	clayg: yes it is running 
+T 1476810952 18<Guest2944018>	In logs it is showing container-sync: Configuration option internal_client_conf_path not defined. Using default configuration, See internal-client.conf-sample for options
+T 1476812009 18<openstackgerrit18>	Ondřej Nový proposed openstack/swift: Set owner of drive-audit recon cache to swift user  https://review.openstack.org/387591
+T 1476812038 22*	26ChanServ gives voice to 18joeljwright
+T 1476812192 18<kota_18>	oh my...
+T 1476812244 18<kota_18>	looking at patch 387655, i'm realizing pyeclib is now wrong handling for the assertions on the fragment metadata.
+T 1476812244 18<patchbot18>	https://review.openstack.org/#/c/387655/ - swift - WIP: Make ECDiskFileReader check fragment metadata
+T 1476812301 18<kota_18>	if we had a corrupted header in the fragment, we should return -EBADHEADER but currently it causes -EINALIDPARAMETER that means something wrong on caller side.
+T 1476812324 18<kota_18>	that's one of the guilties of current one.
+T 1476812361 18<onovy18>	hi guys. we are in progress of upgrade swift 2.5.0 -> 2.7.0 in production. We upgraded first store and just after that upgrade, obj/replication/rsync metrics from recon jumped up (https://s9.postimg.org/l45qoh0q7/graph.png). In object-replicator log i see many rsync of .ts files.
+T 1476812363 18<onovy18>	any idea?
+T 1476812389 18<kota_18>	the one more guilty is that *current liberasurecode doesn't test anything for invalid_args test cases i found while I was writing the test.
+T 1476812403 18<clayg18>	i would guess it's the new old suffix tombstone invalidation
+T 1476812417 18<clayg18>	onovy: ^
+T 1476812430 18<onovy18>	clayg: so we should continue with upgrade and it will be fixed after last store?
+T 1476812447 18<kota_18>	liberasurecode had the test cases but currently off because some stuff while we ware refactoring the tests.
+T 1476812460 18<kota_18>	agh.
+T 1476812467 18<kota_18>	clayg:!?!?
+T 1476812468 18<clayg18>	kota_: i'm not sure if you're saying libec has yet another bug you'll probably end up fixing while we try to figure out how as a community we're going to adapt to ownership of that library
+T 1476812498 18<clayg18>	or like everything with patch 387655 is bollocks because new libec isn't going to pop on invalid frags?
+T 1476812499 18<patchbot18>	https://review.openstack.org/#/c/387655/ - swift - WIP: Make ECDiskFileReader check fragment metadata
+T 1476812500 18<kota_18>	clayg: have you been in barcelona?
+T 1476812519 18<clayg18>	kota_: no that's like next week
+T 1476812531 18<clayg18>	i do still need to work on cschwede and I's slides some more before then tho
+T 1476812536 18<kota_18>	clayg: that means you're a night man.
+T 1476812548 18<kota_18>	(mid-night man)
+T 1476812609 18<clayg18>	onovy: i'm... hesitant to make that recommendation - i don't really know the situation - but I think I can find you the patch and we can think about it?
+T 1476812630 18<kota_18>	clayg: that's able to pop the invalid frag but i don't like to catch the error as ECDriverError as acoles is doing now, https://review.openstack.org/#/c/387655/1/swift/obj/diskfile.py@53
+T 1476812630 18<patchbot18>	patch 387655 - swift - WIP: Make ECDiskFileReader check fragment metadata
+T 1476812647 18<clayg18>	onovy: so I *did* say that it will be fine -> https://review.openstack.org/#/c/346865/
+T 1476812647 18<patchbot18>	patch 346865 - swift - Delete old tombstones (MERGED)
+T 1476812666 18<kota_18>	because the ECDriver error is an abstruction of all ECError including something like no available backend.
+T 1476812694 18<kota_18>	I don't like to the auditor is doing quarantine if the backend is not avialable.
+T 1476812733 18<kota_18>	so we need to catch more strict error like ECInvalidFragmentMetadata, imo.
+T 1476812765 18<onovy18>	clayg: this patch is in 2.10.0 only
+T 1476812800 18<clayg18>	onovy: oh, well then my first guess was not correct!  See - good thing you didn't listen to me.
+T 1476812804 18<clayg18>	what's happening again now?
+T 1476812830 18<onovy18>	clayg: upgraded one store to 2.7.0 from 2.5.0. recon metric jumped up to high number
+T 1476812874 18<clayg18>	kota_: ok, i like that - is a more appropriate error available?  i think backend not available would fire earlier when trying to create the policies
+T 1476812895 18<clayg18>	one "store" ~= one "node" or zone or cluster?
+T 1476812905 18<onovy18>	https://s12.postimg.org/nchht94n1/graph2.png this show min/avg/med/max from whole cluster
+T 1476812918 18<onovy18>	https://s9.postimg.org/l45qoh0q7/graph.png this is sum
+T 1476812923 18<kota_18>	clayg: sure that. anyway, i have to make sure which error can be raised there though.
+T 1476812944 18<kota_18>	clayg: i think ECInalidFragmentMetadata is suite to catch.
+T 1476812948 18<kota_18>	sweet
+T 1476812963 18<clayg18>	onovy: and what metric is this again?
+T 1476812980 18<kota_18>	but currently pyeclib doesn't return that when the metadata currupted :/
+T 1476812998 18<kota_18>	with a bug in liberasurecode
+T 1476813016 18<kota_18>	and I tried to fix it, it's really trivial and easy.
+T 1476813031 18<kota_18>	and make a test for that but nothing failed w/o patch
+T 1476813046 18<clayg18>	onovy: maybe suffix.syncs?
+T 1476813064 18<onovy18>	clayg: replication/object/replication_stats/rsync from recon middleware
+T 1476813064 18<kota_18>	making sure what happen in the liberasurecode, actually liberasurecode doesn't test any failure case i noticed.
+T 1476813077 18<onovy18>	clayg: what is suffix.syncs?
+T 1476813100 18<clayg18>	statsd metrics - you're turning recon dumps into timeseries data?
+T 1476813142 18<onovy18>	no, not stats. i'm loading recon data over http to one server and aggregating them into rrd
+T 1476813150 18<kota_18>	so hopefully, 1. fix test cases in liberasurecode, 2. fix liberasurecode bug, 3. catch good error in Swift but it requires any other works like dependency managements.
+T 1476813152 18<kota_18>	:/
+T 1476813154 18<onovy18>	Oct 17 18:56:02 sdn-swift-store1 swift-object-replicator: <f+++++++++ 3da/db6db09b842616d169dec89348c753da/1476722950.35238.ts
+T 1476813156 18<onovy18>	Oct 17 18:56:02 sdn-swift-store1 swift-object-replicator: Successful rsync of /data/hd1-1T/objects/449389/3da at sdn-swift-store13-repl.###::object/hd11-1.2T/objects/449389 (0.186)
+T 1476813159 18<onovy18>	this is in log
+T 1476813225 18<clayg18>	onovy: that's a pretty recent tombstone?
+T 1476813237 18<clayg18>	are they *all* from yesterday?
+T 1476813280 18<onovy18>	checking logs
+T 1476813394 18<onovy18>	http://paste.openstack.org/show/586135/ , upgraded at ~11am
+T 1476813404 18<onovy18>	but i'm trying to check your question with cut/sed/... gimme sec :)
+T 1476813560 18<onovy18>	yep, (almost) all of them after 11am is from yesterday
+T 1476813566 18<openstackgerrit18>	Clay Gerrard proposed openstack/swift: WIP: Make ECDiskFileReader check fragment metadata  https://review.openstack.org/387655
+T 1476813646 18<onovy18>	clayg: this is pretty strange: http://paste.openstack.org/show/586136/
+T 1476813655 18<onovy18>	first row: count, second: hour of day
+T 1476813700 18<onovy18>	same from NOT-upgraded node: http://paste.openstack.org/show/586137/
+T 1476813703 18<Guest2944018>	kota: hi, Do you have any idea about container synchronization
+T 1476813753 18<kota_18>	Guest29440: can i make sure your meaning 'container synchronization'?
+T 1476813766 18<onovy18>	so if i understand it correctly, this rsync of .ts was always there (which could be fine), but count of rsync jumped up after one node upgrade
+T 1476813770 18<kota_18>	across over the different swift clusters?
+T 1476813778 18<onovy18>	afk lunch
+T 1476813787 18<Guest2944018>	kota: yes and i am trying in same cluster
+T 1476813856 18<kota_18>	2 same cluster?
+T 1476813897 18<kota_18>	Guest29440: container sync is an option to sync over the 2 clusters, http://docs.openstack.org/developer/swift/overview_container_sync.html
+T 1476813941 18<kota_18>	an user can make a sync target container  to a container.
+T 1476814028 18<Guest2944018>	kota: i followed the same link but i am not seeing objects which are uploaded to one in another container
+T 1476814119 18<kota_18>	Guest29440: ok,  could you have the perrmission to figure out what happens in the cluster?
+T 1476814617 18<Guest2944018>	kota: can you elaborate what i need to do in cluster
+T 1476814655 18<clayg18>	Guest29440: sorry, was looking at other stuff - the interal-client.conf log message is not a problem
+T 1476814687 18<clayg18>	Guest29440: can you share your relams.conf and the metadata you set on the container - maybe it's something obvious?
+T 1476814747 18<clayg18>	Guest29440: otherwise maybe container sync is failing to identify and process the container - or it's trying to process it and failing to sync data somehow
+T 1476814758 18<clayg18>	if it's the latter I would think there's be some noise in the logs about it
+T 1476814813 18<openstackgerrit18>	Kota Tsuyuzaki proposed openstack/liberasurecode: Fix liberasurecode skipping a bunch of invalid_args tests  https://review.openstack.org/387879
+T 1476814857 18<kota_18>	ah, looks like clayg knows something rather than me.
+T 1476814890 18<kota_18>	it looks tsg is absent in this channel.
+T 1476814905 18*	kota_ is going to ping him tommorow morning
+T 1476814951 18<clayg18>	kota_: for backport I don't think we can expect liberasure to be repackaged
+T 1476814994 18<clayg18>	... can we?
+T 1476815015 18<kota_18>	clayg: good point, so we need to fix the auditing with as...
+T 1476815096 18<clayg18>	kota_: for Guest29440 on container-sync I don't know nothing - and i'm going to sign off shortly
+T 1476815153 18<clayg18>	kota_: for the ec auditor invalid frag data - I pushed up what I have so far - there's still some tests that need to be fixed - and I don't think I have the quarantine behavior on the object-server quite right yet (need some tests for invalid frag data in obj.test_server)
+T 1476815169 18<clayg18>	I think the TODO's in the commit are correct (cc @ acoles)
+T 1476815190 18<onovy18>	clayg: back
+T 1476815201 24*	28acoles_ is now known as 18acoles
+T 1476815214 18<kota_18>	clayg: i'm wondering, who sets disk chunk read size for the reader in the auditor.
+T 1476815229 18<kota_18>	that could come from policy.fragment_size?
+T 1476815231 18<acoles18>	good morning
+T 1476815241 18<kota_18>	acoles: good morning
+T 1476815264 18<joeljwright18>	acoles: good morning
+T 1476815284 18<clayg18>	kota_: it's tunable - and I think documented that the auditor will pass it's value into the dfm - so you can adjust your auditor io different than object server
+T 1476815320 18<clayg18>	on server too big iop can gum up the reactor - on auditor it's nice to have bigger fat iops
+T 1476815320 18<kota_18>	i think, we need *at least* pyeclib 1.3.0 if we are using the auditor backport in the stable/mitaka anyway because the policy.fragment_size probably causes memory leak.
+T 1476815347 18<clayg18>	great - so we don't have to do backports!?
+T 1476815368 18<kota_18>	and if we don't make the chunk size as same as policy.fragment_size, the get_metadata call doesn't fit the alignment of fragments.
+T 1476815382 18<clayg18>	onovy: did the rsync spike level off shortly after the upgrade?  or is it still going?
+T 1476815393 18<Guest2944018>	kota: here isa my container-sync-realms.conf 
+T 1476815397 18<acoles18>	kota_: clayg where are we at? I saw clayg pushed a new patchset, do I need to pick up anything?
+T 1476815398 18<Guest2944018>	http://paste.openstack.org/show/586145/
+T 1476815403 18<kota_18>	not sure, when I added a mitagation for that, i think it happened in mitaka-newton.
+T 1476815448 18<clayg18>	acoles: i didn't get started until after dinner - i just cleaned up some tests
+T 1476815468 18<clayg18>	acoles: I took a stab at the early quarantine - but I think it only really works in the adutior currently
+T 1476815493 18<clayg18>	so maybe starting on a obj_server test to read frag_archive with invalid data in it is next thing todo
+T 1476815500 18<kota_18>	hmm, i have to study about container-sync-ralms.conf, that's my sabotage :/
+T 1476815508 18<clayg18>	it's either that or work on fixing the app_iter Range tests in diskfile (blargh)
+T 1476815528 18<acoles18>	clayg: ack
+T 1476815589 18<kota_18>	acoles: i didn't yet complete the review on the auditor but I had made sure some my concern in pyeclib/liberasurecode
+T 1476815595 18<acoles18>	clayg: so i am on board with you and Sam re doing early quarantine (on first bad frag), I wasn't sure if we got some of that for free if the reader close method was called even when the reader wasn't fully read.
+T 1476815601 18<kota_18>	and found another problems a lot :.(
+T 1476815627 18<acoles18>	kota_: what's the liberasure code issue? is that related to the auditor patch?
+T 1476815632 18<kota_18>	s/another/other/
+T 1476815639 18<acoles18>	kota_: :(
+T 1476815655 18<onovy18>	clayg: graph is actual, so it's still going
+T 1476815674 18<onovy18>	spike is about ~24 hours
+T 1476815690 18<kota_18>	acoles: at first, i'd like to change the error handling not to catch ECDriverError. That is because it can catch every errors in the driver including no backend available.
+T 1476815733 18<kota_18>	i think ECInvalidBadFragmentMetadata is good for that which means corrupted fragment metadata we want to check the fragment bytes.
+T 1476815743 18<acoles18>	kota_: ah ok, makes sense
+T 1476815764 18<onovy18>	clayg: https://github.com/openstack/swift/blob/stable/mitaka/swift/obj/replicator.py#L294 this value is in graph
+T 1476815775 18<kota_18>	but 1. liberasurecode has a bug which doesn't return the error when the metadata corrupted
+T 1476815802 18<clayg18>	onovy: it's updated in update() too I think?
+T 1476815803 18<acoles18>	not good
+T 1476815808 18<kota_18>	2. liberasurecode is skipping all invalid_args tests including the corrupted metadata.
+T 1476815823 18<kota_18>	the second one I couldn't believe :(
+T 1476815830 18<onovy18>	yep, https://github.com/openstack/swift/blob/stable/mitaka/swift/obj/replicator.py#L467
+T 1476815840 18<kota_18>	acoles:^^
+T 1476815864 18<acoles18>	kota_: uh? so how come the tests in my patch worked? what error *was* I provoking?
+T 1476815905 18<kota_18>	acoles: ah, the second one is not a big related to yours.
+T 1476815916 18<acoles18>	kota_: I see "liberasurecode[97679]: Invalid fragment, illegal magic value"
+T 1476815926 18<kota_18>	yeah
+T 1476815942 18<deep_18>	clayg: This is the error <Error><Code>SignatureDoesNotMatch</Code><Message>The request signature we calculated does not match the signature you provided. Check your key and signing method.</Message><RequestId>txcd3ec5c31efd45289468e-005805ed4e</RequestId></Error>
+T 1476815946 18<acoles18>	so what is skipped?
+T 1476815955 18<acoles18>	kota_: ^^
+T 1476815965 18<kota_18>	acoles: ok, explain step by step
+T 1476815972 18<kota_18>	let me explain
+T 1476815972 18<patchbot18>	(let <variable> = <value> in <command>) -- Defines <variable> to be equal to <value> in the <command> and runs the <command>. '=' and 'in' can be omitted.
+T 1476815981 18<acoles18>	lol
+T 1476815983 18<kota_18>	sorry patch bot
+T 1476815984 18<clayg18>	deep_: that's for the swift3 middleware - kota_ knows everything swift3
+T 1476815999 18<kota_18>	so busy!?!?
+T 1476816005 18<clayg18>	deep_: unfortuately - he also knows everyting about libec - and we're sort of in crisis :D
+T 1476816028 18<acoles18>	can we spawn another kota?
+T 1476816037 18<kota_18>	acoles: great idea
+T 1476816040 18<kota_18>	JK
+T 1476816041 18<joeljwright18>	dammit kota_ stop being so useful!
+T 1476816045 18<clayg18>	kota.fork()
+T 1476816052 18<kota_18>	so, back to liberasurecode
+T 1476816078 18<acoles18>	for b in bugs: wait(kota)
+T 1476816084 18<kota_18>	acoles: "liberasurecode[97679]: Invalid fragment, illegal magic value", this is comming from sanity check with older libeasurecode
+T 1476816136 18<kota_18>	acoles: IIRC, during liberasurecode development history, we need to validate the fragment can be decode or not for the compatibility perspective.
+T 1476816152 18<deep_18>	clayg, kota_ : :) What is debugged till now for createbucket call i see one put followed by get, for put request the keystone check is successful but for get it return error "Authorization failed. Credential signature mismatch "
+T 1476816156 18<kota_18>	because sometimes we need to update the api or structore of the fragments
+T 1476816166 18<acoles18>	kota_: I have liberasurecode-dev 1.1.0
+T 1476816182 18<kota_18>	and the magic value can be worked for the check, 'this is compatible with your engine'
+T 1476816186 18<clayg18>	onovy: so either nothing has really changed, and reporting has changed and it's reporting is either more or less accurate now - or we're doing more rsync's - which means we're not just invalidating suffixes - but we have out of sync suffixes
+T 1476816221 18<onovy18>	yep. i can't found anything related to reporting change
+T 1476816222 18<kota_18>	deep_: will ack, sorry, I'm not so quick to think/type because I'm not a native English
+T 1476816244 18<kota_18>	back to liberasurecode again
+T 1476816245 18<clayg18>	onovy: is there any difference in the *requests* coming into the upgraded node?  last I looked we object-servers' don't emit statsd metrics per status code like the proxies do (so annoying!) but you could try to parse logs or something?
+T 1476816275 18<acoles18>	kota_: so each engine has a magic value and liberasurecode checks it is good?
+T 1476816281 18<kota_18>	acoles: so that, liberasurecode[97679]: Invalid fragment, illegal magic value means, the fragment is incompatible with currently your using.
+T 1476816288 18<kota_18>	acoles: yes
+T 1476816300 18<acoles18>	and is the magic the first N bytes?
+T 1476816301 18<clayg18>	onovy: if you go poke at /var/cache/swift/object.recon do the numbers make sense?  Are they way higher on the one node?  Is the cycle time longer?  partition timing higher?
+T 1476816303 18<onovy18>	clayg: requests count, type and status codes are same for new and old node
+T 1476816314 18<kota_18>	acoles: but acutally it works with your patch because the corrupted fragment metadata is absolutely incompatible.
+T 1476816324 18<kota_18>	acoles: yes
+T 1476816327 18<clayg18>	everything looks like "yes, more rsyncs on this node" - many factors back up the reported metric?
+T 1476816353 18<kota_18>	acoles: but unfortunately that returns ECInvalidParamter which means caller doing something wrong.
+T 1476816375 18<acoles18>	kota_: ah, but if the corrupted data just happens to be equal to a valid magic for an engine, then we would get no exception??
+T 1476816398 18<kota_18>	acoles: sure
+T 1476816419 18<acoles18>	kota_: right IIRC sometimes I saw "Inavlid args" or similar from liberasurecode
+T 1476816448 18<onovy18>	clayg: http://paste.openstack.org/show/586137/ this shows more rsync on upgraded node. but not "much more", just ~ 10%?
+T 1476816463 18<onovy18>	ehm sry, that was not-upgraded node. upgraded is here: http://paste.openstack.org/show/586136/
+T 1476816483 18<acoles18>	kota_: but, for the bug we know about (ssync) the corruption will always be that the start of the first frag is either "PUT", "POST" or "DELETE". I hope none of those are EC magic values ?!?
+T 1476816526 18<deep_18>	clayg, kota_ : np, take your time. just putting the complete problem and debugging so far.  PUT and GET is using same ec2 credentials. I am not able to find why and who invoke the get call. till now i reached till swift3/request.py function authenticat() --         sw_resp = sw_req.get_response(app)         if not sw_req.remote_user:             raise SignatureDoesNotMatch() -- from here the the s3curl error is returned.
+T 1476816531 18<acoles18>	kota_: wait, maybe I am wrong there, need to think some more
+T 1476816531 18<kota_18>	acoles: i think so, so probably catching ECInvalidParameter is an option insted of ECDriverError
+T 1476816582 18<onovy18>	clayg: https://s22.postimg.org/dteqvt7sx/graph3.png sum of obj/replication/time metric from whole cluster
+T 1476816589 18<onovy18>	so time is +- same
+T 1476816618 18<kota_18>	acoles: current magic value, https://github.com/openstack/liberasurecode/blob/master/include/erasurecode/erasurecode.h#L319
+T 1476816642 18<onovy18>	clayg: only this (rsync) metrics jumped up. all other metric is fine
+T 1476816671 18<clayg18>	onovy: that's good - one bad signal is normally less scary than a bunch of bad signals
+T 1476816691 18<acoles18>	kota_: I think I may be wrong - the *examples* we have seen always had zero bytes of the reconstructed frag sent so that the start of the actual sent data was the start of next subrequest, but in general I'm not sure that is guaranteed e.g. if reconstructor rebuild timed out part way through a rebuild
+T 1476816705 18<onovy18>	clayg: :)
+T 1476816731 18<onovy18>	only other problem is drive-audit metrics, which i send review/patch for. but i think it's unreleated
+T 1476816745 18<clayg18>	onovy: I would at this point start to lean towards maybe older nodes are mis-reporting somehow - or that the source of that signal has some unknown scaler factor away from norm that's different from old and new
+T 1476816747 18<kota_18>	acoles: yes, exactly
+T 1476816790 18<clayg18>	onovy: i might even upgrade another node and see if it does the same thing (probably will) but look for other signals that may indicate if movement in that metric is "bad"
+T 1476816794 18<clayg18>	... not sure if you would agree
+T 1476816829 18<onovy18>	clayg: i will try to stop object-expirer on that node
+T 1476816837 18<acoles18>	kota_: oh, so that struct has 59 bytes of metadata first then the magic. That is interesting, because when i first wrote my test I corrupted the first 12 bytes and saw no error! then i increased to corrupt 64 and saw the bad magic error. So is it the first 59 bytes of metadata checks that are skipped?
+T 1476816844 18<onovy18>	and than i will try to upgrade another one
+T 1476816848 18<onovy18>	and let's see what happens
+T 1476816869 18<clayg18>	onovy: good luck; may the force be with you
+T 1476816875 18<clayg18>	acoles: how many examples do you have?
+T 1476816877 18<kota_18>	acoles: but unfortunately currently no ways to detect the corruption if the magic value is same if using liberasurecode < 1.2.0
+T 1476816887 18<onovy18>	clayg: :) btw i found something
+T 1476816893 18<acoles18>	clayg: 2
+T 1476816904 18<onovy18>	this: obj/expirer/expired_last_pass jumped at yesterday morning too
+T 1476816915 18<kota_18>	if usgin liberasurecode >=1.2.0, that may be caught with header checksum.
+T 1476816918 18<onovy18>	so if we have more expired objects, we have more .ts and more rsyncs...?
+T 1476816924 18<clayg18>	acoles: I spent some time staring at the reconstrcutor code trying to convince myself why a _reconstruct_frag_iter would break early on the first frag more frequently than the in the middle and couldn't see anything?
+T 1476816950 18<clayg18>	i assumed we just had the one sample and it happened to pop on the first frag in the archive?
+T 1476816977 18<kota_18>	acoles: yeah
+T 1476816988 18<clayg18>	onovy: correlation is not causation ?
+T 1476817037 18<onovy18>	clayg: i will stop expirer and try to upgrade another one node than :)
+T 1476817045 18<acoles18>	clayg: yeah. *hand waving*...maybe if a GET is going to timeout then it often will time out on first byte read???? but I think we have to assume not
+T 1476817072 18<kota_18>	acoles: currently, liberasurecode is doing 1. version check, 2. crc check for the metadata and then if it's healty try to chekc the magic value.
+T 1476817093 18<kota_18>	2 is avaliable >=1.2.0
+T 1476817105 18<acoles18>	kota_: so to clarify, liberasurecode <1.2.0 skips the metadata check but will detect a corrupt magic value, liberasurecode >=1.2.0 will detect both corrupt metadata and bad magic?
+T 1476817119 18<clayg18>	yeah xattr stats read stuff maybe is more liekly to be in some filesystem location that's in the page cache than the first chunk read which drops at the bottom of a heavy io queue?  could be
+T 1476817128 18<kota_18>	acoles: yes
+T 1476817134 18<clayg18>	acoles: i'm so glad you're translating
+T 1476817151 18<kota_18>	acoles but one more thing,  a bug is at 1. version check
+T 1476817209 18<kota_18>	acoles: https://review.openstack.org/#/c/387879/1/src/erasurecode.c
+T 1476817209 18<patchbot18>	patch 387879 - liberasurecode - Fix liberasurecode skipping a bunch of invalid_arg...
+T 1476817249 18<kota_18>	if we hit the corruption as like version is negative or 0, the corruption check was skipped
+T 1476817271 18<kota_18>	right now
+T 1476817324 18<kota_18>	my patch 387879 is saving the case the version <= 0 but it may be just mitagation
+T 1476817325 18<patchbot18>	https://review.openstack.org/#/c/387879/ - liberasurecode - Fix liberasurecode skipping a bunch of invalid_arg...
+T 1476817361 18<kota_18>	even if the case, we could check the sanity with the magic value, anyway?
+T 1476817577 18*	kota_ is grubbing another cup of coffee
+T 1476817581 18<acoles18>	kota_: I am computing :)
+T 1476817598 18*	acoles needs too
+T 1476817608 18<acoles18>	coffee*
+T 1476818125 18<kota_18>	back from coffee server
+T 1476818131 18<openstackgerrit18>	Karen Chan proposed openstack/swift: Mirror X-Trans-Id to X-OpenStack-Request-Id  https://review.openstack.org/387354
+T 1476818382 18<kota_18>	deep_: looking at your explanation around sw_resp = sw_req.get_response(app)         if not sw_req.remote_user:             raise SignatureDoesNotMatch() -- from here the the s3curl error is returned.
+T 1476818414 18<kota_18>	maybe swift3 couldn't collect the user information from your keystone.
+T 1476818557 18<kota_18>	deep_: ah, wait I may be wrong.
+T 1476819110 18<kota_18>	hmmm.... not sure the intent for the remote_user because i forgot
+T 1476819149 18<kota_18>	deep_: what i can tell for now is maybe you need to set HTTP_REMOTE_USER in your request.
+T 1476819276 18<sarcasticidiot18>	Hi guys, im currently on the finish stage of setting up a swift cluster(1 keystone, 1 proxy, 2 storage nodes) for some testing but ran into an odd issue. Everything seems to work fine and I can create container using 'swift' client but on the keystone server 'openstack container list' return nothing
+T 1476883294 19*	Now talking on 22#openstack-swift
+T 1476883294 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+T 1476883294 22*	Topic for 22#openstack-swift set by 26notmyname (24Thu Sep 29 01:24:23 2016)
+T 1476883294 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1476851767 18<openstackgerrit18>	Tuan Luong-Anh proposed openstack/swift: Add prefix "$" for command examples  https://review.openstack.org/388355
+T 1476852991 24*	28sure is now known as 18Guest89668
+T 1476853093 18<Guest8966818>	hii all, I am doing "container syncronization" in same cluster for that i created my "container-sync-realms.conf" file like this http://paste.openstack.org/show/586313/
+T 1476853141 18<Guest8966818>	i created two containers and uploaded objects to one but those objects are not copied to other container
+T 1476853149 18<Guest8966818>	please some one help
+T 1476853909 18<openstackgerrit18>	Bryan Keller proposed openstack/swift: WIP: Add notification policy and transport middleware  https://review.openstack.org/388393
+T 1476854167 18<mattoliverau18>	Guest89668: so your container sync realms file is in /etc/swift/
+T 1476854204 18<Guest8966818>	mattoliverau: yes 
+T 1476854252 18<mattoliverau18>	Guest89668: also you can remove the clustername2 line, you only need to define each cluster once (and you are only using 1 cluster) but that shouldn't be stopping anything
+T 1476854315 18<Guest8966818>	mattoliverau: here is error log http://paste.openstack.org/show/586314/
+T 1476854682 18<mattoliverau18>	hmm, so it's timing out and then on the retry its saying method not allowed. And it's a DELETE
+T 1476854811 18<mattoliverau18>	Guest89668: you have the same secret key on both containers in the sync?
+T 1476854819 18<Guest8966818>	mattoliverau: yes
+T 1476854871 18<Guest8966818>	here is my http://paste.openstack.org/show/586315/ 
+T 1476854876 18<Guest8966818>	container stats
+T 1476854911 18<mattoliverau18>	and just to make sure, your proxy or loadbalancer (or whatever your ip in your realms config is pointing at) is listening on port 80?
+T 1476854926 18<mattoliverau18>	cause thats what your realms config says
+T 1476854969 18<Guest8966818>	yes it is listening at port 80
+T 1476855767 18<mattoliverau18>	Guest89668: is the endpoint to your cluster (that's listening on port 80) as swift proxy? a load balancer. Just trying to figure out why the request is 405'ed
+T 1476855796 18<mattoliverau18>	and where is container_sync on the proxy pipeline? 
+T 1476855844 18<Guest8966818>	my swift endpoint is " http://192.168.2.187:8080/v1/AUTH_%(tenant_id)s"
+T 1476855891 18<mattoliverau18>	oh so theyre listening on port 8080 not port 80 or do you have a load balancer listening on 80?
+T 1476855924 18<Guest8966818>	mattoliverau: no
+T 1476855934 18<mattoliverau18>	Guest89668: if not try changeing your end points in the realm to: http://192.168.2.187:8080/v1/
+T 1476855967 18<mattoliverau18>	Guest89668: looks like the container sync daemon is trying to update whatever is listening on port 80, maybe a webserver
+T 1476855986 18<Guest8966818>	mattoliverau: just now i changed and tried again
+T 1476856009 18<Guest8966818>	but now also same result but in log that ERROR was gone
+T 1476856038 18<mattoliverau18>	also I mentioned before you only need to specify a single cluster if you have a single cluster, so if you remove the second you'll have to update container metadata that points to cluser2 to point to cluster 1
+T 1476856049 18<mattoliverau18>	same result as in no objects?
+T 1476856068 18<mattoliverau18>	have you waited or reran the container-sync? 
+T 1476856137 18<Guest8966818>	yes i reran container-sync
+T 1476856174 18<mattoliverau18>	if your on the container server in question (a container server that serves ars a primary for the container in question) you can stop container-sync and force it to run manually with: swift-init container-sync once
+T 1476856177 18<Guest8966818>	here is my new relam file http://paste.openstack.org/show/586317/
+T 1476856187 18<mattoliverau18>	if your using swift-init
+T 1476856259 18<mattoliverau18>	Guest89668: that looks right (the :8080)
+T 1476856282 18<Guest8966818>	and my proxy-server.conf http://paste.openstack.org/show/586316/
+T 1476856330 18<mattoliverau18>	Guest89668: cool, container sync is before auth
+T 1476856395 18<mattoliverau18>	Guest89668: is the container-sync logging anything? it should log something, even if its just saying its running or warning about internal client using default
+T 1476856469 18<Guest8966818>	here is that log  http://paste.openstack.org/show/586318/
+T 1476856618 18<mattoliverau18>	hmm, yeah ok, thats a normal message, but means container sync is running.
+T 1476856670 18<mattoliverau18>	Guest89668: now that we have the ports right, how about you put another object in a container.. just in case container sync thinks it's uptodate
+T 1476856683 18<mattoliverau18>	cause it isn't erroring
+T 1476856759 18<Guest8966818>	mattoliverau: i deleted both the containers and created again but still same result
+T 1476856774 18<mattoliverau18>	Guest89668: whats your container sync interval? have you set one in the config? if not by default its 300 seconds
+T 1476856778 18<mattoliverau18>	or 5 mins
+T 1476856845 18<mattoliverau18>	Guest89668: and your container server can access your proxy servers (via the IP you specified) because thats where container sync is running from
+T 1476856972 18<Guest8966818>	mattoliverau: i am using single node swift (proxy+storage in same node) 
+T 1476856985 18<mattoliverau18>	oh ok
+T 1476856992 18<Guest8966818>	and how to set container sync intervel
+T 1476857062 18<mattoliverau18>	Guest89668: in your container-server config(s) there should be a section for container-sync. Under that heading you can specify an interval by adding:
+T 1476857086 18<mattoliverau18>	interval = <number>
+T 1476857113 18<mattoliverau18>	while your in there, you can turn up the logging verbosity for just the container sync daemon, but adding to the same container-sync section:
+T 1476857133 18<mattoliverau18>	log_level = DEBUG
+T 1476857143 18<mattoliverau18>	then restart the container sync daemon
+T 1476857165 18<mattoliverau18>	and hopefully it'll log more and it might tell us what's going on
+T 1476857236 19*	Now talking on 22#openstack-swift
+T 1476857236 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+T 1476857236 22*	Topic for 22#openstack-swift set by 26notmyname (24Thu Sep 29 01:24:23 2016)
+T 1476857237 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1476857259 FiSHLiM	hexchat_print called without a valid context.
+T 1476857283 19*	Now talking on 22#openstack-swift
+T 1476857283 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+T 1476857283 22*	Topic for 22#openstack-swift set by 26notmyname (24Thu Sep 29 01:24:23 2016)
+T 1476857283 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1476857543 18<Guest8966818>	mattoliverau: i added both parameters but same result
+T 1476857559 18<Guest8966818>	i didnt find any extra log 
+T 1476857866 18<mattoliverau18>	Guest89668: its seems that container-sync isn't finding objects to sync.
+T 1476858111 18<mattoliverau18>	hmm weird, what could we be missing
+T 1476858661 18<clayg18>	busy busy
+T 1476858779 18<Guest8966818>	mattoliverau: then how to debug this 
+T 1476858902 18<mattoliverau18>	Guest89668: any logs matching the time the container sync ran in the proxy server logs (the other side of the container sync transaction)>
+T 1476858903 18<mattoliverau18>	?
+T 1476859071 18<Guest8966818>	mattoliverau: just now i uploaded one object to the container1 here is the log http://paste.openstack.org/show/586321/
+T 1476859237 18<mattoliverau18>	Guest89668: line 12 says your are getting a container-sync log error and your getting a 404 not found
+T 1476859284 18<mattoliverau18>	so double check your container sync paths, and make sure you can access the proxy at the ip you specify in the realms config
+T 1476859288 18<Guest8966818>	the file "openstack" what i deleted
+T 1476859321 18<Guest8966818>	at first time creation of containers i uploaded object called openstck 
+T 1476859348 18<mattoliverau18>	it doesn't seem the log level change has taken effect because you should see alot more. 
+T 1476859358 18<Guest8966818>	mattoliverau: after that i deleted two containers and again i created those
+T 1476859426 18<Guest8966818>	i have given log_level = DEBUG
+T 1476859431 18<Guest8966818>	it is correct
+T 1476859434 18<Guest8966818>	?
+T 1476859493 18<mattoliverau18>	yeah, and did you restart container-sync? Also I don't see your proxy log as apart of that. 
+T 1476859531 18<mattoliverau18>	clayg: your still up! 
+T 1476859780 18<Guest8966818>	mattoliverau: yes i restarted
+T 1476860428 18<onovy18>	clayg: no. i shutdowned it, spiked up. after power on, spiked down (and some time for sync of missing data). it was off for ~1 hour
+T 1476860523 18<onovy18>	"down" = value before shutdown, but still higher than before upgrade
+T 1476860926 24*	28tesseract is now known as 18Guest90211
+T 1476861137 18<clayg18>	handoffs first?
+T 1476861186 18<clayg18>	i think there's a warning emitted if you have it turned out - but the behavior changed at some point
+T 1476861251 18<clayg18>	onovy: 01410129dac6903ce7f486997a48e36072fa0401 first appeared in 2.7 tag
+T 1476862466 22*	26ChanServ gives voice to 18joeljwright
+T 1477303622 19*	Now talking on 22#openstack-swift
+T 1477303622 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Reviews: http://goo.gl/mtEv1C | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Summit topics: https://etherpad.openstack.org/p/ocata_swift_summit_topics
+T 1477303622 22*	Topic for 22#openstack-swift set by 26notmyname (24Thu Sep 29 01:24:23 2016)
+T 1477303622 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1478485633 19*	Now talking on 22#openstack-swift
+T 1478485633 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1478485633 22*	Topic for 22#openstack-swift set by 26notmyname (24Wed Nov  2 06:09:34 2016)
+T 1478485633 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1478490129 18<mahatic18>	good morning!
+T 1478492086 20*	Disconnected (20Connection timed out)
+T 1478492116 19*	Now talking on 22#openstack-swift
+T 1478492116 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1478492116 22*	Topic for 22#openstack-swift set by 26notmyname (24Wed Nov  2 06:09:34 2016)
+T 1478492117 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1478494239 18<kota_18>	mahatic: good morning!
+T 1478495923 18<openstackgerrit18>	Charles Hsu proposed openstack/python-swiftclient: Add additional headers for HEAD/GET/DELETE requests.  https://review.openstack.org/372656
+T 1478496435 18<openstackgerrit18>	Merged openstack/liberasurecode: Fix clang compile time error  https://review.openstack.org/324083
+T 1478502407 24*	28tesseract is now known as 18Guest71310
+T 1478508057 24*	28amoralej|off is now known as 18amoralej
+T 1478508440 -18openstackstatus/22#openstack-swift-	NOTICE: Gerrit is going to be restarted due to slowness and proxy errors
+T 1478513383 18<sureshj18>	hii all i am uploading 3 objects of size 5.1GB with segment size 512MB at a time
+T 1478513404 18<sureshj18>	but all of them are failed with 503 service unavialable
+T 1478513415 18<sureshj18>	plese someone help on this
+T 1478513527 24*	28acoles_ is now known as 18acoles
+T 1478515329 18<acoles18>	sureshj: take a look in your proxy logs for any error messages container string "returning 503", they may give some hint as to what is happening - could be backend connection timeouts
+T 1478515457 18<sureshj18>	acoles: here is some part of  my log http://paste.openstack.org/show/588230/
+T 1478515900 18<cschwede18>	Hello everyone!
+T 1478515942 18<cschwede18>	acoles: i’m looking into the pyeclib testing in the gate we discussed in Barcelona
+T 1478515998 18<cschwede18>	acoles: but i’m no longer sure what is really missing here? at the end of the day we need a job to run probetests, right?
+T 1478516247 18<acoles18>	cschwede: remind me what the discussion was? (I remember discussing upgrade tests and tiering tests and the need for multi-policy func tests)
+T 1478516296 18<acoles18>	cschwede: did we discuss running swift tests in gate for pyeclib???
+T 1478516316 18<cschwede18>	acoles: we discussed running EC probetests on the gate with John, but looking into the current gate setup it either looks much more simple to me as it sounded in Barcelona or I am missing something
+T 1478516473 18<acoles18>	cschwede: oic. hmmm, TBH  I have never looked into why we do not run probe tests in gate, I just assumed there was a good reason that we could not.
+T 1478516488 18<acoles18>	probe tests make assumptions about the SAIO deployment
+T 1478516509 18<acoles18>	like tempauth is required IIRD, but devstack has that
+T 1478516513 18<cschwede18>	acoles: well, there is one. it requires more resources, because we need more than 1 replica
+T 1478516554 18<acoles18>	cschwede: does devstack use a single replica policy?
+T 1478516574 18<cschwede18>	acoles: yes, but one can override this, and use 3 for example to rest replication
+T 1478516601 18<cschwede18>	acoles: and my assumption is that we can simply increase that for EC, modify the swift.conf and run these tests
+T 1478516657 18<cschwede18>	there are already tests for pyeclib itself, for example: https://review.openstack.org/#/c/390149/
+T 1478516657 18<patchbot18>	patch 390149 - pyeclib - Remove Ryuta Kon from NTT shss reference (MERGED)
+T 1478516670 18<cschwede18>	(last patch on master branch)
+T 1478516728 18<cschwede18>	acoles: anyhow - i will continue testing on devstack how to enable EC probetests on the gate. i’ll ping you again soon ;)
+T 1478516800 18<acoles18>	cschwede: so currently we have no gate *functional* test using EC policy, that would be a good addition. I had thought it could be achieved with the in-process framework by adding an EC policy to that.
+T 1478516820 18<acoles18>	IDK about probe tests in the gate, if it can happen then great!
+T 1478516840 18<cschwede18>	hmm, looking into that oo
+T 1478516844 18<cschwede18>	s/oo/too
+T 1478517026 18<acoles18>	sureshj: your logs are showing that the backend PUT requests are timing out after 10 secs - you could try increasing the timeout value (node_timeout in proxy-server section of proxy-server.conf)
+T 1478517101 18<openstackgerrit18>	Alistair Coles proposed openstack/swift: Unset random seed after rebalancing ring  https://review.openstack.org/371564
+T 1478523283 18<timss18>	Hi. Does the containers/objects created with swift-dispersion-populate use any significant amount of disk space? Is the dispersion_coverage just about partition coverage, or can it grow out of control if there's many partitions?
+T 1478524262 24*	28amoralej is now known as 18amoralej|lunch
+T 1478526833 24*	28amoralej|lunch is now known as 18amoralej
+T 1478528364 24*	28tesseract is now known as 18Guest41117
+T 1478531815 18<openstackgerrit18>	Mathias Bjoerkqvist proposed openstack/swift: WIP: Storing encryption root secret in Barbican  https://review.openstack.org/364878
+T 1478532257 18<openstackgerrit18>	Nandini Tata proposed openstack/swift: Allow custom swift configuration directory  https://review.openstack.org/393952
+T 1478532928 18<tdasilva18>	do we have documented anywhere all the environment variables that could be set for swift and swift dev?
+T 1478532959 18<tdasilva18>	ntata: ^ maybe you know this...
+T 1478533368 24*	28raginbaj- is now known as 18raginbajin
+T 1478533569 18<openstackgerrit18>	Merged openstack/swift: update urls to newton  https://review.openstack.org/388196
+T 1478537219 18<ntata18>	tdasilva, good question. Well, I couldn't find anything that talks about all the possible environment variables at a single place
+T 1478537532 18<tdasilva18>	ntata: yeah, i was just wondering, it would probably be helpful to do that at some point
+T 1478537732 18<ntata18>	tdasilva, agree, I can pool them together (to deployment guide maybe?) unless you're planning to..
+T 1478538318 18<tdasilva18>	ntata: feel free to go ahead
+T 1478539315 18<notmyname18>	good morning
+T 1478539343 18<notmyname18>	well this is interesting http://lists.openstack.org/pipermail/openstack-dev/2016-November/106877.html
+T 1478539351 18<notmyname18>	I haven't read the referenced blog post yet
+T 1478539404 18<clayg18>	yay mondays!
+T 1478539837 24*	28amoralej is now known as 18amoralej|off
+T 1478540075 18<notmyname18>	well, while I'm piling on the mondays, there's this too https://review.openstack.org/#/c/365590/
+T 1478540076 18<patchbot18>	patch 365590 - governance - Add "Assume Good Faith" to OpenStack principles
+T 1478540624 18<openstackgerrit18>	Donagh McCabe proposed openstack/swift: Document access control lists (ACLs)  https://review.openstack.org/374215
+T 1478540766 18<tdasilva18>	notmyname: i read the blog post and i think it seems sensible, i couldn't point out anything that's necessary wrong the the ideas (principles), just not sure I agree with some of the specifics...
+T 1478540837 18<notmyname18>	tdasilva: yeah, the "team asking for golang must first create goslo.{config,messaging,db} and auth" seems ... well, I'm not sure what ;-)
+T 1478540914 18<tdasilva18>	notmyname: yeah, i think asking 'us' to help contribute to common code is sensible, defining what that common code is will be the challenge
+T 1478540969 18<notmyname18>	tdasilva: in our specific case, most of those don't make sense. config might, but the requirement (no different in python) is that existing configs must continue to work
+T 1478541004 18<tdasilva18>	notmyname: agree...honestly, top of my head i can only think of config and logging which is not even on his list
+T 1478541076 18<tdasilva18>	i'm not sure authentication makes sense at the moment as we are not proposing changes to user facing services, but maybe other services have authentication in the backend services??? i have no idea
+T 1478541095 18<notmyname18>	could be. same with db and messaging, too
+T 1478541137 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+T 1478543700 18<clayg18>	i can't get half way through a sentence without having to delete it - and I'm normally pretty lippy
+T 1478543761 18<openstackgerrit18>	Merged openstack/swift: Fix signal handling for daemons with InternalClient  https://review.openstack.org/259347
+T 1478544400 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: object-replicator cleanup  https://review.openstack.org/391617
+T 1478544401 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+T 1478544497 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+T 1478546592 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+T 1478547126 18<clayg18>	jrichli: nice response on lp bug #1319096
+T 1478547127 18<openstack18>	Launchpad bug 1319096 in OpenStack Object Storage (swift) "Include object metadata in container list" [Undecided,In progress] https://launchpad.net/bugs/1319096
+T 1478547228 18<jrichli18>	clayg: I looked for a nick that might match Christian Hugo to see if we could chat here, but no luck.
+T 1478547254 18<jrichli18>	I see he has uploaded a few different patches lately
+T 1478547377 18<clayg18>	jrichli: yeah!  would love to see him get more engaged!  ... see if there's anything we can do to help/support?
+T 1478547383 18<openstackgerrit18>	Ondřej Nový proposed openstack/swift: object-replicator cleanup  https://review.openstack.org/391617
+T 1478548208 24*	28acoles is now known as 18acoles_
+T 1478548387 18<notmyname18>	fungi: torgomatic: tdasilva: patch 394600 and patch 394601 set up a testing environment that allows for checking xattrs in swift's tests, thus enabling patch 336323 to land (I think)
+T 1478548388 18<patchbot18>	https://review.openstack.org/#/c/394600/ - openstack-infra/project-config - enable xfs for swift in-process functests
+T 1478548389 18<patchbot18>	https://review.openstack.org/#/c/394601/ - openstack-infra/project-config - add python-jobs-with-xfs for swift
+T 1478548390 18<patchbot18>	https://review.openstack.org/#/c/336323/ - swift - Add checksum to object extended attributes
+T 1478548404 18<notmyname18>	fungi: I'd definitely appreciate your insight on the 2 infra patches
+T 1478548430 18<notmyname18>	I spearated them to make it more clear about the 2 things I'm doing, but i'm happy to combine if that's what you'd prefer
+T 1478548431 18<fungi18>	notmyname: yep, saw 394601 and its parent scroll by in the infra channel and already have them pulled up
+T 1478548438 18<notmyname18>	thanks :-)
+T 1478548446 18<fungi18>	i'll look closer once the jobs report back on them in a few minutes
+T 1478549008 18<clayg18>	timburke: I'm on vbox -> 5.0.14r105127 and vagrant -> 1.8.4.1
+T 1478549046 18<clayg18>	obvs no problems mounting file systems - could totally be a guest agent thing tho - i'd be happy to upgrade if you're on newer-er versions and see i can duplicate your pain
+T 1478549095 18<timburke18>	clayg: hmm... i *am* on newer, though when i first hit trouble, i was on older (at least for vbox)
+T 1478549119 18<timburke18>	currently on 5.0.28 & 1.8.5.3
+T 1478549143 18<timburke18>	but the USERNAME tip got me off & running on trusty, so w/e
+T 1478549347 18<notmyname18>	fungi: ah, I'm guessing the errors are from the consolidation I did to https://github.com/openstack-infra/project-config/blob/master/jenkins/jobs/projects.yaml#L14043-L14055
+T 1478549349 18<clayg18>	timburke: but xenial is *so* much better!
+T 1478549379 18<notmyname18>	fungi: I don't see why those need to be different sections (one with trusty+xenial and one with just xenial).
+T 1478549421 18<notmyname18>	fungi: from git history, it seems that they got split as part of some trusty->xenial migration in infra. certainly not intended to only work in one or the other from the swift perspective
+T 1478549435 18<timburke18>	clayg: eh, may as well be on a platform that my customers might actually be using
+T 1478549437 18<timburke18>	(i should really look into adding centos support for vsaio...)
+T 1478549522 18<notmyname18>	fungi: but I'll admit to not really understanding all the layout. fwiw, the error is at http://logs.openstack.org/00/394600/1/check/gate-project-config-layout/65bcf33/console.html#_2016-11-07_19_57_01_190485
+T 1478549559 18<notmyname18>	oh! because layout.yaml doesn't reference the new name! (I think)
+T 1478549734 18<fungi18>	notmyname: sorry, had to step afk for a moment but i'm taking a look now
+T 1478549845 18<clayg18>	timburke: yes
+T 1478549862 18<clayg18>	timburke: however, there was *some* reason I needed to move to xenial?  some skip tests if you have an old kernel maybe?
+T 1478549887 18<notmyname18>	fungi: pushed new revisions
+T 1478549899 18<clayg18>	timburke: I think it was honestly because the haproxy that comes with precise can't do ssl termination and I wanted to play with the proxy protocol stuff for the ip address handling patch/story?
+T 1478549902 18<fungi18>	notmyname: the error i see there is "jenkins_jobs.errors.JenkinsJobsException: Duplicate definitions for job 'swift-branch-tarball' specified" which i think is because you have the python-jobs and python-jobs-with-xfs-tmp job-groups instantiated on swift in jenkins/jobs/projects.yaml, and each of those job groups defines some of the same jobs
+T 1478549930 18<notmyname18>	fungi: oh? can't reference the same job names in 2 different job groups?
+T 1478549946 18<fungi18>	notmyname: if the plan is to use both those job-groups together, you probably just need to have gate-{name}-python27-xfs-tmp-{node} and gate-{name}-python34-xfs-tmp in the python-jobs-with-xfs-tmp group
+T 1478549955 18<timburke18>	dammit! that was on my shortlist of things to go +A, just as soon as i could get around to func testing it...
+T 1478550000 18<notmyname18>	fungi: that doesn't seem to align with python-db-jobs
+T 1478550023 18<fungi18>	notmyname: yeah, in this case it's that jjb isn't smart enough to know that you're instantiating, say, {name}-branch-tarball twice with the same set of parameters (if it were smarter it might learn to dedupe those). instead it worries that you're instantiating templates that result in jobs with identical names (which as far as it knows might be different jobs)
+T 1478550024 18<notmyname18>	fungi: ...which seems to be a copy of python-jobs but with a couple of names changed
+T 1478550036 18<clayg18>	timburke: you're going to need xenial
+T 1478550055 18<clayg18>	:P
+T 1478550077 18<notmyname18>	fungi: oh, do you prefer these to be one commit or the 2 separate ones I've proposeD?
+T 1478550084 18<clayg18>	oh... wait - were you talking about the proxy protocl patch or the other xfs-gate thing
+T 1478550124 18<timburke18>	clayg: the PROXY proto patch
+T 1478550151 18<clayg18>	timburke: ah
+T 1478550191 18<fungi18>	notmyname: right, the projects which use the python-db-jobs group don't use the normal python-jobs group. honestly that's probably an oversight and they should use both but factor out the jobs common between them (so that nova can't accidentally make it impossible to run their tox env without mysql and postgres both installed)
+T 1478550192 18<fungi18>	i'll write that up as a separate change
+T 1478550257 18<notmyname18>	fungi: TBH, I'd be totally ok with not running the normal python-jobs group and running this one instead, but I've been given the impression that wouldn't fly with the TC and the common testing interface (or "swift being different")
+T 1478550308 18<fungi18>	notmyname: yep, i'm writing this one up for parity with the swift change. either they're both needed or neither is but i definitely want a level playing field here whichever way things go
+T 1478550341 18<notmyname18>	fungi: ok. I'll change mine to just have the two xfs jobs in the -with-xfs-tmp group
+T 1478550361 18<notmyname18>	fungi: but do you want me to keep my 2 patches or squash them together?
+T 1478550463 18<openstackgerrit18>	Tim Burke proposed openstack/swift: Always set swift processes to use UTC  https://review.openstack.org/331369
+T 1478550488 18<fungi18>	notmyname: i'm not opposed to keeping them separate changes. probably slightly easier to review this way
+T 1478550535 18<fungi18>	i see 394600 failed (different) tests. i was looking at the error on 394601
+T 1478550630 18<fungi18>	and yeah, it looks like the job failure on 394600 is due to needing to also update the gate-swift-tox-bandit-ubuntu-(trusty|xenial) regex in zuul/layout.yaml
+T 1478550734 18<notmyname18>	fungi: ok, thanks. new version pushed
+T 1478551297 18<mattoliverau18>	Morning
+T 1478551694 18<fungi18>	notmyname: for reference, here's my first attempt at the strawman for making sure all projects using custom db setup in unit tests are also tested without: https://review.openstack.org/394620
+T 1478551695 18<patchbot18>	patch 394620 - openstack-infra/project-config - Make sure opportunistic DB use in unit tests works
+T 1478551717 18<fungi18>	i agree that's basically the same case as expecting someone to make an xfs filesystem available when running unit tests
+T 1478552292 18<fungi18>	notmyname: it still doesn't look like 394600 patchset 3 updated the gate-swift-tox-bandit-ubuntu-(trusty|xenial) regex in zuul/layout.yaml
+T 1478553150 18<jrichli18>	timburke: I just glanced at patch 331369 and am wondering what the impacts are.  Is this change visible to the user?
+T 1478553152 18<patchbot18>	https://review.openstack.org/#/c/331369/ - swift - Always set swift processes to use UTC
+T 1478553545 24*	28jamielennox is now known as 18jamielennox|away
+T 1478553863 18<abalfour18>	So... I could use some advice. It appers that the swift ring files are architecture dependent. I.e. if you use swift-ring-builder to create a ring file on an little endian machine, and then copy that ring file to a big endian machine, you're going to have a bad time. For example: http://paste.openstack.org/show/588317/
+T 1478553963 18<abalfour18>	The obvious problem being on the endianess the file wasn't built on, the device index of 256 isn't going to work for indexing into the r2p2d array... Should we be creating the ring files locally on each architecture, or should the file format be endinan agnostic?
+T 1478555330 18<pdardeau18>	abalfour: ouch! i don't have a BE environment to verify, but you might try hacking https://github.com/openstack/swift/blob/master/swift/common/ring/ring.py#L76
+T 1478555351 18<pdardeau18>	maybe change 'H' to '!H'
+T 1478555391 18<pdardeau18>	abalfour: it's possible it might be written to file ok, and then converted improperly on BE load
+T 1478555539 18<dfisher18>	abalfour had to step away.  here's another possible solution http://paste.openstack.org/show/588319/
+T 1478555592 18<clayg18>	abalfour: I did not know that!
+T 1478555598 18<dfisher18>	i don't really grok array/struct python objects to comment on 'H' vs '!H'
+T 1478555601 18<notmyname18>	interesting
+T 1478555630 18<pdardeau18>	dfisher: https://docs.python.org/2/library/struct.html#byte-order-size-and-alignment
+T 1478555645 18<timburke18>	jrichli: ideally, not really. the trouble i was running into was that some middleware would try to parse some user-provided timestamp with our stdlib in a crazy split-brain, so the result would be hours off. this lead to some authz errors in swift3 (which i suppose is user-visible), but to my knowledge we always report timestamps in UTC anyway
+T 1478555665 18<clayg18>	can i make a vm with backwards default platform bits?  and why would python even allow me to serialize in a platform dependent way.
+T 1478555666 18<pdardeau18>	the table in 7.3.2.1 shows the architecture specific modifiers
+T 1478555690 18<pdardeau18>	and table in 7.3.2.2 shows data types
+T 1478555697 18<clayg18>	that's so annoying
+T 1478555706 18<notmyname18>	fungi: thanks. back from lunch, and I'm looking now
+T 1478555768 18<dfisher18>	well, i can certainly try to hammer the '!H' in and see what happens
+T 1478555898 18<timburke18>	huh. i find it a little disconcerting that there's no reference to endianness in https://docs.python.org/2/library/array.html
+T 1478555965 18<timburke18>	for that matter, "!H" isn't referenced either :-(
+T 1478556154 24*	28jamielennox|away is now known as 18jamielennox
+T 1478556261 18<jrichli18>	timburke: re: timestamps - which user-provided timestamp?  i guess that it wasn't a Unix Epoch timestamp?
+T 1478556397 18<timburke18>	jrichli: peak at the... third related change. we were parsing a user-provided header (either x-amz-date or, if that wasn't present, Date)
+T 1478556417 18<jrichli18>	ok, thx
+T 1478556753 18<pdardeau18>	timburke: dfisher: and just because '!H' works for struct packing/unpacking doesn't mean it's valid for array :/
+T 1478556773 18<dfisher18>	still poking at it.  results in a sec...
+T 1478556776 18<notmyname18>	fungi: https://review.openstack.org/#/c/394600/ and https://review.openstack.org/#/c/394601/ have passed the checks!
+T 1478556777 18<patchbot18>	patch 394600 - openstack-infra/project-config - enable xfs for swift in-process functests
+T 1478556778 18<patchbot18>	patch 394601 - openstack-infra/project-config - add python-jobs-with-xfs for swift
+T 1478557061 18<notmyname18>	fungi: is there any way to run swift through those without having them land in infra first?
+T 1478557727 18<timburke18>	hmm. i guess we need to make a call to byteswap()? looks like array.array wants a character, not a string
+T 1478557866 18<dfisher18>	yeah, changing to !H didn't seem to make a difference
+T 1478557898 18<dfisher18>	sparc:   'replica2part2dev_id': [array('H', [0, 0, 256, 256, 0, 256,
+T 1478557898 18<dfisher18>	x86:  'replica2part2dev_id': [array('H', [0, 0, 1, 1, 0, 1, 1, 0,
+T 1478557898 18<patchbot18>	Error: Missing "]".  You may want to quote your arguments with double quotes in order to prevent extra brackets from being evaluated as nested commands.
+T 1478557899 18<patchbot18>	Error: Missing "]".  You may want to quote your arguments with double quotes in order to prevent extra brackets from being evaluated as nested commands.
+T 1478557907 18<dfisher18>	^ ha
+T 1478557937 18<notmyname18>	dfisher: someday I'll rewrite patchbot to be smarter
+T 1478557969 18<dfisher18>	seems pretty smart to me.
+T 1478557974 18<dfisher18>	smarter than I am, anyway :)
+T 1478557997 18<jrichli18>	por patchbot gets no luv :-( 
+T 1478558148 18<dfisher18>	timburke: my paste.openstack.org has the byteswap() patch in it.  http://paste.openstack.org/show/588319/
+T 1478558168 18<pdardeau18>	&patchbot-not-so-fussy; don't freak out about my non-matching [
+T 1478558169 18<patchbot18>	Error: Missing "]".  You may want to quote your arguments with double quotes in order to prevent extra brackets from being evaluated as nested commands.
+T 1478558415 18<fungi18>	notmyname: you could run the script from mount-tmp-with-xfs before running `tox -e py27`
+T 1478558433 18<torgomatic18>	notmyname: what if you made the xattrs patch depend on those infra ones? I'm totally guessing here; I have no idea how any of that works.
+T 1478558468 18<torgomatic18>	I mean, I know some things... but "will a pending job-specifier patch get used if it's a dependency of a Swift patch" is not anywhere in there
+T 1478558486 18<fungi18>	notmyname: my main concern with this is that if our underlying job infrastructure relies on files places in /tmp prior to starting the job payload, it could get confused once it can no longer find them later. i'll try to find out if that will pose a problem
+T 1478558521 18<notmyname18>	fungi: yeah, that seems like a totally reasonable concern. TBH I was a little surprised linux let me do it :-)
+T 1478559079 18<clayg18>	timburke: wow so https://github.com/eventlet/eventlet/pull/354 is acctaully pretty epic
+T 1478559177 18<timburke18>	was it? idk. i had a much worse time with that UTC/stdlib-doesn't-know-what-timezone-it's-in thing
+T 1478559194 18<clayg18>	timburke: first learning for me was that eventlet has some dynamic patching of stuff like getaddrinfo if you have dnspython installed -> oh crap or at least it *used* to (!?) https://github.com/eventlet/eventlet/blob/4872be77001bde7b393f8973779a15c65ce36086/eventlet/green/socket.py#L22
+T 1478559199 18<clayg18>	now it just bundles dnspython!?
+T 1478559296 18<timburke18>	clayg: you're welcome? https://github.com/eventlet/eventlet/pull/341
+T 1478559317 18<clayg18>	timburke: second learning for me at least is that dnspython compleatly reimplements stuff like getaddrinfo - which is like... glibc stuff
+T 1478559494 18<clayg18>	probably just a sign that I need to do better reading the eventlet change lots
+T 1478559498 18<clayg18>	*changelogs
+T 1478559792 18<dfisher18>	so, here's a random question that i've wondered about for awhile … why does swift use rsync to keep data nodes updated instead of something like libtorrent?
+T 1478560222 18<clayg18>	dfisher: i'm not really sure there's a direct comparison to be made between the rsync client/server and the torrent *library* - rsync was choosen as the basis for data movement back in ~09 because it was broadly comfortable for the devops that would be running cloud files - always assuming it would be replaced when needed
+T 1478560274 18*	dfisher nods
+T 1478560278 18<clayg18>	dfisher: and in fact SSYNC and now REPCON (hummingbird) are going down that path
+T 1478560287 18<dfisher18>	cool
+T 1478560321 18<dfisher18>	 just figured that the idea of torrents for data would be more efficient than rsync, especially as more storage nodes are brought online
+T 1478560323 18<clayg18>	dfisher: FWIW no one then or now really likes the rsync *protocol* - but since swift only moves whole files i'm not sure it matters that much
+T 1478560355 18<clayg18>	dfisher: but both SSYNC and REPCONN are still following the same basic "push" model that the rsync replicators employ
+T 1478560418 18<clayg18>	dfisher: I'm not sure anyone has experiemented much to determine if an entire partition could be "pulled" from multiple replica peers in some fashsion that'd be more "efficient" along an axis where there's a need to optomise
+T 1478560480 18<dfisher18>	sure.  there's probably an inflection point where if you < X nodes, rsync is probably as good if not better than a torrent-esque solution (ignoring things like network speeds for now)
+T 1478560493 18<dfisher18>	if you have* < X nodes
+T 1478560503 18<clayg18>	dfisher: mostly you just have three primary nodes - the "swarm" effect (lots of hosts/nics/disks all "participating" in the filling of new capacity) mostly comes from the placement algorightm and doing a good job managing incoming streams
+T 1478560683 18<clayg18>	dfisher: yeah I suppose if your cluster had an asymmetric link it would become more important for all three replicas of a partition to some how "coordinate" to push subsets of the partition during a rebalance if you don't want to way for a 1:1 push of each part - but again since you're taking 100-1000-10K's of parts onto a single node - you can normally mostly overwhelm whatever resource you're aiming to overwhelm pretty easi
+T 1478560815 18<clayg18>	a big part of what the hummingbird replicator is trying to tackle is reducing disk reads that are only tanginially related to the transfer of data during rebalance
+T 1478560949 18<abalfour118>	sorry, had to run to get eyeballs checked. so it appears the general consensus is that the ring file should be endian agnostic, correct? so I should file a bug?
+T 1478561041 18<notmyname18>	abalfour1: yes you should file a bug so that we can track it. but I'm not sure that the resolution is to make the ring byte-order agnostic
+T 1478561046 18<clayg18>	abalfour1: yeah I think it's a bug - how critical is this for you?
+T 1478561070 18<abalfour118>	well, I have a horrible hack fix that I think dfisher pasted in here. So I can get it to work for me now. :)
+T 1478561088 18<clayg18>	abalfour1: oh that worked!?
+T 1478561096 18<abalfour118>	the byteswap(), yep. 
+T 1478561101 18<clayg18>	oh...
+T 1478561102 18<notmyname18>	(eg the resolution might be "don't do that" and document and print warnings about building a ring on a different architecture than prod machines)
+T 1478561109 18<abalfour118>	it's just the check to see if we need to do the byteswap() is gross.
+T 1478561152 18<abalfour118>	both archiretcures are prod, btw.
+T 1478561167 18<abalfour118>	we have a swift cluster with x86 and sparc nodes. 
+T 1478561211 18<abalfour118>	we figured we get cute and pregenerate the ring files and have puppet plop them on all the nodes.
+T 1478561219 18<abalfour118>	and it failed in humerous ways. :)
+T 1478561280 18<clayg18>	abalfour1: that's really awesome
+T 1478561297 18<abalfour118>	thanks. 
+T 1478561301 18<notmyname18>	hmm...if you build the ring on each architecture with the same seed value, it would give the same effective results. but md5 checks would be different
+T 1478561308 18<abalfour118>	correct
+T 1478561309 18<notmyname18>	(right?)
+T 1478561314 18<clayg18>	abalfour1: can something in sys. tell us the byte of the machine?
+T 1478561320 18<abalfour118>	sys.byteorder
+T 1478561334 18<abalfour118>	but, we can't tell what byteorder the file was generated with, I don't think.
+T 1478561335 18<clayg18>	abalfour1: I would be fine with the ring file growing a field to say which one it is is - and on load it byteswaps based on != my.byteorder
+T 1478561341 18<abalfour118>	oh, cool.
+T 1478561346 18<notmyname18>	clayg: yeah, that's it
+T 1478561361 18<clayg18>	great all over but the typing
+T 1478561382 18<abalfour118>	ok, I'll file the bug, code it up and submit the patch. 
+T 1478561388 18<abalfour118>	thanks for looking at it!
+T 1478561388 18<clayg18>	abalfour1: NICE!
+T 1478561437 18<notmyname18>	clayg right now: https://i.imgflip.com/kzxw3.jpg
+T 1478561450 18<notmyname18>	abalfour1: thanks :-)
+T 1478561451 18<abalfour118>	now that's just mean. :)
+T 1478561453 18<dfisher18>	abalfour as management is a *terrifying* thought
+T 1478561461 18<clayg18>	virtualbox is shit - i bet vmware player or whatever the kids use can toally make a big endian sparc cpu
+T 1478561466 18<dfisher18>	i've worked with him for 13 years now.  that's the last thing ANYBODY wants.
+T 1478561498 18<dfisher18>	clayg:  ebay a T2000 + solaris 11.3 ;)
+T 1478561499 18<notmyname18>	clayg: what's funny is that the same company that makes virtualbox also owns sparc ;-)
+T 1478561501 18<clayg18>	abalfour1: forgive notmyname - he sorta "is" upper management - he doesn't realize it's mostly insulting to the rest of us
+T 1478561506 18<notmyname18>	lol
+T 1478561514 18<dfisher18>	sorry, abalfour and I work for Sun.
+T 1478561515 18<clayg18>	notmyname: ;)
+T 1478561522 18<clayg18>	rofl
+T 1478561531 18*	dfisher sobs quietly
+T 1478561534 18<clayg18>	this is #$%^&ing rich - open source is fun
+T 1478561535 18<notmyname18>	"sun"
+T 1478561548 18<dfisher18>	my badge says Sun.
+T 1478561553 18*	dfisher continues to sob
+T 1478562306 18<openstackgerrit18>	Merged openstack/swift: EC: reconstruct using non-durable fragments  https://review.openstack.org/376630
+T 1478562356 18<notmyname18>	torgomatic: tdasilva: just remounting /tmp as XFS int he gate won't work. turns out a lot of the stuff infra does puts stuff in /tmp, so we can't blow it away
+T 1478562371 18<torgomatic18>	notmyname: woo
+T 1478562386 18<torgomatic18>	notmyname: can you get an XFS filesystem mounted somewhere else and set $TMPDIR?
+T 1478562394 18<notmyname18>	torgomatic: tdasilva: new plan is to mount the xfs loopback somehwere else, set that to TMPDIR and pass TMPDIR through to the tests. it should probably work
+T 1478562396 18<notmyname18>	yeah :-)
+T 1478562431 18<torgomatic18>	notmyname: the good news is that TMPDIR is in tox's internal list of environment variables to allow through, so hopefully you won't need to mess with the passenv directive at all
+T 1478562439 18<notmyname18>	oh cool
+T 1478562454 18<notmyname18>	and so you'll probably be wondering, "are we good devs and we're just using the tempfile module/methods, or did we ever hard code /tmp somehwere?"
+T 1478562526 18<notmyname18>	hint: it's not the good one
+T 1478562559 18<mattoliverau18>	lol
+T 1478562566 18<notmyname18>	it's probably fine, though
+T 1478562649 18<pdardeau18>	notmyname: if you could just go ahead and send out the memo on that /tmp report that would be great! mmkay?
+T 1478562691 18<notmyname18>	let me rephrase. it's not really fine, but it isn't likely to break test in the same way that not having xattrs does. tests should all work if we redefine TMPDIR
+T 1478562868 18<notmyname18>	but there's a bit of stuff that should change
+T 1478562886 18<clayg18>	notmyname: i bet timburke could come up with a creative python/sed script that will walk the testdir and rewrite and class TestFoo(unitest.TestCase) as TestFoo(unit.test.BaseTestCase) if you need that
+T 1478563840 18<openstackgerrit18>	Pete Zaitcev proposed openstack/swift: Patch the policy through proxy operations  https://review.openstack.org/394685
+T 1478563927 18<notmyname18>	nah, there's some hardcoded /tmp that should change tempfile.gettempdir()
+T 1478563938 18<notmyname18>	tedious but not too bad
+T 1478564051 24*	28jamielennox is now known as 18jamielennox|away
+T 1478564883 18<notmyname18>	clayg: last one is https://github.com/openstack/swift/blob/master/swift/common/manager.py#L86
+T 1478564897 18<notmyname18>	clayg: I'm not sure of impact of changing that to tempfile.gettempdir()
+T 1478564901 18<notmyname18>	thoughts?
+T 1478565016 18<clayg18>	... looking
+T 1478565031 18<clayg18>	oh f - idk, creiht did that
+T 1478565040 18<notmyname18>	oh ok
+T 1478565048 18<clayg18>	notmyname: bottomline I think it doesn't matter so much for xfs :)
+T 1478565068 18<notmyname18>	true
+T 1478565068 18<clayg18>	oh oh - no probably tempfile.gettempdir() is probably fine
+T 1478565098 18<clayg18>	oh, or not
+T 1478565128 18<clayg18>	apparently I don't know thow that function works - the eggcache needs to be stable between invocations of the process
+T 1478565150 18<notmyname18>	I'll set it to the gettempdir() location
+T 1478565227 18<clayg18>	gettempdir() on mac is weird - is gettempdir on freebsd weird in general?
+T 1478565820 18<openstackgerrit18>	John Dickinson proposed openstack/swift: Add checksum to object extended attributes  https://review.openstack.org/336323
+T 1478565828 18<notmyname18>	torgomatic: there's the patch with /tmp remoced ^
+T 1478565890 18<notmyname18>	oh, sweet. https://review.openstack.org/#/c/376630/ landed :-)
+T 1478565891 18<patchbot18>	patch 376630 - swift - EC: reconstruct using non-durable fragments (MERGED)
+T 1478566005 18<notmyname18>	I gotta go run an errand, but this is a good stopping point for today. I'll pick it up again (getting the -infra repo updated to have XFS somewhere other than /tmp) later this week
+T 1478567374 18<kota_18>	good morning
+T 1478567416 18<kota_18>	nice, patch 376630 landed.
+T 1478567417 18<patchbot18>	https://review.openstack.org/#/c/376630/ - swift - EC: reconstruct using non-durable fragments (MERGED)
+T 1478567429 18<kota_18>	will we have a new release?
+T 1478567593 18<clayg18>	kota_: is that all the high/critical bugs we have outstanding?
+T 1478567678 18<kota_18>	clayg: let me check
+T 1478567687 18<openstackgerrit18>	Clay Gerrard proposed openstack/swift: Make eventlet.tpool's thread count configurable in object server  https://review.openstack.org/289664
+T 1478567705 18<kota_18>	clayg: 12 highs and... :/
+T 1478569149 20*	Disconnected (20Connection timed out)
+T 1478569182 19*	Now talking on 22#openstack-swift
+T 1478569182 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1478569182 22*	Topic for 22#openstack-swift set by 26notmyname (24Wed Nov  2 06:09:34 2016)
+T 1478569183 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1478569509 18<clayg18>	kota_: I guess I"m thinking about lp bug #1549110
+T 1478569511 18<openstack18>	Launchpad bug 1549110 in OpenStack Object Storage (swift) "EC: object-reconstuctor got unhandled 0 divison error" [High,In progress] https://launchpad.net/bugs/1549110 - Assigned to Kota Tsuyuzaki (tsuyuzaki-kota)
+T 1478569514 18<clayg18>	kota_:  that one finally bit me too!
+T 1478569568 18<kota_18>	clayg: yeah,
+T 1478569625 18<clayg18>	kota_: after I finally got to understanding the bug I wasn't entirely sure we shouldn't just avoid the zerodivision error by "fixing" the integer devision that's throwing out precision?
+T 1478569646 18<clayg18>	basically the problem is that 1 / 2 != 0 except it does :'(
+T 1478569710 18<kota_18>	yup
+T 1478569713 18<clayg18>	kota_: normally I just stick a "1. *" in front of it and call it day
+T 1478569752 18<clayg18>	i agree that stats reporting isn't quite right - but I'm not sure the change of making devices global for each policy is better?
+T 1478569764 18<clayg18>	... but anything is better than the traceback followed by not maing reconstruction progress :'(
+T 1478569817 18<kota_18>	clayg: ah, which is better reporting each policy vs global is a bit complicated because it may depend on the costomer policy
+T 1478569855 18<kota_18>	clayg: what i found as problem in the bug is almostly a metrix is for a policy but others are global
+T 1478569861 18<clayg18>	kota_:  how would you feel about "1. *" to fix lp bug #1549110 ASAP and then do something better for devices to address lp bug #1488608 (maybe raise the priority and reference the older change set from your work?)
+T 1478569863 18<openstack18>	Launchpad bug 1549110 in OpenStack Object Storage (swift) "EC: object-reconstuctor got unhandled 0 divison error" [High,In progress] https://launchpad.net/bugs/1549110 - Assigned to Kota Tsuyuzaki (tsuyuzaki-kota)
+T 1478569864 18<openstack18>	Launchpad bug 1488608 in OpenStack Object Storage (swift) "stats output in reconstructor.py gives wrong device count" [Low,Confirmed] https://launchpad.net/bugs/1488608 - Assigned to Bill Huber (wbhuber)
+T 1478569875 18<kota_18>	and it causes 0 devision.
+T 1478569894 18<kota_18>	ah, got it
+T 1478569943 18<kota_18>	clayg: it might be good to separate the problem to 1. avoiding 0 division and 2. good stat logging.
+T 1478569947 18<kota_18>	make sense.
+T 1478569952 18<clayg18>	kota_:  I wasn't quite able to convince myself the integer devision thing *can't* bite you with one policy
+T 1478570203 18<clayg18>	kota_: ok, maybe I can push a fix for zero devision bug and rebase your change on it?
+T 1478570206 18<kota_18>	clayg: ok, will take a look... maybe today or tommorow-ish.  i need to switch my head from deep sea of Erasrure Coding and unfortunately i may not be able to take much time because of company meetings.
+T 1478570217 18<kota_18>	clayg: that's great
+T 1478570245 18<clayg18>	kota_: it's no problem!  I'll be joining you in deep EC land - today was my company meetings and other stuff day ;)
+T 1478570278 18<kota_18>	clayg: thank you so much, man ;-)
+T 1478573846 18<openstackgerrit18>	Clay Gerrard proposed openstack/swift: Fix stats calculation in object-reconstructor  https://review.openstack.org/283946
+T 1478573846 18<openstackgerrit18>	Clay Gerrard proposed openstack/swift: Fix ZeroDivisionError in reconstructor.stats_line  https://review.openstack.org/394714
+T 1478574698 18<clayg18>	kota_: ^ so i ended up rebasing your stats improvemnts onto the zero devision fix - I think this will work ok, but need to look at it again fresh in the am
+T 1478574765 18<clayg18>	looking more closely at the other bug for stats processing it seems bill huber (remember him!) made the same diagnosis you did about needing to avoid resetting device count between runs
+T 1478574769 18<clayg18>	g'night
+T 1478575455 18<kota_18>	clagy: have a good night!
+T 1478575459 18<kota_18>	thanks
+T 1478579652 18<clayg18>	df -h
+T 1478582440 22*	26ChanServ gives voice to 18notmyname
+T 1478588607 24*	28tesseract is now known as 18Guest6570
+T 1478594390 24*	28amoralej|off is now known as 18amoralej
+T 1478598869 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+T 1478599194 18<openstackgerrit18>	Gábor Antal proposed openstack/swift: Use more specific asserts in test/unit/common  https://review.openstack.org/342781
+T 1478600398 18<openstackgerrit18>	Gábor Antal proposed openstack/swift: Use more specific asserts in test/unit/obj tests  https://review.openstack.org/342830
+T 1478600983 22*	26ChanServ gives voice to 18notmyname
+T 1478601990 24*	28acoles_ is now known as 18acoles
+T 1478605098 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Use direct_get_suffix_hashes in the reconstructor  https://review.openstack.org/394551
+T 1478606432 24*	28amoralej is now known as 18amoralej|lunch
+T 1478607707 24*	28Guess456787654 is now known as 18NM
+T 1478607747 24*	28NM is now known as 18HELP
+T 1478607777 24*	28HELP is now known as 18Guest58324
+T 1481782029 19*	Now talking on 22#openstack-swift
+T 1481782029 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1481782029 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Wed Dec 14 00:03:12 2016)
+T 1481782029 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1481783240 18<openstackgerrit18>	Tuan Luong-Anh proposed openstack/swift: Remove xrange for run both Python 2 and Python 3  https://review.openstack.org/385285
+T 1481783934 18<openstackgerrit18>	Christopher Bartz proposed openstack/python-swiftclient: prefix-based tempurls support  https://review.openstack.org/408596
+T 1481789325 18<openstackgerrit18>	Pavel Kvasnička proposed openstack/swift: Optimize hash calculation when suffix hash invalidated  https://review.openstack.org/402043
+T 1481789428 18<openstackgerrit18>	Pavel Kvasnička proposed openstack/swift: Optimize hash calculation when suffix hash invalidated  https://review.openstack.org/402043
+T 1481790356 18<openstackgerrit18>	wangxiyuan proposed openstack/python-swiftclient: Typo fix  https://review.openstack.org/411161
+T 1481791912 24*	28amoralej|off is now known as 18amoralej
+T 1481792309 18<timss18>	tdasilva: not me on twitter (@tjdett), but his question is definitely related!
+T 1481797122 24*	28acoles_ is now known as 18acoles
+T 1481798975 24*	28asettle__ is now known as 18asettle
+T 1481799202 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+T 1481800529 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+T 1481804505 18<openstackgerrit18>	Gábor Antal proposed openstack/swift: Use more specific asserts in test/unit/common  https://review.openstack.org/342781
+T 1481807484 24*	28amoralej is now known as 18amoralej|lunch
+T 1481811004 24*	28amoralej|lunch is now known as 18amoralej
+T 1481816738 18<openstackgerrit18>	Ondřej Nový proposed openstack/pyeclib: Prevent division by zero in tests  https://review.openstack.org/411394
+T 1481817559 18<notmyname18>	good morning
+T 1481817560 18<notmyname18>	acoles: has the sun set yet?
+T 1481817942 18<notmyname18>	Swift 2.12.0 was tagged last night
+T 1481820627 18<acoles18>	notmyname: :) it has now, 2 mins after you asked
+T 1481820643 18<notmyname18>	well, at least I beat it today :-)
+T 1481820953 18<acoles18>	notmyname: first part of this week actually had the earliest sunsets of the year, they are now getting later but sunrise gets later too until the solstice
+T 1481821011 18<notmyname18>	interesting
+T 1481821042 18<acoles18>	notmyname: looks like for you the earliest sunset was last week
+T 1481821067 18<notmyname18>	I guess I just assumed that solar noon was fairly constant with 12:00, instead of shorter daylight hours that are shifted later in the day
+T 1481821111 18<notmyname18>	reminds me of this that I saw from portante last week https://www.youtube.com/watch?v=82p-DYgGFjI
+T 1481821126 18<openstackgerrit18>	Pavel Kvasnička proposed openstack/swift: Optimize hash calculation when suffix hash invalidated  https://review.openstack.org/402043
+T 1481825213 18<clayg18>	acoles: PavelK: nice work on patch 402043 - looks like it's really coming along
+T 1481825214 18<patchbot18>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+T 1481825233 18<clayg18>	that title should really be "fix terrible performance regression in ..."
+T 1481825453 18<acoles18>	clayg: PavelK: fyi I am out tomorrow so won't get back to that patch til next week. thanks for the updates PavelK 
+T 1481826138 18<timburke18>	good morning
+T 1481826154 18<notmyname18>	hola
+T 1481826166 18<clayg18>	it's raining over here
+T 1481826242 18<notmyname18>	ewww
+T 1481826250 18<notmyname18>	that's why I'm sitting on my couch right now
+T 1481826504 24*	28amoralej is now known as 18amoralej|off
+T 1481826879 18<tdasilva18>	clayg: it's a balmy 20F here (w/ wind chill feels like 3F)
+T 1481826904 18<tdasilva18>	good thing summit is not until may!
+T 1481826952 18<clayg18>	tdasilva: you're crazy
+T 1481827196 18<timburke18>	in madison, it's currently 4F, with a high of 8. i'm glad i moved
+T 1481827295 18<krypt0N18>	hello all any idea when would "swift post test" give Container 'test' not found .But same container appears  in swift list
+T 1481828181 18<notmyname18>	krypt0N: could be weirdness like a trailing space or newline that's not being properly handled in the shell
+T 1481828254 18<krypt0N18>	notmyname on horizon also i see same behaviour
+T 1481828301 18<notmyname18>	krypt0N: if I were seeing that, i'd use curl and/or get a json listing from the container, just to see what's there
+T 1481828367 18<krypt0N18>	ClientException: Container POST failed: http://swift.sitec.com:8080/v1/AUTH_6942bc459383496baf5e0b98c1245507/5 404 Not Found  [first 60 chars of response] <html><h1>Not Found</h1><p>The resource could not be found.<
+T 1481828368 18<krypt0N18>	INFO:urllib3.connectionpool:Resetting dropped connection: swift.sitec.com
+T 1481828751 18<clayg18>	what you talking about container "5"
+T 1481828862 18<clayg18>	also the lack of https makes me think this is some sort of dev/test environment - so maybe you can get at some swift logs and try and find a transaction id or something?  maybe there is some sort of os-storage-url something going on 
+T 1481829673 18*	acoles away til Monday
+T 1481829785 24*	28acoles is now known as 18acoles_
+T 1481830404 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+T 1481831106 18<openstackgerrit18>	Christian Hugo proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+T 1481831560 18<openstackgerrit18>	Tim Burke proposed openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+T 1481831882 18<jrichli18>	timburke: its 8F where I am currently, so about the same.  and I actually walked .6 miles to work this morning when it was 0F.  :-)
+T 1481835183 18<clayg18>	jrichli: I thought you were in texas!?
+T 1481835683 18<jrichli18>	not this week : Chicago
+T 1481836738 18<MooingLemur18>	something for some reason I didn't foresee before trying to convert swift nodes from Gentoo to CentOS, the swift uid/gid is different.
+T 1481836741 18<MooingLemur18>	so much fun :3
+T 1481838512 18<mattoliverau18>	morning
+T 1481838624 18<openstackgerrit18>	Merged openstack/python-swiftclient: Typo fix  https://review.openstack.org/411161
+T 1481839044 18<mattoliverau18>	MooingLemur: oh yeah.. that sounds like fun... you can set a specific uid/gid when creating the user, so you could add it to your provisioning. 
+T 1481842024 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/python-swiftclient: Updated from global requirements  https://review.openstack.org/89250
+T 1481845621 24*	28jamielennox is now known as 18jamielennox|away
+T 1481845895 24*	28jamielennox|away is now known as 18jamielennox
+T 1481847322 18<notmyname18>	cschwede: your local police can take great pictures https://twitter.com/alauraschneider/status/809129305850707968
+T 1481848152 24*	28Jeffrey4l_ is now known as 18Jeffrey4l
+T 1481849674 18<MooingLemur18>	mattoliverau: yeah, CentOS has already standardized the Swift uid/gid number, so that's what everything's being changed to.  It's just a one-time 3 days of pain per box for the conversion :P
+T 1481849702 18<mattoliverau18>	:(
+T 1481849906 24*	28jamielennox is now known as 18jamielennox|away
+T 1481850141 24*	28jamielennox|away is now known as 18jamielennox
+T 1481850399 18<kota_18>	ood morning
+T 1481850403 18<kota_18>	good
+T 1481850481 18<kota_18>	congrats 2.12.0 release. not yet check CHANGELOG. just starting
+T 1481852540 24*	28jamielennox is now known as 18jamielennox|away
+T 1481852887 24*	28jamielennox|away is now known as 18jamielennox
+T 1481853366 18<mattoliverau18>	kota_: morning
+T 1481853406 18<kota_18>	mattoliverau: o/
+T 1481853587 18<kota_18>	mattoliverau: btw, could you review again patch 283946?
+T 1481853588 18<patchbot18>	https://review.openstack.org/#/c/283946/ - swift - Fix stats calculation in object-reconstructor
+T 1481853602 18<kota_18>	i updated the patch to address your comments.
+T 1481853608 18<mattoliverau18>	kota_: yes, yes I can. Will do that after lunch :) 
+T 1481853722 18<kota_18>	mattoliverau: thx!
+T 1481856132 18<openstackgerrit18>	zhangyanxian proposed openstack/python-swiftclient: Fix typo in shell.py  https://review.openstack.org/411590
+T 1481856172 18<openstackgerrit18>	zhangyanxian proposed openstack/python-swiftclient: Fix typo in shell.py  https://review.openstack.org/411590
+T 1481875125 24*	28tesseract is now known as 18Guest31304
+T 1481875660 24*	28jamielennox is now known as 18jamielennox|away
+T 1481875715 18<mahatic_18>	jrichli: thanks for pointing out the previous convo on rmdir on "remove empty db hash..", I kinda missed it :)
+T 1481875818 18<mahatic_18>	it somehow fell off the radar, I thought I read it all :P
+T 1481876104 24*	28jamielennox|away is now known as 18jamielennox
+T 1481877109 24*	28amoralej|off is now known as 18amoralej
+T 1482112054 19*	Now talking on 22#openstack-swift
+T 1482112054 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1482112054 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Wed Dec 14 00:03:12 2016)
+T 1482112055 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1482128058 24*	28silor1 is now known as 18silor
+T 1482131148 24*	28tesseract is now known as 18Guest33254
+T 1482132415 18<circ-user-oWpLl18>	hi all, i installed swift with keystone.. but i m getting error when i try swift stat.. i m using mitaka version.. the error is "Unable to establish connection to $swiftURL"
+T 1482132436 18<circ-user-oWpLl18>	its authenticating with keystone.. but couldnt enter into swift
+T 1482132700 18<openstackgerrit18>	Merged openstack/swift: Raise ValueError if a config section does not exist  https://review.openstack.org/393388
+T 1482134121 18<openstackgerrit18>	Tuan Luong-Anh proposed openstack/swift: Replace six iteration methods with standard ones  https://review.openstack.org/375344
+T 1482135382 18<mahatic_18>	jrichli: doing good, thanks. Happy holidays! No plans for me as such, we don't have any holidays in India
+T 1482135416 18<mahatic_18>	mathiasb: np, nice work!
+T 1482138554 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+T 1482200602 19*	Now talking on 22#openstack-swift
+T 1482200602 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1482200602 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Wed Dec 14 00:03:12 2016)
+T 1482200602 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1482203343 24*	28jamielennox is now known as 18jamielennox|away
+T 1482204196 24*	28jamielennox|away is now known as 18jamielennox
+T 1482207311 18<openstackgerrit18>	pangliye proposed openstack/swift: Replace assertTrue with assertIs.  https://review.openstack.org/412734
+T 1483415980 19*	Now talking on 22#openstack-swift
+T 1483415980 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1483415980 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Thu Dec 29 18:10:46 2016)
+T 1483415980 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1483422841 24*	28jamielennox is now known as 18jamielennox|away
+T 1483423294 24*	28jamielennox|away is now known as 18jamielennox
+T 1483427031 18<sknld18>	hii all, I am uploading 10 objects of 16GB size to the swift with chunksize 536870912 bytes
+T 1483427076 18<sknld18>	i am getting  issues "503 service unavialable" and "500 internal server error" 
+T 1483427098 18<sknld18>	how to get rid of these errors
+T 1483427106 18<sknld18>	please someone help
+T 1483492428 19*	Now talking on 22#openstack-swift
+T 1483492428 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1483492428 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Thu Dec 29 18:10:46 2016)
+T 1483492428 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1483492664 18<kota_18>	timburke: sounds good to take a longer vacation ;-)
+T 1483492951 18<dims18>	timburke : ok, now i am at the same point as you i think - http://logs.openstack.org/00/412500/9/check/gate-tempest-dsvm-neutron-full-ubuntu-xenial/d453c3f/logs/screen-s-proxy.txt.gz
+T 1483495067 18<timburke18>	dims: that actually seems more empty than i was expecting. i guess because it's running behind mod_wsgi? assuming i'm reading the log file correctly, i'm curious about what those 2376 bytes were from http://logs.openstack.org/00/412500/9/check/gate-tempest-dsvm-neutron-full-ubuntu-xenial/d453c3f/logs/apache/tls-proxy_access.txt.gz -- i wonder if that's where apache sends the traceback?
+T 1483495151 18<timburke18>	at any rate, yeah, from the "error reading status line from remote server 104.130.222.169:8081" in http://logs.openstack.org/00/412500/9/check/gate-tempest-dsvm-neutron-full-ubuntu-xenial/d453c3f/logs/apache/tls-proxy_error.txt.gz, i expect swift is bombing out without calling start_response
+T 1483495227 18<dims18>	timburke : gotcha. will have to figure out how to switch off tls-proxy or increase debug level 
+T 1483498545 19*	Now talking on 22#openstack-swift
+T 1483498545 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1483498545 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Thu Dec 29 18:10:46 2016)
+T 1483498545 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1483501952 24*	28jamielennox is now known as 18jamielennox|away
+T 1483502468 24*	28jamielennox|away is now known as 18jamielennox
+T 1483503293 18<mahatic_18>	good morning
+T 1483503342 18<mahatic_18>	hope everyone had a good break. happy new year!
+T 1483503555 18<mahatic_18>	jrichli: acoles_ mathiasb : conf call sounds good. I'm fine either way - gerrit/call
+T 1483503599 18<jrichli18>	mahatic_: would 14:00 UTC be too late for you?
+T 1483503629 18<mahatic_18>	jrichli: nope, I can take that
+T 1483503669 18<jrichli18>	mahatic_: thanks, i appreciate it.  if you change your mind and want to  move it an hour earlier, we could swing that.
+T 1483503700 18<mahatic_18>	jrichli: but I won't be available this Friday on that time, as I will be travelling for the weekend. Today/tomm or next week any day I'm fine
+T 1483503748 18<jrichli18>	ok.  i wont be ready for doing this today.
+T 1483503804 18<jrichli18>	we'll see if thursday would be ok with everyone, or see if next week is better
+T 1483503810 18<mahatic_18>	sure, I understand
+T 1483503822 18<mahatic_18>	jrichli: okay, thanks
+T 1483519586 18<mathiasb18>	jrichli mahatic_ acoles_ : friday is also not good for me, but today, tomorrow and next week all work
+T 1483521240 24*	28acoles_ is now known as 18acoles
+T 1483521818 18<acoles18>	mahatic_: ack, thanks
+T 1483521954 18<acoles18>	clayg: sorry you got bitten by bug 1652323. I spent the last few hours of my 2016 tracking that down :/ can't believe we had not seen it sooner
+T 1483521955 18<openstack18>	bug 1652323 in OpenStack Object Storage (swift) "ssync syncs an expired object as a tombstone, probe test_object_expirer fails" [Medium,Confirmed] https://launchpad.net/bugs/1652323
+T 1483522118 18<acoles18>	clayg: I'd like to discuss with you what the appropriate fix should be - so far my thinking is we need to make diskfile support optionally opening an expired object so that ssync can replicate the .data even when it has expired. I briefly flirted with having ssync send a .ts at the expiry time, but that could result in inconsistency with another node.
+T 1483522335 24*	28acoles is now known as 18acoles_
+T 1483522353 18<sldk18>	Hii all, I installed openstack swift mitaka on centos machines
+T 1483522379 18<sldk18>	after that i configured swift3 by following https://github.com/openstack/swift3
+T 1483522429 18<sldk18>	while restarting swift-proxy service i am getting the following error http://paste.openstack.org/show/593847/
+T 1483522436 18<sldk18>	please someone help on this
+T 1483522564 24*	28acoles_ is now known as 18acoles
+T 1483524185 18<acoles18>	sldk: I'm not familiar with swift3 specifically but it looks like you don't have the middleware installed in entry points, so maybe you missed the 'sudo python setup.py install' step from here https://github.com/openstack/swift3#install
+T 1483524248 18<sldk18>	acoles: I already executed "sudo python setup.py install"
+T 1483524309 18<sldk18>	acoles: FYI i am following the same link what you have provided
+T 1483524991 18<acoles18>	sldk: can you reproduce this http://paste.openstack.org/show/593849/ ? (i.e. list the swift3 entry points)
+T 1483525143 18<sldk18>	acoles: here is my entry points http://paste.openstack.org/show/593850/
+T 1483525431 18<charz18>	sldk: do you intent to use swift3 with keystone?
+T 1483525460 18<charz18>	sldk: or just want to use swift with tempauth to do some tests?
+T 1483525503 18<charz18>	sldk: if you want to use that with keystone, you need another middleware s3token and keystoneauth.
+T 1483525550 18<charz18>	sldk: you need to add s3token to proxy-server.confg.
+T 1483525711 18<sldk18>	Yes, we want to use use swift3 with keystone
+T 1483525743 18<sldk18>	We have already added s3token and keystoneauth in proxy-server.config
+T 1483525779 18<charz18>	sldk: okay, you should able to find s3token in swift3.
+T 1483525853 18<sldk18>	charz: This is the s3 token section
+T 1483525872 18<sldk18>	[filter:s3token] use = egg:swift3#s3token auth_uri = http://192.168.0.4:35357/
+T 1483525941 18<sldk18>	and below is the keystoneauth section
+T 1483525945 18<sldk18>	[filter:keystoneauth]
+T 1483525966 18<sldk18>	use = egg:swift#keystoneauth
+T 1483525985 18<sldk18>	operator_roles = admin,user
+T 1483526001 18<acoles18>	sldk: ok, so you entry points map does not have swift3#s3token, and it looks like s3token was moved into swift3 in v1.11, so check you have latest version of swift3
+T 1483526140 18<sldk18>	acoles : Our swift3 version shows Version: 1.11.0.dev491
+T 1483526199 18<ksam18>	Hi, I am looking for internal working for replicator using rsync, in openstack-swift. Like I want to know when I want to add a object to swift, how and when the object is present in primary nodes and how the rsync is used to replicate to secondary nodes (2 nodes, if the replication == 3)?
+T 1483526267 18<acoles18>	sldk: I can see you have asked in #swift3, those guys are unlikely to be awake right now so try there again in US west coast or Japan daytimes
+T 1483526291 18<ksam18>	I was not able to find any documentation about it? Any link would be helpful. It is very hard to follow the source code.
+T 1483526297 18<ksam18>	Okay, sure thank you
+T 1483526310 18<sldk18>	acoles : Thanks for the info.
+T 1483526370 18<acoles18>	ksam: http://docs.openstack.org/developer/swift/overview_replication.html
+T 1483526476 18<acoles18>	ksam: in normal operation all 3 primary nodes would have a replica at completion of the object PUT. replication only needs to copy between primary nodes when a replica is lost. that is detected by the nodes comparing hashes of their contents, then using rsync to push missing replicas.
+T 1483526537 18<ksam18>	I was under the assumption that (for replicas = 3), there is 1 primary node and 2 secondary nodes
+T 1483526582 18<ksam18>	So, when the primary node is copied over http, then rsync is used to sync btw primary and secondary
+T 1483527021 18<acoles18>	ksam: no, the three nodes holding replicas are all referred to as primaries. client sends object to swift proxy via http, proxy writes a replica to each of 3 primary nodes. (in normal operation)
+T 1483527130 18*	acoles afk
+T 1483527185 18<ksam18>	So, how does the proxy writes to 3 primary nodes in normal operation? Like one by one (Serially) or all 3 simultaneously? And when does the client gets back the ack of PUT command?
+T 1483528480 18<acoles18>	ksam: proxy writes 3 replicas in parallel. client gets back an ack if at least 2 replica writes succeed (or in general a majority of replicas).
+T 1483528523 18<acoles18>	ksam: (it's actually a little more complicated than that in terms of exactly when the client gets the ack, but that's the fundamental idea)
+T 1483528873 18<ksam18>	Thanks a lot. A last question, Is following flow correct? For PUT command, 1. File from local pc to proxy,  2.From proxy to 3(num_replicas) primary nodes
+T 1483528901 18<acoles18>	yes
+T 1483529046 18<ksam18>	thanks
+T 1483529471 18<ksam18>	So for replica = 3, If after getting back 2 acks, the client is shown success for PUT Command. What happens when 3 ack failed. Is this a case of node failure where rsync is need to transfer a copy to secondary node
+T 1483529490 18<ksam18>	3rd*
+T 1483529493 18<ksam18>	needed*
+T 1483529567 18<ksam18>	It would be very helpful, If you can also suggests me some book or blog for more information about this. Thanks
+T 1483531841 18<acoles18>	ksam you could try http://shop.oreilly.com/product/0636920033288.do
+T 1483534881 18<openstackgerrit18>	Alistair Coles proposed openstack/swift: Fix flaky expirer probe test  https://review.openstack.org/416384
+T 1483534920 18<acoles18>	clayg: changed the bug tag ^^
+T 1483539293 18<tdasilva18>	good morning
+T 1483539609 18<jrichli18>	tdasilva: good morning!  What do you think of 14:00 UTC either tomorrow or next week?  timburke: is that too early for you (re: keymaster v2 call)?
+T 1483539895 18<tdasilva18>	jrichli: works for me :)
+T 1483539920 18<tdasilva18>	might be a bit too early for timburke 
+T 1483539968 18<jrichli18>	also kota_ : are you interested in joining a call we are planning to have about patch 364878?  If so, would 14:00 UTC be too late for you?
+T 1483539969 18<patchbot_18>	https://review.openstack.org/#/c/364878/ - swift - Storing encryption root secret in Barbican
+T 1483540026 18<jrichli18>	tdasilva: yes, i thought of that last night.  and then remembered, IIRC, we had our last crypto at that time so it would also be doable for kota_ 
+T 1483540084 18<tdasilva18>	jrichli: yeah, scheduling meetings across TZs is always complicated
+T 1483540207 18<tdasilva18>	jrichli: swift/tape conf. call meetings are happening at 0900 UTC, now that's early
+T 1483540209 18<tdasilva18>	:)
+T 1483540254 18<jrichli18>	yikes!
+T 1483541580 18<openstackgerrit18>	Donagh McCabe proposed openstack/swift: Donagh McCabe has been reassigned to different project.  https://review.openstack.org/416577
+T 1483542541 18<openstackgerrit18>	Donagh McCabe proposed openstack/swift: Donagh McCabe has been reassigned to different project.  https://review.openstack.org/416577
+T 1483542868 18<acoles18>	https://imgflip.com/i/1h2g05
+T 1483542979 18<tdasilva18>	donagh: sad to see you go, thank you for all your efforts with the project
+T 1483543239 18<asettle18>	donagh: who is going to button up my jacket now?!
+T 1483544112 18<donagh18>	asettle: Button it up yourself -- I only comitted to sewing it on
+T 1483544185 18<asettle18>	donagh: And I'll never forget your dedication and commitment to the cause :p
+T 1483544192 18<donagh18>	tdasilva: acoles: thanks
+T 1483546014 18<jrichli18>	donagh: you will be very missed.  I wish you the very best!
+T 1483546154 18<donagh18>	jrichli: thanks.
+T 1483546414 18<notmyname18>	good morning
+T 1483546539 18<notmyname18>	donagh: I'm sorry to see you go. good luck with what's next
+T 1483546559 18<donagh18>	thanks
+T 1483547674 18<jasond18>	in what case will swift respond with a 409 Conflict when an object deletion is requested?
+T 1483547797 18<notmyname18>	jasond: when the existing object has a newer timestamp than the timestamp of the DELETE request
+T 1483547833 18<jasond18>	notmyname: great, thank you!
+T 1483547866 18<notmyname18>	jasond: if that's not expected, then check the system time on your servers. it's strongly recommended to keep them in sync (primarily the proxy servers)
+T 1483548008 18<jasond18>	notmyname: good to know
+T 1483550303 18<openstackgerrit18>	Takashi Kajinami proposed openstack/swift: Pass logger instances to AccountBroker/ContainerBroker  https://review.openstack.org/295875
+T 1483550986 22*	26ChanServ gives voice to 18zaitcev
+T 1483551086 18<openstackgerrit18>	Bryan Keller proposed openstack/swift: Allow Hacking H401, H403 check  https://review.openstack.org/416679
+T 1483551558 18<briancline18>	clayg: wrt prometheus.io, yeah, was actually looking at that a few weeks ago. the need to use an exporter daemon for every individual 'thing' to expose metrics for struck me as overly complex. and the space-delimited format was kind of a downer too. but the central component of it seemed interesting
+T 1483551788 18<briancline18>	would much rather see something like that have a bit more first-class support of push-based metrics. their argument for polling over pushing mostly makes sense, but polling is increasingly annoying at scale
+T 1483552866 24*	28aleph1 is now known as 18agarner
+T 1483554766 24*	28acoles is now known as 18acoles_
+T 1483555552 18<dcourtoi18>	hi
+T 1483555557 18<dcourtoi18>	https://opensource.googleblog.com/2017/01/grumpy-go-running-python.html
+T 1483555643 18<notmyname18>	interesting
+T 1483555733 18<dcourtoi18>	don't know why, I immediately thought about swift :)
+T 1483555980 18<notmyname18>	dcourtoi: because it's called "grumpy"? ;-)
+T 1483556175 18<dcourtoi18>	or maybe because I'm working with swift all day long ^^
+T 1483557113 18<dcourtoi18>	or maybe because of that "This one comes from the recent rejection of a resolution proposing to add golang to the list of approved languages, to support merging the hummingbird feature branch into Swift's master branch. A more accurate way to present that decision would be to say that a (short) majority of the TC members was not supporting the addition of golang at that time and under the 
+T 1483557114 18<patchbot_18>	Error: No closing quotation
+T 1483557119 18<dcourtoi18>	proposed conditions. In summary it was more of a "not now, not this way" than a "never"."
+T 1483557350 18<timburke18>	jrichli, tdasilva, et al.: yeah, 14:00 is going to be a bit too early for me. but i totally trust you guys to come up with a sensible plan without me :-)
+T 1483557444 18<timburke18>	that trouble sldk (or was it sdlk? seems to vary by channel) was having seems strange. makes me wonder what SHA that was
+T 1483557474 18<zaitcev18>	Makes me wonder what SLDK/SDLK is.
+T 1483557495 18<zaitcev18>	I know what SDLC is though...
+T 1483557574 18<timburke18>	zaitcev: who, rather than what. was looking for swift3 help ~10 hours back
+T 1483557711 18<zaitcev18>	timburke: okay, I'm backing away slowly
+T 1483557760 18<timburke18>	zaitcev: well, whoever it was doesn't seem to be here now, so i think you're safe ;-)
+T 1483558413 18<ghada18>	hello
+T 1483558667 24*	28nadeem_ is now known as 18nadeem
+T 1483558677 22*	26ChanServ gives voice to 18glange
+T 1483559762 18<tdasilva18>	i wish i read french: https://www.ovh.com/fr/cloud/storage/cloud-archive.xml
+T 1483560509 18<timburke18>	seems like it must be tape-backed, given the low cost & high latency
+T 1483561157 18<tdasilva18>	it does seem to refer to EC thou
+T 1483561282 18<timburke18>	it definitely says something about splitting the objects into fragments, but EC alone doesn't take 12 hours
+T 1483561299 18<tdasilva18>	right
+T 1483561319 18<notmyname18>	if only rledisez were here
+T 1483561526 18<tdasilva18>	timburke: i wonder if they could be shutting down stuff to save on power??
+T 1483561918 18<dcourtoi18>	translation is coming soon ;)
+T 1483562270 18<dcourtoi18>	yes, EC is involved, but I don't know which details I could disclose, you'll have to wait for rledisez :)
+T 1483563384 18<openstackgerrit18>	Clay Gerrard proposed openstack/swift: Fix flaky expirer probe test  https://review.openstack.org/416384
+T 1483563533 24*	28acoles_ is now known as 18acoles
+T 1483563583 18<notmyname18>	swift meeting in 2 minutes in #openstack-meeting
+T 1483563583 18<kota_18>	good morning
+T 1483563587 18<notmyname18>	hello kota
+T 1483563599 18<kota_18>	happy new year notmyname
+T 1483563610 18<notmyname18>	kota_: thanks. you too :-)
+T 1483565215 22*	26ChanServ gives voice to 18tdasilva
+T 1483565363 22*	26ChanServ gives voice to 18joeljwright
+T 1483565935 18<openstackgerrit18>	Merged openstack/swift: Allow Hacking H401, H403 check  https://review.openstack.org/416679
+T 1483566643 18<bkeller`18>	^thanks clayg and zaitcev 
+T 1483566650 18<zaitcev18>	what
+T 1483566653 18<zaitcev18>	oh
+T 1483566719 18<joeljwright18>	so, timburke, expiring segments, or pre/postamble first?
+T 1483566732 18<timburke18>	joeljwright: up to you :-)
+T 1483566734 18<notmyname18>	acoles: should we set https://bugs.launchpad.net/swift/+bug/1651530 to high or critical?
+T 1483566736 18<openstack18>	Launchpad bug 1651530 in OpenStack Object Storage (swift) "suffix hash invalidation may be lost" [Undecided,New]
+T 1483566754 18<joeljwright18>	ok, well I have the segment expiry one open
+T 1483566814 18<joeljwright18>	I haven't looked at it since my comments, but there seemed to be a few odd things going on
+T 1483566824 18<clayg18>	yeah that hashing thing is a big deal - i started to look at it
+T 1483566850 18<timburke18>	on that one, i'm trying to figure out whether we have to HEAD before every POST. which would rather suck :-/
+T 1483566863 18<notmyname18>	clayg: acoles says we need to go into a quiet room and think real hard about it
+T 1483566874 18<clayg18>	notmyname: acoles is really smart
+T 1483566898 18<notmyname18>	I set the bug to critical. it needs to be closed asap
+T 1483566904 18<clayg18>	it is rather hard - the code was not super obvious to begin with 
+T 1483566974 18<clayg18>	i kept thinking - no that can't be right - you must be able to just ... oh, no that doesn't work ... revert ... ok next line ... ; no that can't be right - you must just be able to ...
+T 1483567609 18<acoles18>	notmyname: critical seems suitable, gates a release on getting this fix in
+T 1483567678 18<acoles18>	good night
+T 1483567714 24*	28acoles is now known as 18acoles_
+T 1483567730 18<dims18>	notmyname : need your input here please https://review.openstack.org/#/c/416064/ (also see my update to the -dev list just now for some more context)
+T 1483567731 18<patchbot_18>	patch 416064 - openstack-dev/devstack - Run Swift services under py35
+T 1483567752 18<dims18>	notmyname : mtreinish and i are talking about it in the #openstack-qa channel
+T 1483567843 18<dims18>	notmyname : please take a look and let us know
+T 1483569429 18<timburke18>	quick question: would anyone (torgomatic, maybe?) be opposed to having SLO allow zero-byte segments to be specified by the client, but not actually record them in the on-disk manifest?
+T 1483569432 18<timburke18>	following https://github.com/openstack/swift/commit/7f636a5 we may have (valid) SLOs on disk that can't be copied (or POSTed to, with post-as-copy) because they *end* with a zero-byte segment
+T 1483569515 18<timburke18>	the logical fix is to allow zero-byte segments, but it seems silly to bother recording them
+T 1483569535 18<joeljwright18>	I have no issue with zer-byte segments at all
+T 1483569544 18<notmyname18>	timburke: so a client can say "I want these bytes, then a million of range 0-0 from foo/bar, then swift only records the first stuff and not the rest because there's no actual effective difference
+T 1483569544 18<patchbot_18>	Error: No closing quotation
+T 1483569545 18<joeljwright18>	as long as they're optimised out on read
+T 1483569572 18<timburke18>	notmyname: range:0-0 still has one byte :-)
+T 1483569577 18<notmyname18>	whatever
+T 1483569579 18<joeljwright18>	you got there before me
+T 1483569579 18<notmyname18>	;-)
+T 1483569616 18<joeljwright18>	I can see valid uses for zero-byte segments in SLOs if we're using pre/post data as well...
+T 1483570909 18<torgomatic18>	timburke: don't you need to record the zero-byte segments so the etag calculation doesn't change?
+T 1483571546 24*	28jamielennox is now known as 18jamielennox|away
+T 1483571725 24*	28jamielennox|away is now known as 18jamielennox
+T 1483571812 18<openstackgerrit18>	Merged openstack/swift: Fix flaky expirer probe test  https://review.openstack.org/416384
+T 1483573648 18<openstackgerrit18>	Matthew Treinish proposed openstack/swift: Use pbr console_script entrypoints for bin/ scripts  https://review.openstack.org/416776
+T 1483573654 18<mtreinish18>	dims: ^^^
+T 1483573665 18<mtreinish18>	it was a bit more involved than I orginally though
+T 1483573666 18<mtreinish18>	t
+T 1483575502 18<openstackgerrit18>	Matthew Treinish proposed openstack/swift: Use pbr console_script entrypoints for bin/ scripts  https://review.openstack.org/416776
+T 1483576308 18<openstackgerrit18>	Matthew Treinish proposed openstack/swift: Use pbr console_script entrypoints for bin/ scripts  https://review.openstack.org/416776
+T 1483576790 18<dims18>	mtreinish : ack thanks
+T 1483577116 18<mtreinish18>	dims: although timburke brought up a good point the scripts still get their shebang adjusted with setuptools in the current setup.cfg
+T 1483577160 18<mtreinish18>	the reason it's failing for us now with py35 is because lib/swift calls SWIFT_DIR/bin/* manually instead of the installed ones
+T 1483578243 24*	28jamielennox is now known as 18jamielennox|away
+T 1483579340 24*	28jamielennox|away is now known as 18jamielennox
+T 1483581649 18*	kota_ is back to online at his office
+T 1483687808 19*	Now talking on 22#openstack-swift
+T 1483687808 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1483687808 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Thu Dec 29 18:10:46 2016)
+T 1483687808 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1483691538 18<PavelK18>	Hi. Someone interested to review hash calculation optimization in object server? See patch 402043. Thanks
+T 1483691539 18<patchbot18>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+T 1483691584 24*	28EmilienM_ is now known as 18EmilienM
+T 1483691930 22*	26wilhelm.freenode.net gives voice to 18openstackstatus jrichli swifterdarrell notmyname
+T 1483691930 22*	26wilhelm.freenode.net gives voice to 18mattoliverau
+T 1483691930 22*	26wilhelm.freenode.net gives channel operator status to 18ChanServ clayg
+T 1483691930 22*	26wilhelm.freenode.net gives voice to 18redbo clayg
+T 1484555540 19*	Now talking on 22#openstack-swift
+T 1484555540 22*	Topic for 22#openstack-swift is: Let's talk, we're nice. | Ideas: https://wiki.openstack.org/wiki/Swift/ideas | Logs: http://eavesdrop.openstack.org/irclogs/%23openstack-swift/ | Meetings: https://wiki.openstack.org/wiki/Meetings/Swift | Priority Reviews: https://wiki.openstack.org/wiki/Swift/PriorityReviews
+T 1484555540 22*	Topic for 22#openstack-swift set by 26openstackstatus (24Fri Jan 13 03:54:20 2017)
+T 1484555541 -18ChanServ-	[#openstack-swift] Welcome to #openstack-swift. This channel is logged. Using an IRC bouncer (eg http://znc.in/) will help you stay involved in the conversation.
+T 1484559359 18<openstackgerrit18>	Kota Tsuyuzaki proposed openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+T 1484560075 24*	28asettle is now known as 18Guest58506
+T 1484562268 18<openstackgerrit18>	Andreas Jaeger proposed openstack/swift: Remove broken links  https://review.openstack.org/420625
+T 1484563291 18<openstackgerrit18>	Merged openstack/swift: Tighten the move-one-replica test  https://review.openstack.org/419107
+T 1484563408 18<jcaron18>	Hi everyone, I am Jean from OVH.com,
+T 1484563409 18<jcaron18>	Some of our customers have the need to use a TXT resource record instead of the CNAME (middleware CNAME lookup)
+T 1484563409 18<jcaron18>	How can this feature be properly implemented ? add the TXT lookup directly in middleware/cname_lookup.py ? rename the middleware (dns_lookup.py) ?
+T 1484563409 18<jcaron18>	add a new middleware dedicated for the TXT lookup (code replication .. ) ?
+T 1484563409 18<jcaron18>	thanks for your incoming advices
+T 1484565197 24*	28asettle is now known as 18Guest74297
+T 1484567618 24*	28asettle_ is now known as 18asettle
+T 1484570276 18<openstackgerrit18>	Merged openstack/swift: Removed redundant 'is'  https://review.openstack.org/420561
+T 1484570284 18<openstackgerrit18>	Merged openstack/swift: Cleanup tests from empty suffix quarantined db fix  https://review.openstack.org/405134
+T 1484570292 18<openstackgerrit18>	Merged openstack/swift: Remove broken links  https://review.openstack.org/420625
+T 1484575758 18<openstackgerrit18>	Kota Tsuyuzaki proposed openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+T 1484575842 18<kota_18>	sorry, cschwede i fixed pep8 error in the patch
+T 1484575910 18<cschwede18>	kota_: thx, still LGTM!
+T 1484575927 18<kota_18>	cschwede: thanks for your quick response!
+T 1484575972 18<kota_18>	oops?
+T 1484575976 18<kota_18>	still misindent???
+T 1484575984 18<kota_18>	sorry, I may push wrong patch
+T 1484576023 18<cschwede18>	kota_: but the diff from 1 to 2 looks like it fixes the pep8 error? https://review.openstack.org/#/c/420607/1..2/swift/common/ring/builder.py
+T 1484576023 18<patchbot18>	patch 420607 - swift - Fix unnecessary for-loop and mis docs
+T 1484576049 18<openstackgerrit18>	Kota Tsuyuzaki proposed openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+T 1484576072 18<cschwede18>	http://logs.openstack.org/07/420607/2/check/gate-swift-pep8-ubuntu-xenial/ce4d0a7/console.html#_2017-01-16_14_10_45_007670
+T 1484576072 18<kota_18>	cschwede: I thought but i got mistake again
+T 1484576088 18<kota_18>	cschwede: patch 3 should pass pep8
+T 1484576122 18<cschwede18>	ah yes, patch #1 fixed one of the two lines. makes sense
+T 1484576234 18<kota_18>	cschwede: yeah, sorry. my mistake, again.
+T 1484576243 18<kota_18>	my head seems to go sleep :/
+T 1484576392 18<cschwede18>	kota_: well, all good things come in threes - pep8 passed :)
+T 1484576403 18<kota_18>	yey
+T 1484576479 18<kota_18>	cschwede: thanks!
+T 1484576530 18*	kota_ is going to offline
+T 1484576753 24*	28acoles_ is now known as 18acoles
+T 1484577497 18<acoles18>	clayg: jrichli: git branch | wc -l == 137 :P
+T 1484577574 18<acoles18>	kota_: actually the reclaim age patch 374419 didn't land yet, just some associated tests, but looks like cschwede may be on it :)
+T 1484577575 18<patchbot18>	https://review.openstack.org/#/c/374419/ - swift - Move documented reclaim_age option to correct loca...
+T 1484578219 18<kota_18>	acoles: oh, really
+T 1484579495 18<cschwede18>	acoles: indeed, i was looking at that patch! and with your and mahatic's comments i'm fine merging that patch - it's in the gate now :)
+T 1484579565 18<mahatic18>	cschwede: thanks for looking at it!
+T 1484580309 18<acoles18>	cschwede: thanks!
+T 1484583012 24*	28bkeller`_ is now known as 18bkeller`
+T 1484583473 18<timburke18>	good morning
+T 1484583791 18<mahatic18>	timburke: good morning. Isn't it a holiday in the US?
+T 1484583835 18<timburke18>	i've got something i need to fix for a release this week :-)
+T 1484583848 18<mahatic18>	oic :)
+T 1484584638 18<openstackgerrit18>	Merged openstack/swift: Move documented reclaim_age option to correct location  https://review.openstack.org/374419
+T 1484584647 18<openstackgerrit18>	Merged openstack/swift: Fix unnecessary for-loop and mis docs  https://review.openstack.org/420607
+T 1484585685 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+T 1484586910 18<clayg18>	morning
+T 1484588790 18<openstackgerrit18>	Clay Gerrard proposed openstack/swift: Pretend *some* parts min_part_hours_passed  https://review.openstack.org/311226
+T 1484589529 18<clayg18>	kota_: part of the need for the mockig was because on dev it's pretty easy to get a mtime that == on modified files :\
+T 1484589588 18<clayg18>	kota_: in patch 419787 I found using the files inode number to be a bit more reliable and works the same as python stdlib os.path.samefile
+T 1484589589 18<patchbot18>	https://review.openstack.org/#/c/419787/ - swift - Better optimistic lock in get_hashes
+T 1484589675 18<clayg18>	kota_: in particular I guess PavelK had a particularlly low resolution mtime on a COW filesystem (containers) and found the test to be unreliable w/o the mocks
+T 1484590385 18<acoles18>	clayg: I am going to try to loop back to those ^^ suffix hashing patches this week - we're still preferring your 4 (or 5?) separated patches right? I saw your +2 come then go on patch 402043.
+T 1484590386 18<patchbot18>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+T 1484590404 18<clayg18>	acoles: idk :'(
+T 1484590646 18<acoles18>	clayg: heh you got a +2 on one of them patch 418692
+T 1484590646 18<patchbot18>	https://review.openstack.org/#/c/418692/ - swift - Optimize noop case for suffix rehash
+T 1484590703 18<acoles18>	and +1 from Pavel
+T 1484590713 18<acoles18>	so maybe I'll start there
+T 1484590887 18<clayg18>	jesus
+T 1484590940 18<clayg18>	one of the main reasons I was sure we should pull these apart was because we had multiple bug fixes squashed in with a *minor performance enhancement*
+T 1484590951 18<clayg18>	so naturally everyone starts with that ;)
+T 1484590997 18<timburke18>	may as well pick off the easy one, right? :P
+T 1484591377 18<acoles18>	oh gerrit!
+T 1484591487 18<clayg18>	oh look!  now acoles can review ring patches -> p 420607
+T 1484591487 18<patchbot18>	https://review.openstack.org/#/c/420607/ - swift - Fix unnecessary for-loop and mis docs (MERGED)
+T 1484591494 18*	acoles attempts to infer useful info from "Related Changes"
+T 1484591547 18<acoles18>	clayg: I knew it's a public holiday over there, I didn't know it was national take the p day :)
+T 1484591673 18<clayg18>	acoles: I had to google
+T 1484591691 18<acoles18>	really? TIL
+T 1484591777 18<clayg18>	yeah i'm not sure there's an exactly equivilent 'merican expression https://en.wikipedia.org/wiki/Taking_the_piss
+T 1484591917 18<acoles18>	clayg: huh. toodle-pip :P
+T 1484592011 24*	28acoles is now known as 18acoles_
+T 1484594924 18<clayg18>	you 
+T 1484594929 18<clayg18>	`
+T 1484594948 18<clayg18>	~
+T 1484594953 18<clayg18>	whoa!
+T 1484595002 18<clayg18>	i've learned recently that `<return>~.` is some magic when you ssh connection goes to sleep - but while trying to remember the corect sequence apparently my ssh connection was re-established - computers are funny
+T 1484595027 18<clayg18>	cschwede: did you ever figure out the thing with openstack-client slowness with swift download?
+T 1484595139 18<openstackgerrit18>	Clay Gerrard proposed openstack/swift: Better optimistic lock in get_hashes  https://review.openstack.org/419787
+T 1484595150 18<clayg18>	^ just a spelling error
+T 1484595183 18<clayg18>	aside from patch 418691 - I think patch 419787 is the most imporant in the sequence
+T 1484595184 18<patchbot18>	https://review.openstack.org/#/c/418691/ - swift - Fix performance regression with hash invalidations
+T 1484595185 18<patchbot18>	https://review.openstack.org/#/c/419787/ - swift - Better optimistic lock in get_hashes
+T 1484595189 18<clayg18>	... if you're prioritizing
+T 1484595201 18<clayg18>	of course they both depend on patch 418689
+T 1484595201 18<patchbot18>	https://review.openstack.org/#/c/418689/ - swift - Extract test pattern to helper
+T 1484595306 18<lespaul18>	Hello. I'm trying to create a container using a storage policy however, I'm getting a 400 Bad Request Invalid X-Storage-Policy-Index 2. I can create a container with the default policy fine. Any ideas?
+T 1484595343 18<clayg18>	lespaul: client api uses the names in /info
+T 1484595351 18<clayg18>	x-storage-policy: <name>
+T 1484595353 18<clayg18>	or alias
+T 1484595414 18<lespaul18>	the name matches fine though. i didn't put any alias, it's commented out.
+T 1484595431 18<lespaul18>	ok let me double check..
+T 1484595444 18<clayg18>	oh - maybe the backend is rejecting it - sorry - restart object servers?
+T 1484595449 18<clayg18>	... or reload
+T 1484595953 18<lespaul18>	once i put an object into a container, is there a command to show which nodes/drives the replicas are contained?
+T 1484596487 18<clayg18>	lespaul: swift-get-nodes is pretty good for that - it'll list ring primaries and handoffs
+T 1484596513 18<clayg18>	lespaul: you can then query them to see which nodes it landed on (generally the primaries unless you're multi-region write_affinity or something went wrong)
+T 1484597288 18<clayg18>	debating if I should try again to consolidate all the suffix hashing fixes or give up and review ec fragment duplication...
+T 1484597687 18<PavelK18>	clayg: hi. I'm not sure tha I understand what means +A patch - should I abandon patch 402043?
+T 1484597688 18<patchbot18>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+T 1484599108 18<openstackgerrit18>	Merged openstack/swift: Confirm receipt of SLO PUT with etag  https://review.openstack.org/390901
+T 1484599163 18<clayg18>	PavelK: idk :'(
+T 1484599221 18<clayg18>	PavelK: what do you think about the getmtime vs. stat/inode/samefile check?
+T 1484599263 18<clayg18>	oh, you +1'd it
+T 1484599310 18<openstackgerrit18>	OpenStack Proposal Bot proposed openstack/swift: Updated from global requirements  https://review.openstack.org/88736
+T 1484599348 18<PavelK18>	clayg: yes, thats fine - if you merge idea of patch 418691 on it
+T 1484599349 18<patchbot18>	https://review.openstack.org/#/c/418691/ - swift - Fix performance regression with hash invalidations
+T 1484599365 18<clayg18>	yeah, i haven't really come up with a diff I like to merge them :'(
+T 1484599534 18<clayg18>	you'd think the safe_get_inode and read_hashes helpers would make it easier - but idk - there's still this weird schizophrenic thing were we want safe_get_inode under the directory lock but we also want to flag do_listdir/set-hashes-{} and safe_get_inode of any existing file when something goes wrong in consolidate hashes
+T 1484599613 18<clayg18>	I *think* I want like "with dir_lock: try: hashes = _do_consolidate; except Exception: reset-the-business; inode = safe_get_inode()"
+T 1484599619 18<clayg18>	... maybe that's it...
+T 1484599891 22*	26ChanServ gives voice to 18zaitcev
+T 1484599905 18<PavelK18>	I'm not sure that dir_lock should hold the caller - once can someone forget to lock it. So I preffer function "give me hashes and something how I can compare that it was not changed when I lock the dir later".  
+T 1484599930 18<lespaul18>	clayg: it worked, thanks. where would i find documentation for the more esoteric commands in swift?
+T 1484599935 18<clayg18>	except if something goes wrong in conslidate hashes you still need the inode
+T 1484599951 18<PavelK18>	may be
+T 1484599958 18<clayg18>	you could say "call conslidate hashes and have it return the thing - then if that goes wrong go get it anyway"
+T 1484600058 18<clayg18>	I think you can still make a function that does both "safe_conslidate_hashes_and_get_inode" - but you can method extract that to just do what I had above (lock, _private_unsafe_conslidate, safe_get_inode) - and have it return all the state you need (maybe empty hashes, state-indicating-do_listdir, inode)
+T 1484600120 18<clayg18>	anyway - i'm less worried about cleanliness than correctness - but I need something understandable to reason about correctness
+T 1484600156 18<clayg18>	at a minimum patch 402043 is missing the test(s) form https://review.openstack.org/#/c/419787/4/test/unit/obj/test_diskfile.py
+T 1484600157 18<patchbot18>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+T 1484600158 18<patchbot18>	patch 419787 - swift - Better optimistic lock in get_hashes
+T 1484600175 18<clayg18>	... but I didn't even notice those tests were needed until you pointed it out to me in the split up changes!
+T 1484600180 18<PavelK18>	I'm scared of picle.loads(.pkl) CPU utization, but I'm sure that there are more important thinks where you can spend time
+T 1484600197 18<clayg18>	CPU?  those files are *tiny*
+T 1484600265 18<PavelK18>	You know it better than me :-)
+T 1484600309 18<clayg18>	i mean they have to be?  suffixes are fixed width - 0xfff - how long can it take to pickle deserialize that?
+T 1484600331 18*	clayg wishes he was timburke could cook up one of those cute timeit lines in 2 seconds
+T 1484600448 18<timburke18>	i dunno, but it looks like we've had trouble with pickle being slow before -- https://bugs.launchpad.net/swift/+bug/1031954
+T 1484600450 18<openstack18>	Launchpad bug 1031954 in OpenStack Object Storage (swift) "Slow Ring Loading in 2.7 due to Ring Unpickling" [High,Fix released] - Assigned to Darrell Bishop (darrellb)
+T 1484600458 24*	28jamielennox|away is now known as 18jamielennox
+T 1484600632 18<clayg18>	https://gist.github.com/clayg/c6a5c41b12c7f0c4075386d3f23d6d81
+T 1484600671 18<clayg18>	cPickle is definately faster 
+T 1484600689 18<PavelK18>	clayg: yes, it should be small. I don't know swift well, I just little know diskfile.py :-). I'm leaving a comment near to patch that read_pickle can be placed next to write_pickle helper - and it seems good for me
+T 1484600744 18<clayg18>	PavelK: I thought about putting it in utils - but didn't want to try and go fix the updater to use it
+T 1484600745 18<PavelK18>	thanks for hard argument!
+T 1484600751 18<timburke18>	clayg: yeah, cschwede et al. totally figured it out. the follow-up was https://review.openstack.org/#/c/416249/
+T 1484600752 18<patchbot18>	patch 416249 - keystoneauth - Prevent MemoryError when logging response bodies (MERGED)
+T 1484600770 18<clayg18>	timburke: thanks - i found some reference to that on the bug
+T 1484600784 18<clayg18>	timburke ... and I saw that one also merged ...
+T 1484600847 18<clayg18>	PavelK: thanks for pointing out all these bugs!
+T 1484600859 18<clayg18>	and all your help with the solution and review
+T 1484600917 18<PavelK18>	"It's my work" :-)
+T 1484600938 18<clayg18>	... and for not stopping to push on finishing the rest of the cleanup!
+T 1484600973 18<clayg18>	lol @ "it's a damn good thing I'm paid to put up with these %$$holes"
+T 1484601025 18<PavelK18>	clayg: I have not answer for my first question - what to do with old messed patch? Close it as abandoned or what you mean with "+A it"
+T 1484601168 18<clayg18>	PavelK: I apparently can't bring myself to +A patch 402043 as is - I could try to come up with a list of things that would need to be addressed - but ultimately it's just "what is the diff applied ontop of patch 402043 that makes me comfortable with the end state"
+T 1484601169 18<patchbot18>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+T 1484601170 18<patchbot18>	https://review.openstack.org/#/c/402043/ - swift - Optimize hash calculation when suffix hash invalid...
+T 1484601192 18<clayg18>	if I had that diff I'd probably just push it up as a follow up and tell gerrit to merge your patch
+T 1484601216 18<clayg18>	all this crap and all these extra patches and non-sense was me struggling to come up with the followup diff
+T 1484601269 18<clayg18>	if the split up patches got some traction - because they were easier to review - it would have validated that splitting them up was the right way to go - and maybe it'd be easier to iterate and merge the fixes seperately
+T 1484601287 18<clayg18>	but... we're ... 3-4 working days in on that?
+T 1484601314 18<clayg18>	and I've learned it's hard to merge some of the changes together (we were just talking about it - my split patches conflict with each other - we can't just merge them all w/o a rebase)
+T 1484601320 18<clayg18>	so it's a big $%^&*ing mess
+T 1484601332 18<clayg18>	so I'm not going to tell you the right thing to do - because I have no idea
+T 1484601703 18<clayg18>	PavelK: notmyname can attest this whole thing has been a bit of an existential crisis for me
+T 1484601745 18<clayg18>	but no one seems to want to tell me how we should proceed either
+T 1484601965 18<ahale18>	well, i have mostly no idea what you're doing since i havent paid any attention to swift for ages, but i think its cool you're looking at hashes stuff clayg, it used to give me nightmares sometimes. and i also think the coolest parts of swift are the hard bits when noone knows cos its not been done before 
+T 1484602171 18<clayg18>	ahale: not me, PavelK 
+T 1484602182 18<clayg18>	+1 PavelK is awesome for looking at the hard stuff
+T 1484602194 18<ahale18>	thats how little attention i have paid! , yeah +1 to that :)
+T 1484603659 18<PavelK18>	clayg: conflicts was the reason why I made one patch. But I think that your patches can be merged independently and the fourth - "inode" can be rebased on them and merged later.
+T 1484603771 18<PavelK18>	clayg: So I leave my patch as is and abandon it after your patches were merged, right?
+T 1484603840 18<clayg18>	heh, idk == "I don't know" ;)
+T 1484603872 18<clayg18>	maybe folks are scared to review the other suffix fixes because they think I get frustrated things are moving to slowly and go +A you patch anyway (I totaly might!)
+T 1484604047 18<clayg18>	for the moment I'm trying to review patch 219165 (look at the size of the diff to proxy test_server !?)
+T 1484604048 18<patchbot18>	https://review.openstack.org/#/c/219165/ - swift - EC Fragment Duplication - Foundational Global EC C...
+T 1484604893 22*	26ChanServ gives voice to 18jrichli
+T 1484605783 18<jrichli18>	yay, bouncer restored :-)
+T 1484606331 18<clayg18>	wtf is frags_by_byte_order?
+T 1484606347 18<clayg18>	like ... endianness !?
+T 1484607433 18<lespaul18>	Hello. I uploaded an object to my cluster (6 nodes w/ 2 drives each). I ran swift-get-nodes and found the replicas on the target nodes. I then powered of 2 of the nodes w/ replicas. I checked swift-get-nodes again and it still lists the same. Should the replica be copied to the handoff nodes?
+T 1484607457 18<lespaul18>	*Shouldn't
+T 1484608660 18<lespaul18>	I don't think swift-get-nodes shows accurate information. If I run swift-get-nodes -a /etc/swift/ <ring.gz> <account> then make up a non-existent container and object, a result is still displayed. Thoughts? 
+T 1484609829 18<torgomatic18>	lespaul: swift-get-nodes just performs a ring lookup and shows you the results; it might be where a thing that exists is, it might be where a thing that exists will be after replication, or it might be where a thing that does not exist would go if you created it
+T 1484610494 18<notmyname18>	hello, world
+T 1484610717 18<lespaul18>	torgomatic: that makes sense. is there a command that will give a real-time location of the replicas or fragments?
+T 1484612215 18<torgomatic18>	lespaul: you can run those curl commands that swift-get-nodes spits out and that'll tell you what's where, but AFAIK there's nothing to automate that for a single object
+T 1484612246 18<torgomatic18>	swift-dispersion-report does that for the entire cluster
+T 1484612653 18<clayg18>	r with swift-dispersion-report or something similar you can always make the call to remove dead-not-coming-back nodes from the ring will reassign the primaries
+T 1484612667 18<clayg18>	...
+T 1484612684 18<clayg18>	weird..
+T 1484612718 18<clayg18>	i was trying to say that powering off the nodes won't trigger over-replication - the assumption is unavailability - not a loss in durability
+T 1484612750 18<clayg18>	if you start over-replication on split brain or network congestion or timeout you can fill up your cluster pretty quick
+T 1484612819 18<clayg18>	... and then lastly yeah - if overall partition health dictates - you always have the option to make a ring change to remove the downed nodes and rebalance
+T 1484613743 18<kota_18>	morning
+T 1484613968 18<notmyname18>	if i'm reading the ML correctly, it looks like we need to tag a swiftclient release this week
+T 1484614130 18<clayg18>	notmyname: do you?  i missed that?
+T 1484614216 18<notmyname18>	from http://lists.openstack.org/pipermail/openstack-dev/2017-January/110218.html
+T 1484614222 18<mattoliverau18>	notmyname: richard said this morning he needs to tag or organise a release for horizon this week, so yeah, we probably do.
+T 1484614235 18<notmyname18>	Library projects should be branched with, or shortly after, their
+T 1484614235 18<notmyname18>	  final release this week (use Jan 19 as the deadline)
+T 1484614274 18<clayg18>	are we releasing Octocat this week?
+T 1484614298 18<notmyname18>	no
+T 1484614304 18<clayg18>	scared me
+T 1484614315 18<notmyname18>	but they always want the library projects to release quite a bit earlier
+T 1484614369 18<notmyname18>	oh! I think we have another week https://releases.openstack.org/ocata/schedule.html
+T 1484614378 18<notmyname18>	this is "non-client libraries"
+T 1484614457 18<mattoliverau18>	\o/ now get back to watching a talk or something :P
+T 1484614551 18<notmyname18>	anyone can watch https://linux.conf.au/stream
+T 1484615920 18<kota_18>	clayg: here?
+T 1484615931 18<clayg18>	kota_: hi kota_ :D
+T 1484615940 18<kota_18>	hi clayg
+T 1484615950 18<kota_18>	I'm now looking/condidering about the patch https://review.openstack.org/#/c/418690/
+T 1484615951 18<patchbot18>	patch 418690 - swift - Fix race in new partitions detecting new/invalid s...
+T 1484616030 18<kota_18>	exactly, we should move to drop for using getmtime for file validation (i mean not modified since the last reference)
+T 1484616055 18<kota_18>	clayg: but not sure I could follow your idea completely
+T 1484616087 18<kota_18>	clayg: because the shell for-loop looks to report nothing you expected
+T 1484616089 18<clayg18>	kota_: my thought was just that that change needs to mock getmtime or else it doesn't pass reliably
+T 1484616102 18<kota_18>	clayg: the console log is https://gist.github.com/bloodeagle40234/2239939c6cb42b6b23635936a427ef34
+T 1484616125 18<clayg18>	kota_: oic, on my machine with your diff applied (to drop the getmtime mocking) it fails predicably for me
+T 1484616132 18<kota_18>	clayg: it looks like, all tests passed for 10 times, correctly
+T 1484616133 18<clayg18>	the test works for me as written
+T 1484616148 18<clayg18>	... only fails if I remove the getmtime mocking
+T 1484616150 18<kota_18>	clayg: i ran it with my patch
+T 1484616181 18<clayg18>	perhaps your computer is slower than mine ;)  or your mounted filesystem has better getmtime resolution?
+T 1484616201 18<kota_18>	clayg: and then, I just checked also the situation Pavel reported (i.e. getmtime could increment the mtime in LXC), https://gist.github.com/bloodeagle40234/9eaf53aac466003cc8e6c43b0a0f66b2
+T 1484616242 18<clayg18>	kota_: well I think that as long as you force it to be bigger the mock works
+T 1484616250 18<kota_18>	it also doesn't fail, because even if we got different mtime there, IIRC, it's ok if no new entry comming to invalidation file?
+T 1484616259 18<clayg18>	it's only when the filesystem might return the same mtime for a file that was modified will you loose the second update
+T 1484616307 18<kota_18>	clayg: ah, my laptop may be slower.... though :/
