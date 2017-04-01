@@ -90,6 +90,8 @@ alias gitcl='git clone '
 alias gitst='git status'
 alias gitcm='git commit '
 alias gitdf='git diff '
+alias gitbr='git branch'
+alias gitck='git checkout '
 
 
 # Add an "alert" alias for long running commands.  Use like so:
