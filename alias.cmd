@@ -24,3 +24,6 @@ DOSKEY gpushdev=git push origin develop
 DOSKEY gpushmas=git push origin master
 
 DOSKEY cat=type $*
+
+DOSKEY mkg=python manage.py makemigrations $*
+DOSKEY mg=python manage.py migrate $*
