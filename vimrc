@@ -26,6 +26,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'brooth/far.vim'
+Plugin 'fatih/vim-go'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -57,6 +58,14 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix |
+
+" Go
+au BufNewFile,BufRead *.go
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
 
 " YCM
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -93,6 +102,7 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 " Auto open NERDTree when open directory
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+autocmd BufWinEnter * NERDTreeMirror
 map <C-t> :NERDTreeTabsToggle<CR>
 map <C-n> :NERDTreeToggle<CR>
 
@@ -124,3 +134,19 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
+nmap <tab> :tabnext<CR>
+nmap <S-tab> :tabprevious<CR>
+
+"Python
+autocmd FileType python nmap <Leader>r :!python %<CR>
+"Bash
+autocmd FileType sh nmap <Leader>r :!bash %<CR>
+"Golang
+let g:go_version_warning = 0
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
