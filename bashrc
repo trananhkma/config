@@ -85,13 +85,13 @@ alias l='ls -CF'
 alias hgr='history | grep '
 alias psx='ps -ax | grep '
 
-alias gitconf='git config -l'
-alias gitcl='git clone '
-alias gitst='git status'
-alias gitcm='git commit '
-alias gitdf='git diff '
-alias gitbr='git branch'
-alias gitck='git checkout '
+alias gcf='git config -l'
+alias gcl='git clone '
+alias gst='git status'
+alias gcm='git commit '
+alias gdf='git diff '
+alias gbr='git branch '
+alias gck='git checkout '
 
 
 # Add an "alert" alias for long running commands.  Use like so:
