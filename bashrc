@@ -85,6 +85,8 @@ alias l='ls -CF'
 
 
 # trananhkma
+stty -ixon
+
 export VISUAL=vim
 export EDITOR="$VISUAL"
 

@@ -32,6 +32,15 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 "============================================================"
+"Save and quit
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
+
+nmap <C-Q> :q<CR>
+vnoremap <C-Q> <C-C>:q<CR>
+inoremap <C-Q> <C-O>:q<CR>
+
 
 " Enable folding
 set foldmethod=indent
@@ -104,6 +113,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd BufWinEnter * NERDTreeMirror
 map <C-n> :NERDTreeTabsToggle<CR>
+nmap <leader>f :NERDTreeFind<CR>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
