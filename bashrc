@@ -82,6 +82,14 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+
+
+# trananhkma
+stty -ixon
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 alias hgr='history | grep '
 alias psx='ps -ax | grep '
 
@@ -92,6 +100,10 @@ alias gcm='git commit '
 alias gdf='git diff '
 alias gbr='git branch '
 alias gck='git checkout '
+alias gch='git cherry-pick '
+
+alias py3="source ~/.venv/py36/bin/activate && cd ~/python/ && ipython"
+alias py2="source ~/.venv/py27/bin/activate && cd ~/python/ && ipython"
 
 
 # Add an "alert" alias for long running commands.  Use like so:
