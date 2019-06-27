@@ -1,3 +1,4 @@
+" Copy content only! Dont use this file directly
 set nocompatible              " required
 filetype off                  " required
 
@@ -9,7 +10,7 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
