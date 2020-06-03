@@ -1,0 +1,98 @@
+" Copy content only! Dont use this file directly
+set nocompatible              " required
+filetype off                  " required
+
+"============================================================"
+"Save and quit
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
+
+nmap <C-Q> :q<CR>
+vnoremap <C-Q> <C-C>:q<CR>
+inoremap <C-Q> <C-O>:q<CR>
+
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+" Enable folding with the spacebar
+nnoremap <space> za
+" Line number
+set nu
+set cursorline
+
+" Search
+set hlsearch
+set incsearch
+set showmatch
+set ignorecase
+set smartcase
+
+" Python
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+" Go
+au BufNewFile,BufRead *.go
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set expandtab |
+    \ set autoindent |
+
+" Syntax
+let python_highlight_all=1
+syntax on
+
+set backspace=indent,eol,start
+
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+set splitbelow
+set splitright
+
+" Powerline
+set laststatus=2
+set t_Co=256
+let g:Powerline_symbols = "fancy"
+
+" Go to tab by number
+" <leader> == \
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+nmap <tab> :tabnext<CR>
+nmap <S-tab> :tabprevious<CR>
+
+"Python
+autocmd FileType python nmap <Leader>r :!python %<CR>
+"Bash
+autocmd FileType sh nmap <Leader>r :!bash %<CR>
+"Golang
+let g:go_version_warning = 0
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
