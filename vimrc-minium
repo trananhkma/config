@@ -19,33 +19,30 @@ set showmatch
 set ignorecase
 set smartcase
 
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+
 " Python
 au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
     \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
     \ set fileformat=unix |
-
-" Go
-au BufNewFile,BufRead *.go
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set expandtab |
-    \ set autoindent |
 
 " Yaml
 au BufNewFile,BufRead *.yaml
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
-    \ set expandtab |
-    \ set autoindent |
 
-" Syntax
+" Vagrantfile
+au BufNewFile,BufRead Vagrantfile
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+
+"Syntax
 let python_highlight_all=1
 syntax on
 
