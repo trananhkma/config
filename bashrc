@@ -103,6 +103,7 @@ alias hgr='history | grep '
 alias psx='ps -ax | grep '
 alias raminfo='sudo lshw -C memory'
 alias update='sudo apt-get update'
+alias cdh='cd ~/Hacking'
 alias cdm='cd ~/Hacking/me'
 alias cdd='cd ~/Downloads'
 
@@ -132,6 +133,16 @@ alias vst="vagrant status"
 alias vup="vagrant up"
 alias vhalt="vagrant halt"
 alias vreload="vagrant reload"
+alias vssh="vagrant ssh"
+alias vdestroy="vagrant destroy"
+alias vsnapc="vagrant snapshot save"
+alias vsnapl="vagrant snapshot list"
+alias vsnapd="vagrant snapshot delete"
+alias vrestore="vagrant snapshot restore"
+
+# salt
+alias sping="salt '*' test.ping"
+alias sapply="salt '*' state.apply"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
