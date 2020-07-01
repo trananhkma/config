@@ -106,6 +106,7 @@ alias update='sudo apt-get update'
 alias cdh='cd ~/Hacking'
 alias cdm='cd ~/Hacking/me'
 alias cdd='cd ~/Downloads'
+alias ddate="date +%Y%m%d_%H:%M"
 
 # git
 alias gcf='git config '
@@ -129,6 +130,9 @@ alias dexec="docker exec"
 
 # vagrant
 alias cdv="cd ~/Hacking/Vagrant"
+alias vblist="vagrant box list"
+alias vbadd="vagrant box add"
+alias vbremove="vagrant box remove"
 alias vst="vagrant status"
 alias vup="vagrant up"
 alias vhalt="vagrant halt"
@@ -143,6 +147,26 @@ alias vrestore="vagrant snapshot restore"
 # salt
 alias sping="salt '*' test.ping"
 alias sapply="salt '*' state.apply"
+
+# k8s
+alias kpod="kubectl get pod"
+alias kdeploy="kubectl get deployment"
+alias kservice="kubectl get service"
+alias knode="kubectl get node"
+alias kingress="kubectl get ingress"
+alias kapply="kubectl apply -f "
+
+alias kdespod="kubectl describe pod"
+alias kdesdeploy="kubectl describe deployment"
+alias kdesservice="kubectl describe service"
+alias kdesnode="kubectl describe node"
+alias kdesingress="kubectl describe ingress"
+
+alias kdelpod="kubectl delete pod"
+alias kdeldeploy="kubectl delete deployment"
+alias kdelservice="kubectl delete service"
+alias kdelingress="kubectl delete ingress"
+alias kdelname="kubectl delete namespace"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
