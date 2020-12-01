@@ -1,4 +1,7 @@
 @echo off
+REM 1. Create file alias.cmd
+REM 2. open regedit > HKEY_LOCAL_MACHINE > SOFTWARE > Microsoft > Command Processor
+REM 3. Add new String Value. Name: AutoRun; Data: Path_to_alias.cmd
 
 DOSKEY alias=notepad %USERPROFILE%\alias.cmd
 
