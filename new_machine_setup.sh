@@ -28,7 +28,6 @@ sudo gpasswd -a $USER input
 cd ~/Downloads
 git clone https://github.com/bulletmark/libinput-gestures.git
 git clone https://gitlab.com/cunidev/gestures.git
-git clone 
 cd libinput-gestures
 sudo make install
 cd ../gestures/
