@@ -39,8 +39,8 @@ cp libinput-gestures.conf ~/.config/
 
 # virtual env
 cdm
-git clone https://github.com/trananhkma/vagrant-playground.git
-cd k8s-cluster
+git clone https://github.com/trananhkma/k8s-local.git
+cd k8s-local
 ./host_install.sh
 
 # terminal Case-Insensitive tab
