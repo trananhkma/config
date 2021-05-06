@@ -107,6 +107,7 @@ alias cdh='cd ~/Hacking'
 alias cdm='cd ~/Hacking/me'
 alias cdd='cd ~/Downloads'
 alias ddate="date +%Y%m%d_%H:%M"
+alias portlisten="sudo lsof -i -P -n | grep LISTEN"
 
 # git
 alias gcf='git config '
