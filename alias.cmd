@@ -5,7 +5,8 @@ REM 3. Add new String Value. Name: AutoRun; Data: Path_to_alias.cmd
 
 DOSKEY alias=notepad %USERPROFILE%\alias.cmd
 
-DOSKEY cdp=E: ^& cd E:\projects
+DOSKEY cdm=D: ^& cd D:\Hacking\me
+DOSKEY cdh=D: ^& cd D:\Hacking
 DOSKEY cdu=C: ^& cd %USERPROFILE%
 
 DOSKEY l=dir /B
@@ -30,3 +31,10 @@ DOSKEY cat=type $*
 
 DOSKEY mkg=python manage.py makemigrations $*
 DOSKEY mg=python manage.py migrate $*
+
+DOSKEY dps=docker ps $*
+DOSKEY dimg=docker images
+DOSKEY drmi=docker rmi $*
+DOSKEY dstart=docker start $*
+DOSKEY dstop=docker stop $*
+DOSKEY dexec=docker exec -it $*
