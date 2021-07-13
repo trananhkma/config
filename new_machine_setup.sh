@@ -10,6 +10,10 @@ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt update
 sudo apt install code
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+sudo apt install fzf
 
 # Config
 mkdir -p ~/Hacking/me && cd ~/Hacking/me
@@ -18,10 +22,15 @@ cd config
 cp bashrc ~/.bashrc
 cp vimrc-minium ~/.vimrc
 cp gitconfig ~/.gitconfig
+cp zshrc ~/.zshrc
 source ~/.bashrc
 
 # click to minimize
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+
+# workspace navigation
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right '["<Control><Alt>a"]'
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left '["<Control><Alt>s"]'
 
 # gestures
 sudo gpasswd -a $USER input
@@ -53,13 +62,13 @@ sudo apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
-    gnupg-agent \
-    software-properties-common
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/debian \
-   $(lsb_release -cs) \
-   stable"
+    gnupg \
+    lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 
