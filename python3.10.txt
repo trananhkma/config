@@ -1,0 +1,14 @@
+sudo apt update && sudo apt upgrade -y
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.10
+
+sudo apt install python3-pip python3.8-venv
+
+pip install --user pipx
+pipx install pipenv
+
+sudo apt install python3.10-distutils python3.10-dev
+
+pipenv install --dev
+pipenv shell
