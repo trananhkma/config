@@ -120,9 +120,8 @@ alias hgr='history | grep '
 alias psx='ps -ax | grep '
 alias raminfo='sudo lshw -C memory'
 alias update='sudo apt-get update'
-alias cdh='cd ~/Hacking'
-alias cdm='cd ~/Hacking/me'
-alias cdd='cd ~/Downloads'
+alias cdh='cd /mnt/h'
+alias cdm='cd /mnt/h/ME'
 alias ddate="date +%Y-%m-%dT%H:%M:%S"
 alias portlisten="sudo lsof -i -P -n | grep LISTEN"
 
@@ -193,3 +192,6 @@ alias kdelname="kubectl delete namespace"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source ~/.oh-my-zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export LS_COLORS='rs=0:no=00:mi=00:mh=00:ln=01;36:or=01;31:di=01;34:ow=04;01;34:st=34:tw=04;34:pi=01;33:so=01;33:do=01;33:bd=01;33:cd=01;33:su=01;35:sg=01;35:ca=01;35:ex=01;32:'
+
