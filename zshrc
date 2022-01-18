@@ -189,13 +189,7 @@ alias kdelservice="kubectl delete service"
 alias kdelingress="kubectl delete ingress"
 alias kdelname="kubectl delete namespace"
 
-alias sav="sudo /opt/Symantec/symantec_antivirus/sav"
-alias report="sudo /etc/init.d/symcfgd report && sudo cat /var/log/symantec/symcfgd_report.log && sav log -e /home/trananhkma/Documents/scanlog.csv"
-alias zap="bash /home/trananhkma/Tools/ZAP_2.9.0/zap.sh -cmd"
-
-alias pip='noglob pip'
-alias pipenv='noglob pipenv'
-
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source ~/.oh-my-zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

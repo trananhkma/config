@@ -16,18 +16,19 @@ sudo apt install zsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/home/trananhkma/.oh-my-zsh/themes/powerlevel10
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/themes/powerlevel10k
 sudo apt install fzf
 
 # Config
 mkdir -p ~/Hacking/me && cd ~/Hacking/me
 git clone https://github.com/trananhkma/config.git
 cd config
-cp bashrc ~/.bashrc
 cp vimrc-minium ~/.vimrc
 cp gitconfig ~/.gitconfig
 cp zshrc ~/.zshrc
-source ~/.bashrc
+# color: 42 40 54
+# install font
+# run: p10k configure
 
 # click to minimize
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'

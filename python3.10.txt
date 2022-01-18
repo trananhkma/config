@@ -6,6 +6,8 @@ sudo apt install python3.10
 sudo apt install python3-pip python3.8-venv
 
 pip install --user pipx
+export PATH="${PATH}:$(python3 -c 'import site; print(site.USER_BASE)')/bin"
+
 pipx install pipenv
 
 sudo apt install python3.10-distutils python3.10-dev
